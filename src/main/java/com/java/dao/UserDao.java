@@ -10,9 +10,14 @@ public interface UserDao {
 
 	void updateUser(UserDto user);
 
-	void deleteUser(int idUser);
+	void deleteUser(int id);
 
+	List<UserDto> checkLogin(String username, String password);
+	
 	UserDto getUserById(int id);
 
 	List<UserDto> getUsers();
+	
+	UserDto getUserByUsername(String username);
+	
 }

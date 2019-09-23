@@ -35,16 +35,20 @@
                 <h1>Create Account</h1>
                 <div>
                 	<form:input path="username" class="form-control" placeholder="Username"/>
+              		<label>${error}</label>
                 </div>
                 <div>
                     <form:input path="email" class="form-control" placeholder="Email"/>
+                    <label>${error}</label>
                 </div>
                
                 <div>
                     <form:password class="form-control" path="password" placeholder="Password"  />
+                    <label>${error}</label>
                 </div>
                 <div>
                     <form:input path="name" class="form-control" placeholder="Your name"/>
+                    <label>${error}</label>
                 </div>
                 <div>
                     <form:select path="gender" class="form-control">
@@ -54,6 +58,7 @@
                 </div>
                 <div  style="margin: 22px 0;">
                     <form:input type="file" class="form-control" path="image" />
+                    <label>${error}</label>
                 </div>
                 <div>
                     <form:button class="btn btn-default submit">Submit</form:button>
