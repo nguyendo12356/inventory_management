@@ -1,5 +1,8 @@
 package com.java.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.java.model.User;
 import com.java.service.UserService;
+import com.java.util.Util;
 
 @Controller
 @PropertySource("classpath:error.properties")
@@ -30,10 +34,16 @@ public class UserController {
 	
 	@PostMapping(value = "/addUser")
 	private String addUser(@ModelAttribute("user") User user, ModelMap model) {
-		if (userService.getUserByUsername(user.getUsername()) == null) {
-			userService.addUser(user);
+		if (Util.validate(user.getPassword(), user.getEmail()).equals("")) {
+			if (userService.getUserByUsername(user.getUsername()) == null) {
+				model.addAttribute("success",env.getProperty("signup.success"));
+				model.addAttribute("user", new User());
+				userService.addUser(user);
+			}else {
+				model.addAttribute("error",env.getProperty("error.username"));
+			}
 		}else {
-			model.addAttribute("error",env.getProperty("error.username"));
+			model.addAttribute("errorEmailOrPassword",Util.validate(user.getPassword(), user.getEmail()));
 		}
 		return "signup";
 	}
@@ -45,11 +55,17 @@ public class UserController {
 	}
 	
 	@PostMapping(value = "/login")
-	private String login(@ModelAttribute("user") User user) {
-		int count = userService.checkLogin(user.getUsername(), user.getPassword());
-		if (count < 1)
+	private String login(@ModelAttribute("user") User user, ModelMap model, HttpServletRequest request) {
+		User user1 = userService.checkLogin(user.getUsername(), user.getPassword());
+		if (user1 == null) {
+			model.addAttribute("error",env.getProperty("error.login"));
 			return "login";
-		else
+		}
+		else {
+			HttpSession session = request.getSession();
+			session.setAttribute("user", user1);
 			return "redirect:home";
-	}	
+		}
+	}
+
 }

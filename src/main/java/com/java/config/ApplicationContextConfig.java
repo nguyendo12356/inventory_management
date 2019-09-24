@@ -16,6 +16,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
@@ -86,6 +88,13 @@ public class ApplicationContextConfig {
 	public HibernateTransactionManager getTransactionManager(SessionFactory sf) {
 		HibernateTransactionManager transactionManager = new HibernateTransactionManager(sf);
 		return transactionManager;
+	}
+	
+	@Bean(name = "multipartResolver")
+	public MultipartResolver getMultipartResolver() {
+		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+		resolver.setMaxUploadSize(1024*1024);
+		return resolver;
 	}
 	
 }

@@ -31,8 +31,9 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form:form modelAttribute="user" action="login">
+            <form:form modelAttribute="user" action="login" method="POST">
               <h1>Login Form</h1>
+              <form:label path=""  id="error" cssClass="label_error">${error}</form:label>
               <div>
                 <form:input class="form-control" id="username" placeholder="Username" path="username"/>
               	<form:label path="" id="error_username" cssClass="label_error"></form:label>
@@ -73,6 +74,7 @@
     <script type="text/javascript">
     	
     	function validate(){
+    		$('#error').html('');
 	    	if($.trim($('#username').val()).length < 1){
 	    		$('#error_username').html('Tên tài khoản không được rỗng');
 	    		return false;

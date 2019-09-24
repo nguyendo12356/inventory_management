@@ -81,8 +81,21 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public int checkLogin(String username, String password) {
-		return userDao.checkLogin(username, password).size();
+	public User checkLogin(String username, String password) {
+		List<UserDto> userDtos =  userDao.checkLogin(username, password);
+		User user = null;
+		if (!userDtos.isEmpty()) {
+			user = new User();
+			user.setUsername(userDtos.get(0).getUsername());
+			user.setPassword(userDtos.get(0).getPassword());
+			user.setEmail(userDtos.get(0).getEmail());
+			user.setName(userDtos.get(0).getName());
+			user.setGender(userDtos.get(0).isGender());
+			user.setImage(userDtos.get(0).getImage());
+			user.setActive(userDtos.get(0).isActive());
+			user.setCreateDate(new Date());
+		}
+		return user;
 	}
 
 	@Override

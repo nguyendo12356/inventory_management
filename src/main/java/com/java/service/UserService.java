@@ -16,7 +16,7 @@ public interface UserService {
 
 	List<User> getUsers();
 	
-	int checkLogin(String username, String password);
+	User checkLogin(String username, String password);
 	
 	User getUserByUsername(String username);
 }
