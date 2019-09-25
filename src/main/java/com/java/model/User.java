@@ -2,6 +2,8 @@ package com.java.model;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -19,7 +21,9 @@ public class User {
 	
 	private boolean gender;
 	
-	private String image;
+	private MultipartFile image;
+	
+	private String imageName;
 	
 	private boolean active;
 	

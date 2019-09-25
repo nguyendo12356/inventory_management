@@ -1,4 +1,4 @@
-package com.java.model;
+package com.java.test;
 
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 

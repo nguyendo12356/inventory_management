@@ -41,9 +41,8 @@ body {
 				</c:if>
 				<c:remove var="success"/>
 				<c:remove var="user"/>
-				<form:form modelAttribute="user" method="post" action="addUser">
+				<form:form modelAttribute="user" method="post" action="addUser" enctype="multipart/form-data">
 					<h1>Create Account</h1>
-					<form:label path="" id="error" cssClass="label_error">${errorEmailOrPassword}</form:label>
 					<div>
 						<form:input path="username" id="username" class="form-control"
 							placeholder="Username" />
@@ -52,13 +51,13 @@ body {
 					<div>
 						<form:input path="email" id="email" class="form-control"
 							placeholder="Email" />
-						<label class="label_error" id="error_email"></label>
+						<label class="label_error" id="error_email">${errorEmail}</label>
 					</div>
 
 					<div>
 						<form:password class="form-control" id="password" path="password"
 							placeholder="Password" />
-						<label class="label_error" id="error_password"></label>
+						<label class="label_error" id="error_password">${errorPassword}</label>
 					</div>
 					<div>
 						<form:input path="name" id="name" class="form-control"
@@ -74,7 +73,7 @@ body {
 					<div style="margin: 22px 0;">
 						<form:input type="file" id="image" class="form-control"
 							path="image" />
-						<label class="label_error" id="error_image"></label>
+						<label class="label_error" id="error_image">${errorImage}</label>
 					</div>
 					<div>
 						<form:button class="btn btn-default submit"
@@ -85,7 +84,7 @@ body {
 
 					<div class="separator">
 						<p class="change_link">
-							Already a member ? <a href="<c:url value='/login'/>"
+							Already a member ? <a href="<c:url value='/loginForm'/>"
 								class="to_register"> Log in </a>
 						</p>
 						<div class="clearfix"></div>

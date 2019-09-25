@@ -1,5 +1,8 @@
 package com.java.controller;
 
+import java.io.File;
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -33,17 +36,21 @@ public class UserController {
 	}
 	
 	@PostMapping(value = "/addUser")
-	private String addUser(@ModelAttribute("user") User user, ModelMap model) {
-		if (Util.validate(user.getPassword(), user.getEmail()).equals("")) {
-			if (userService.getUserByUsername(user.getUsername()) == null) {
-				model.addAttribute("success",env.getProperty("signup.success"));
-				model.addAttribute("user", new User());
-				userService.addUser(user);
-			}else {
-				model.addAttribute("error",env.getProperty("error.username"));
-			}
+	private String addUser(@ModelAttribute("user") User user, ModelMap model, HttpServletRequest request) throws IOException {
+		if(!Util.validateEmail(user.getEmail())) {
+			model.addAttribute("errorEmail", env.getProperty("error.email"));
+		}else if (!Util.validatePassword(user.getPassword())) {
+			model.addAttribute("errorPassword", env.getProperty("error.password"));
+		}else if (!Util.saveImage( new File(request.getServletContext().getRealPath("static\\images")), user.getImage())) {
+			model.addAttribute("errorImage", env.getProperty("error.image.extension"));
+		}else if(user.getImage().getSize() > 600*1024){
+			model.addAttribute("errorImage", env.getProperty("error.image.size"));
+		}else if (userService.getUserByUsername(user.getUsername()) == null) {
+			model.addAttribute("success",env.getProperty("signup.success"));
+			model.addAttribute("user", new User());
+			userService.addUser(user);
 		}else {
-			model.addAttribute("errorEmailOrPassword",Util.validate(user.getPassword(), user.getEmail()));
+			model.addAttribute("error",env.getProperty("error.username"));
 		}
 		return "signup";
 	}
@@ -60,12 +67,22 @@ public class UserController {
 		if (user1 == null) {
 			model.addAttribute("error",env.getProperty("error.login"));
 			return "login";
-		}
-		else {
+		}else if (!user1.isActive()) {
+			System.out.println(user1.toString());
+			model.addAttribute("error",env.getProperty("error.active"));
+			return "login";
+		}else {
 			HttpSession session = request.getSession();
-			session.setAttribute("user", user1);
+			session.setAttribute("session", user1);
 			return "redirect:home";
 		}
+	}
+	
+	@GetMapping(value = "/logout")
+	private String logOut(HttpServletRequest request) {
+		request.getSession().invalidate();
+		request.setAttribute("user", new User());
+		return "login";
 	}
 
 }

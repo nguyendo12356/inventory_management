@@ -93,7 +93,6 @@ public class ApplicationContextConfig {
 	@Bean(name = "multipartResolver")
 	public MultipartResolver getMultipartResolver() {
 		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-		resolver.setMaxUploadSize(1024*1024);
 		return resolver;
 	}
 	

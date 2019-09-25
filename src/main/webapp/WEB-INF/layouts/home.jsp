@@ -19,6 +19,8 @@
 <!-- Custom Theme Style -->
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/build/css/custom.min.css'/>" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/styles.css'/>" />
 </head>
 
 <body class="nav-md" style="background-color: white;">
@@ -26,7 +28,7 @@
 		<div class="main_container">
 			<div class="col-md-3 left_col">
 				<div class="left_col scroll-view">
-					<div class="navbar nav_title" style="border: 0;">
+					<div class="navbar nav_title" style="border: 0; ">
 						<a href="<c:url value='/home'/>" class="site_title"><i
 							class="fa fa-paw"></i><span>&ensp;T2D Shop</span></a>
 					</div>
@@ -35,11 +37,11 @@
 					<!-- menu profile quick info -->
 					<div class="profile clearfix">
 						<div class="profile_pic">
-							<img src="images/img.jpg" alt="..."
+							<img src="<c:url value='/resources/images/${session.imageName}'/>" alt="..."
 								class="img-circle profile_img">
 						</div>
 						<div class="profile_info">
-							<h2>${user.name}</h2>
+							<h2 class="margin_img">${session.name}</h2>
 						</div>
 					</div>
 					<!-- /menu profile quick info -->
@@ -57,6 +59,9 @@
 										<li><a href="index2.html">Dashboard2</a></li>
 										<li><a href="index3.html">Dashboard3</a></li>
 									</ul></li>
+								<li>
+									<a href='<c:url value="/logout"/>'><i class="glyphicon glyphicon-log-out"></i>&ensp;&ensp; Log out</a>
+								</li>
 							</ul>
 						</div>
 					</div>

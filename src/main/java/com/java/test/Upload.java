@@ -1,4 +1,4 @@
-package com.java.controller;
+package com.java.test;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -13,8 +13,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import com.java.model.MyUploadForm;
 
 @Controller
 public class Upload {
