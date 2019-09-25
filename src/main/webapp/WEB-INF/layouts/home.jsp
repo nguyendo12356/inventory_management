@@ -38,7 +38,7 @@
 					<div class="profile clearfix">
 						<div class="profile_pic">
 							<img src="<c:url value='/resources/images/${session.imageName}'/>" alt="..."
-								class="img-circle profile_img">
+								class="img-circle profile_img" style="padding: 1px;">
 						</div>
 						<div class="profile_info">
 							<h2 class="margin_img">${session.name}</h2>
