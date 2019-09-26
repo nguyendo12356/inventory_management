@@ -11,9 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table( name = "menu")
 public class Menu implements Serializable {
 	
@@ -40,4 +42,13 @@ public class Menu implements Serializable {
 	
 	@Column(name = "create_date")
 	private Date createDate;
+	
+	public Menu(String name, int parent_id, String url, int index, boolean active, Date createDate){
+		this.name = name;
+		this.parent_id = parent_id;
+		this.url = url;
+		this.index = index;
+		this.active = active;
+		this.createDate = createDate;
+	}
 }
