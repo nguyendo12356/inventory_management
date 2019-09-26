@@ -13,6 +13,7 @@
 			<th>STT</th>
 			<th>Tên Chức năng</th>
 			<th>Chức năng Lớn</th>
+			<th>URL</th>
 			<th>Thứ tự</th>
 			<th>Kích hoạt</th>
 			<th>Action</th>
@@ -32,6 +33,7 @@
 						<option>1</option>
 					</select>
 				</td>
+				<td>${item.url}</td>
 				<td>${item.index}</td>
 				<td>${item.active}</td>
 				<td>
