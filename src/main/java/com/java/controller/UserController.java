@@ -19,6 +19,7 @@ import com.java.model.User;
 import com.java.service.UserService;
 import com.java.util.Util;
 
+
 @Controller
 @PropertySource("classpath:error.properties")
 public class UserController {
