@@ -6,3 +6,29 @@
 .margin_img{
 	margin-top: 6px !important;
 }
+
+.img_profile{
+	width: 55px !important;
+	height: 55px !important;
+	padding: 2px !important;
+}
+
+.table_header{
+	background-color: #1ABB9C;
+	color: white;
+}
+
+.table_custom tr td{
+	vertical-align: middle !important;
+}
+
+.table_custom button{
+	margin-bottom: 0px !important;
+	width: 75px;
+}
+
+.table_custom select{
+	width: 60%;
+	margin: 0 auto;
+	border-radius: 5px;
+}

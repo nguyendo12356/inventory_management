@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-  <definition name="master" template="/WEB-INF/layouts/master.jsp">
-  	<put-attribute name="header" value="/WEB-INF/layouts/header.jsp" />
-  	<put-attribute name="content" value=""></put-attribute>
-  </definition>
-  <!--<definition name="login" extends="master">
-  	<put-attribute name="content" value="/WEB-INF/layouts/login.jsp" />
-  </definition>
-  <definition name="signup" extends="master">
-  	<put-attribute name="content" value="/WEB-INF/layouts/signup.jsp" />
-  </definition> -->
-
+	<definition name="master"
+		template="/WEB-INF/layouts/home.jsp">
+		<put-attribute name="content" value=""></put-attribute>
+	</definition>
+	<definition name="menu" extends="master">
+		<put-attribute name="content"
+			value="/WEB-INF/layouts/menu.jsp"></put-attribute>
+	</definition>
+	<definition name="home" extends="master">
+		<put-attribute name="content"
+			value="/WEB-INF/layouts/dashboard.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>
