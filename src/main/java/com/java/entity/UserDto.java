@@ -1,13 +1,18 @@
 package com.java.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -34,6 +39,10 @@ public class UserDto implements Serializable{
 	
 	@Column(name = "name")
 	private String name;
+	
+	@ManyToMany
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Collection<Role> role = new HashSet<Role>();
 	
 	@Column(name = "gender")
 	private boolean gender;

@@ -77,6 +77,12 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 	public String getClassName() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		String s = ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0].toString();
 		return s.substring(s.lastIndexOf(".")).substring(1);
+	}
+
+	@Override
+	public void delete(Class<E> e, int id) {
+		sessionFactory.getCurrentSession().delete(findById(e, id));
+		
 	};
 
 }

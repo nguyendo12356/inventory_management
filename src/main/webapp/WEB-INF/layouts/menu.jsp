@@ -41,10 +41,19 @@
 				</select></td>
 				<td>${item.url}</td>
 				<td>${item.index}</td>
-				<td>${item.active}</td>
 				<td>
-					<button class="btn btn-info">Sửa</button>
-					<button class="btn btn-danger">Xóa</button>
+					<c:choose>
+						<c:when test="${item.active}">
+							<span class="glyphicon glyphicon-pause"></span>
+						</c:when>
+						<c:otherwise>
+							<span class="glyphicon glyphicon-play"></span>
+						</c:otherwise>
+					</c:choose>
+				</td>
+				<td>
+					<a type="button" class="btn btn-info" href="">Sửa</a>
+					<a type="button" class="btn btn-danger" href="<c:url value="deleteMenu/${item.id}"/>">Xóa</a>
 				</td>
 			</tr>
 		</c:forEach>
@@ -56,7 +65,7 @@
 	<div class="modal-dialog modal-md">
 
 		<!-- Modal content-->
-		<form method="post" action="addMenu">
+		<form method="post" action="<c:url value = '/addMenu'/>">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -71,7 +80,11 @@
 						<label>Thuộc chức năng :</label> <select class="form-control"
 							name="slchucnang" id="name">
 							<option value=0>Chọn chức năng</option>
-							<option value=1>Sản Phẩm</option>
+							<c:forEach items="${menu}" var="item">
+								<c:if test="${item.parent_id == 0}">
+									<option value="${item.id}">${item.name}</option>
+								</c:if>
+							</c:forEach>
 						</select>
 					</div>
 					<div class="form-group">

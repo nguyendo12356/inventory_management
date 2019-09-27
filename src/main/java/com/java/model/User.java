@@ -1,8 +1,11 @@
 package com.java.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import org.springframework.web.multipart.MultipartFile;
+
+import com.java.entity.Role;
 
 import lombok.Data;
 
@@ -28,4 +31,6 @@ public class User {
 	private boolean active;
 	
 	private Date createDate;
+	
+	private Set<Role> role;
 }

@@ -13,4 +13,6 @@ public interface BaseDao<E> {
 	void save(E instance);
 
 	void update(E instance);
+	
+	void delete(Class<E> e,int id);
 }

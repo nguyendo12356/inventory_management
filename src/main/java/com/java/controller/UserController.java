@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -56,7 +57,7 @@ public class UserController {
 		return "signup";
 	}
 	
-	@GetMapping(value = {"/loginForm","/"})
+	@GetMapping(value = {"/loginForm"})
 	private String loadLoginForm(ModelMap model) {
 		model.addAttribute("user", new User());
 		return "login";
@@ -75,7 +76,8 @@ public class UserController {
 		}else {
 			HttpSession session = request.getSession();
 			session.setAttribute("session", user1);
-			return "redirect:home";
+			Hibernate.initialize(user1.getRole());
+			return "redirect:/home";
 		}
 	}
 	
@@ -83,7 +85,7 @@ public class UserController {
 	private String logOut(HttpServletRequest request) {
 		request.getSession().invalidate();
 		request.setAttribute("user", new User());
-		return "login";
+		return "redirect:/loginForm";
 	}
 
 }

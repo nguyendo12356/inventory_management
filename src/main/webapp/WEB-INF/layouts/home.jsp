@@ -75,6 +75,14 @@
 								</li>
 							</ul>
 						</div>
+						<div class="menu_section">
+							<h3>Admin</h3>
+							<ul class="nav side-menu">
+								<li><a href='<c:url value="/logout"/>'><i
+										class="glyphicon glyphicon-log-out"></i>&ensp;&ensp; Đăng xuất</a>
+								</li>
+							</ul>
+						</div>
 					</div>
 					<!-- /sidebar menu -->
 

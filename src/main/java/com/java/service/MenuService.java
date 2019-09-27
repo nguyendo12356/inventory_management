@@ -25,4 +25,12 @@ public class MenuService {
 	public void addMenu(Menu menu) {
 		menuDao.save(menu);
 	}
+	
+	public void deleteMenu(int id) {
+		menuDao.delete(Menu.class, id);
+	}
+	
+	public void updateMenu(Menu menu) {
+		menuDao.update(menu);
+	}
 }

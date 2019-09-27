@@ -11,7 +11,7 @@ import com.java.model.User;
 @Controller
 public class HomeController {
 
-	@RequestMapping(value = {"/home"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/home","/"}, method = RequestMethod.GET)
 	public String home(HttpServletRequest request) {
 		if(request.getSession().getAttribute("session") == null) {
 			request.setAttribute("user", new User());

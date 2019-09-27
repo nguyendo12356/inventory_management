@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.java.common.Constant;
 import com.java.entity.Menu;
 import com.java.service.MenuService;
 
@@ -24,10 +26,9 @@ public class MenuController {
 	@GetMapping("/menu")
 	public String getMenu(Model model) {
 		// sap xep tiep cho nay
-		menuService.findAll().stream().sorted((s1, s2) -> s1.getParent_id() - s2.getParent_id());
 		List<Menu> menu = menuService.findAll();
+		menu.stream().sorted((s1, s2) -> s1.getParent_id() - s2.getParent_id());
 		model.addAttribute("menu", menu);
-		menuService.findAll().stream().filter(n -> n.getParent_id() == 0);
 		return "menu";
 	}
 
@@ -40,8 +41,14 @@ public class MenuController {
 	@PostMapping("/addMenu")
 	public String addMenu(@RequestParam("txtname") String name, @RequestParam("slchucnang") int parent_id,
 			@RequestParam("txturl") String url, @RequestParam("txtindex") int index, Model model) {
-		menuService.addMenu(new Menu(name, parent_id, url, index, false, new Date()));
-		return getMenu(model);
+		menuService.addMenu(new Menu(name, parent_id, url, index, true, new Date()));
+		return "redirect:menu";
+	}
+	
+	@GetMapping(value = "/deleteMenu/{id}")
+	public String deleteMenu(@PathVariable("id") int id, Model model) {
+		menuService.deleteMenu(id);
+		return "redirect:/menu";
 	}
 
 }
