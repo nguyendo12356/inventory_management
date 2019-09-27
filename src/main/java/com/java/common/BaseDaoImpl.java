@@ -29,7 +29,7 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 			e.printStackTrace();
 		}
 
-		return sessionFactory.getCurrentSession().createQuery(query.toString()).list();
+		return sessionFactory.openSession().createQuery(query.toString()).list();
 	}
 
 	@Override

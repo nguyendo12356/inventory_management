@@ -27,8 +27,8 @@ public class MenuController {
 	public String getMenu(Model model) {
 		// sap xep tiep cho nay
 		List<Menu> menu = menuService.findAll();
-		menu.stream().sorted((s1, s2) -> s1.getParent_id() - s2.getParent_id());
 		model.addAttribute("menu", menu);
+		menu.forEach(n-> System.out.println(n.getAuth().iterator().next().getRole().getDesciption()));
 		return "menu";
 	}
 

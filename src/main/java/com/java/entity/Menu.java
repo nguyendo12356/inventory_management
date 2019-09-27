@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -45,9 +45,12 @@ public class Menu implements Serializable {
 	
 	@Column(name = "create_date")
 	private Date createDate;
+
+	@OneToMany( mappedBy = "menu")
+	private Collection<Auth> auth = new HashSet<Auth>(); 
 	
-	@ManyToMany( mappedBy = "menu")
-	private Collection<Role> role = new HashSet<Role>(); 
+//	@ManyToMany( mappedBy = "menu")
+//	private Collection<Role> role = new HashSet<Role>(); 
 	
 	public Menu(String name, int parent_id, String url, int index, boolean active, Date createDate){
 		this.name = name;

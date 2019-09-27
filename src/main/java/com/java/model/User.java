@@ -3,10 +3,9 @@ package com.java.model;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import com.java.entity.UserRole;
 
 import org.springframework.web.multipart.MultipartFile;
-
-import com.java.entity.Role;
 
 import lombok.Data;
 
@@ -33,5 +32,5 @@ public class User {
 	
 	private Date createDate;
 	
-	private Set<Role> role = new HashSet<Role>();
+	private Set<UserRole> role = new HashSet<UserRole>();
 }

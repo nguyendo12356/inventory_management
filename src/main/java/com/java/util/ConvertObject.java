@@ -15,7 +15,7 @@ public class ConvertObject {
 		userDto.setImage(user.getImage().getOriginalFilename());
 		userDto.setActive(user.isActive());
 		userDto.setCreateDate(user.getCreateDate());
-		user.getRole().forEach( n ->{ userDto.getRole().add(n);});
+		//user.getRole().forEach( n ->{ userDto.getRole().add(n);});
 		return userDto;
 	}
 	
@@ -29,7 +29,7 @@ public class ConvertObject {
 		user.setImageName(userDto.getImage());
 		user.setActive(userDto.isActive());
 		user.setCreateDate(userDto.getCreateDate());
-		userDto.getRole().forEach( n ->{ user.getRole().add(n);});
+		//userDto.getRole().forEach( n ->{ user.getRole().add(n);});
 		return user;
 	}
 	

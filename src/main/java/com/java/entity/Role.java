@@ -10,9 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -40,10 +38,13 @@ public class Role implements Serializable {
 	@Column(name = "create_date")
 	private Date createDate;
 	
-	@ManyToMany( mappedBy = "role")
-	private Collection<UserDto> user = new HashSet<UserDto>(); 
+	@OneToMany( mappedBy = "role")
+	private Collection<UserRole> user = new HashSet<UserRole>(); 
 	
-	@ManyToMany
-	@JoinTable(name = "auth", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "menu_id"))
-	private Collection<Menu> menu = new HashSet<Menu>(); 
+	@OneToMany( mappedBy = "role")
+	private Collection<Auth> auth = new HashSet<Auth>(); 
+	
+//	@ManyToMany
+//	@JoinTable(name = "auth", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "menu_id"))
+//	private Collection<Menu> menu = new HashSet<Menu>(); 
 }

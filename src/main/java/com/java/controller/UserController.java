@@ -2,6 +2,7 @@ package com.java.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.java.entity.Menu;
 import com.java.entity.Role;
+import com.java.entity.UserRole;
 import com.java.model.User;
 import com.java.service.UserService;
 import com.java.util.Util;
@@ -80,6 +82,9 @@ public class UserController {
 		}else {
 			HttpSession session = request.getSession();
 			session.setAttribute("session", user1);
+//			UserRole u = user1.getRole().iterator().next();
+//			System.out.println(u.getRole().getRoleName());
+//			System.out.println(u.getRole().getAuth().iterator().next().getMenu().getName());
 			return "redirect:/home";
 		}
 	}
