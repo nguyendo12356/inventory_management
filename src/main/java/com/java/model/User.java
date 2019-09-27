@@ -1,6 +1,7 @@
 package com.java.model;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -32,5 +33,5 @@ public class User {
 	
 	private Date createDate;
 	
-	private Set<Role> role;
+	private Set<Role> role = new HashSet<Role>();
 }

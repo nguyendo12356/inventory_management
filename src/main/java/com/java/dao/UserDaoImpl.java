@@ -43,7 +43,7 @@ public class UserDaoImpl implements UserDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserDto> checkLogin(String username, String password) {
-		Query<UserDto> query = sessionFactory.getCurrentSession()
+		Query<UserDto> query = sessionFactory.openSession()
 				.createQuery("from "+UserDto.class.getName()+" where username=:username and password=:password");
 		query.setParameter("username", username);
 		query.setParameter("password", password);

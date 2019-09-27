@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -37,5 +39,11 @@ public class Role implements Serializable {
 	
 	@Column(name = "create_date")
 	private Date createDate;
-
+	
+	@ManyToMany( mappedBy = "role")
+	private Collection<UserDto> user = new HashSet<UserDto>(); 
+	
+	@ManyToMany
+	@JoinTable(name = "auth", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "menu_id"))
+	private Collection<Menu> menu = new HashSet<Menu>(); 
 }

@@ -2,11 +2,12 @@ package com.java.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.java.entity.Menu;
+import com.java.entity.Role;
 import com.java.model.User;
 import com.java.service.UserService;
 import com.java.util.Util;
@@ -23,6 +26,7 @@ import com.java.util.Util;
 
 @Controller
 @PropertySource("classpath:error.properties")
+@Transactional
 public class UserController {
 	
 	@Autowired
@@ -76,7 +80,6 @@ public class UserController {
 		}else {
 			HttpSession session = request.getSession();
 			session.setAttribute("session", user1);
-			Hibernate.initialize(user1.getRole());
 			return "redirect:/home";
 		}
 	}
