@@ -3,9 +3,10 @@ package com.java.model;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import com.java.entity.UserRole;
 
 import org.springframework.web.multipart.MultipartFile;
+
+import com.java.entity.UserRole;
 
 import lombok.Data;
 

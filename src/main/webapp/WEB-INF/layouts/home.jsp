@@ -158,7 +158,7 @@
 			<!-- /page content -->
 
 			<!-- footer content -->
-			<footer>
+			<footer style="margin-top: -19px;">
 				<div class="pull-right">Xã Thạnh Mỹ Tây, Huyện Châu Phú, Tỉnh
 					An Giang</div>
 				<div class="clearfix"></div>

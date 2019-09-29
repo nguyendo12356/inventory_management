@@ -38,11 +38,7 @@ public class UserDto implements Serializable{
 	private String email;
 	
 	@Column(name = "name")
-	private String name;
-	
-//	@ManyToMany
-//	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-//	private Collection<Role> role = new HashSet<Role>();
+	private String name;	
 		
 	@Column(name = "gender")
 	private boolean gender;
@@ -56,6 +52,6 @@ public class UserDto implements Serializable{
 	@Column(name = "create_date" ,nullable = true)
 	private Date createDate;
 	
-	@OneToMany(mappedBy = "user")
-	private Set<UserRole> role = new HashSet<UserRole>();
+	@OneToMany(mappedBy = "userDto")
+	private Set<UserRole> userRole = new HashSet<UserRole>();
 }

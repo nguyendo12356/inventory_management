@@ -47,7 +47,7 @@ public class Menu implements Serializable {
 	private Date createDate;
 
 	@OneToMany( mappedBy = "menu")
-	private Collection<Auth> auth = new HashSet<Auth>(); 
+	private Collection<Auth> auth = new HashSet<Auth>(); 	
 	
 //	@ManyToMany( mappedBy = "menu")
 //	private Collection<Role> role = new HashSet<Role>(); 

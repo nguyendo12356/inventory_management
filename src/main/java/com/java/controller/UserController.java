@@ -2,7 +2,7 @@ package com.java.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.java.entity.Menu;
-import com.java.entity.Role;
 import com.java.entity.UserRole;
+import com.java.model.MenuModel;
 import com.java.model.User;
 import com.java.service.UserService;
+import com.java.util.ConvertObject;
 import com.java.util.Util;
 
 
@@ -64,7 +64,10 @@ public class UserController {
 	}
 	
 	@GetMapping(value = {"/loginForm"})
-	private String loadLoginForm(ModelMap model) {
+	private String loadLoginForm(ModelMap model, HttpServletRequest request) {
+		if(request.getSession().getAttribute("session") != null) {
+			return "redirect:/home";
+		}
 		model.addAttribute("user", new User());
 		return "login";
 	}
@@ -82,9 +85,19 @@ public class UserController {
 		}else {
 			HttpSession session = request.getSession();
 			session.setAttribute("session", user1);
-//			UserRole u = user1.getRole().iterator().next();
-//			System.out.println(u.getRole().getRoleName());
-//			System.out.println(u.getRole().getAuth().iterator().next().getMenu().getName());
+			UserRole userRole = user1.getRole().iterator().next();
+			List<MenuModel> menus = new ArrayList<MenuModel>();
+			
+			userRole.getRole().getAuth().forEach(auth ->{
+				MenuModel item = ConvertObject.convertMenu(auth.getMenu());
+				if (item.getParent_id() == 0 && auth.isPermission() && auth.isActive() && item.isActive()) {
+					item.setIdMenu(item.getUrl().replace("/", "")+"Id");
+					menus.add(item);
+				}else if (item.getParent_id() != 0 && auth.isPermission() && auth.isActive() && item.isActive()) {
+					item.setIdMenu(item.getUrl().replace("/", "")+"Id");
+					item.getChildMenu().add(item);
+				}
+			});
 			return "redirect:/home";
 		}
 	}

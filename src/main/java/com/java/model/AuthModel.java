@@ -5,13 +5,12 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class Menu {
+public class AuthModel {
 
 	private int id;
-	private int parent_id;
-	private String url;
-	private String name;
-	private int index;
+	private Role role;
+	private MenuModel menu;
+	private boolean permission;
 	private boolean active;
 	private Date createDate;
 }

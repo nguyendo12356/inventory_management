@@ -12,10 +12,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
 @Entity
+@Getter
+@Setter
+@ToString
 @Table( name = "user_role")
 public class UserRole implements Serializable {
 	
@@ -27,7 +31,7 @@ public class UserRole implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private UserDto user;
+	private UserDto userDto;
 	
 	@ManyToOne
 	@JoinColumn(name = "role_id")
