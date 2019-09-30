@@ -81,8 +81,8 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 
 	@Override
 	public void delete(Class<E> e, int id) {
-		sessionFactory.getCurrentSession().delete(findById(e, id));
-		
-	};
+		sessionFactory.getCurrentSession().delete(findById(e, id));		
+	}
+
 
 }

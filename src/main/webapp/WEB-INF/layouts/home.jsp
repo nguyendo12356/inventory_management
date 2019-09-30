@@ -46,7 +46,7 @@
 								alt="..." class="img-circle profile_img img_profile">
 						</div>
 						<div class="profile_info" style="padding-top: 20px;">
-							<span>Welcome,</span>
+							<span>Xin chào,</span>
 							<h2>${session.name}</h2>
 						</div>
 					</div>
@@ -59,29 +59,9 @@
 						class="main_menu_side hidden-print main_menu">
 						<div class="menu_section">
 							<h3>General</h3>
-							<ul class="nav side-menu">
-								<li><a href="<c:url value='/home'/>"><i class="fa fa-home"></i> Dashboard <span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a >Dashboard</a></li>
-										<li><a href="index2.html">Dashboard2</a></li>
-										<li><a href="index3.html">Dashboard3</a></li>
-									</ul></li>
-								<li><a href='<c:url value="/menu"/>'><i
-										class="glyphicon glyphicon-menu-hamburger"></i>&ensp;&ensp;
-										Quản lí Menu</a></li>
-								<li><a href='<c:url value="/logout"/>'><i
-										class="glyphicon glyphicon-log-out"></i>&ensp;&ensp; Đăng xuất</a>
-								</li>
-							</ul>
-						</div>
-						<div class="menu_section">
-							<h3>Admin</h3>
-							<ul class="nav side-menu">
-								<li><a href='<c:url value="/logout"/>'><i
-										class="glyphicon glyphicon-log-out"></i>&ensp;&ensp; Đăng xuất</a>
-								</li>
-							</ul>
+							<!-- Menu -->
+							<tiles:insertAttribute name="menu"/>
+
 						</div>
 					</div>
 					<!-- /sidebar menu -->
@@ -152,7 +132,7 @@
 
 			<!-- page content -->
 			<div class="right_col" role="main">
-				<tiles:insertAttribute name = "content"/>
+				<tiles:insertAttribute name="content" />
 
 			</div>
 			<!-- /page content -->
@@ -173,6 +153,7 @@
 	<script src='<c:url value="/resources/common/bootstrap.min.js"/>'></script>
 	<script src="../build/js/custom.min.js"></script>
 	<script src="<c:url value='/resources/build/js/custom.min.js'/>"></script>
+	<script src="<c:url value='/resources/build/js/customjs.js'/>"></script>
 
 </body>
 </html>

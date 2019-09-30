@@ -9,6 +9,7 @@ public class ConvertObject {
 	
 	public static UserDto convertUserToUserDto(User user) {
 		UserDto userDto = new UserDto();
+		userDto.setId(user.getId());
 		userDto.setUsername(user.getUsername());
 		userDto.setPassword(user.getPassword());
 		userDto.setEmail(user.getEmail());
@@ -23,6 +24,7 @@ public class ConvertObject {
 	
 	public static User convertUserDtoToUser(UserDto userDto) {
 		User user = new User();
+		user.setId(userDto.getId());
 		user.setUsername(userDto.getUsername());
 		user.setPassword(userDto.getPassword());
 		user.setEmail(userDto.getEmail());

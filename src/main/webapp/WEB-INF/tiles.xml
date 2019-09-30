@@ -3,6 +3,7 @@
 <tiles-definitions>
 	<definition name="master"
 		template="/WEB-INF/layouts/home.jsp">
+		<put-attribute name="menu" value="/WEB-INF/layouts/main_menu.jsp"></put-attribute>
 		<put-attribute name="content" value=""></put-attribute>
 	</definition>
 	<definition name="menu" extends="master">
@@ -12,5 +13,9 @@
 	<definition name="home" extends="master">
 		<put-attribute name="content"
 			value="/WEB-INF/layouts/dashboard.jsp"></put-attribute>
+	</definition>
+		<definition name="userlist" extends="master">
+		<put-attribute name="content"
+			value="/WEB-INF/layouts/user.jsp"></put-attribute>
 	</definition>
 </tiles-definitions>

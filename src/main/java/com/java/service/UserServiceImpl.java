@@ -1,5 +1,6 @@
 package com.java.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void addUser(User user) {
 		UserDto userDto = ConvertObject.convertUserToUserDto(user);
-		userDto.setActive(true);
+		userDto.setActive(false);
 		userDto.setCreateDate(new Date());
 		userDao.addUser(userDto);
 	}
@@ -33,8 +34,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public void deleteUser(int idUser) {
-		// TODO Auto-generated method stub
-		
+		userDao.delete(UserDto.class, idUser);	
 	}
 
 	@Override
@@ -49,7 +49,9 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public List<User> getUsers() {
-		return null;
+		List<User> users = new ArrayList<User>();
+		userDao.getUsers().forEach( userDto -> users.add(ConvertObject.convertUserDtoToUser(userDto)));
+		return users;
 	}
 
 	@Override
@@ -71,6 +73,11 @@ public class UserServiceImpl implements UserService{
 			return user;
 		}
 		return user;
+	}
+
+	@Override
+	public void changeStateAccount(int id, int active) {
+		userDao.changeStateAccount(id, active);	
 	}
 
 }

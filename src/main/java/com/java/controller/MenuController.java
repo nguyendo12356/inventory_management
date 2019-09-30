@@ -21,7 +21,7 @@ public class MenuController {
 	@Autowired
 	private MenuService menuService;
 
-	@GetMapping("/menu")
+	@GetMapping("/menu/list")
 	public String getMenu(Model model) {
 		// sap xep tiep cho nay
 		List<MenuModel> menu = menuService.findAll();
@@ -35,17 +35,17 @@ public class MenuController {
 		return "themmenu";
 	}
 
-	@PostMapping("/addMenu")
+	@PostMapping("/menu")
 	public String addMenu(@RequestParam("txtname") String name, @RequestParam("slchucnang") int parent_id,
 			@RequestParam("txturl") String url, @RequestParam("txtindex") int index, Model model) {
 		menuService.addMenu(new MenuModel(name, parent_id, url, index, true, new Date()));
-		return "redirect:menu";
+		return "redirect:/menu/list";
 	}
 	
 	@GetMapping(value = "/deleteMenu/{id}")
 	public String deleteMenu(@PathVariable("id") int id, Model model) {
 		menuService.deleteMenu(id);
-		return "redirect:/menu";
+		return "redirect:/menu/list";
 	}
 
 }

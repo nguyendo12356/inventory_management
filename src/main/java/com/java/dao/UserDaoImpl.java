@@ -2,41 +2,34 @@ package com.java.dao;
 
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.java.common.BaseDaoImpl;
 import com.java.entity.UserDto;
 
 @Repository
 @Transactional
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl extends BaseDaoImpl<UserDto> implements UserDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
 	
 	@Override
 	public void addUser(UserDto user) {
 		sessionFactory.getCurrentSession().save(user);
 	}
 
-	@Override
-	public void updateUser(UserDto user) {
-		sessionFactory.getCurrentSession().merge(user);
-	}
-
-	@Override
-	public void deleteUser(int id) {
-		sessionFactory.getCurrentSession().delete(getUserById(id));
-	}
-
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserDto> getUsers() {
-		Query<UserDto> query = sessionFactory.getCurrentSession().createQuery("from "+UserDto.class.getName());;
+		Session session = sessionFactory.openSession();
+		Query<UserDto> query = session.createQuery("from "+UserDto.class.getName());
 		return query.list();
 	}
 
@@ -63,6 +56,17 @@ public class UserDaoImpl implements UserDao {
 		query.setParameter("username", username);
 		
 		return query.uniqueResult();
+	}
+
+	@Override
+	public void changeStateAccount(int id, int active) {
+		UserDto user = findById(UserDto.class, id);
+		if (active == 1) {
+			user.setActive(true);
+		}else {
+			user.setActive(false);
+		}
+		update(user);
 	}
 
 }

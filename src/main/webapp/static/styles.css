@@ -32,3 +32,8 @@
 	margin: 0 auto;
 	border-radius: 5px;
 }
+
+.user_image{
+	width: 120px;
+	height: 80px;
+}

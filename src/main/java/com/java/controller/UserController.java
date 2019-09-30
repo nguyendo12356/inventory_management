@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.java.entity.UserRole;
@@ -25,15 +26,14 @@ import com.java.service.UserService;
 import com.java.util.ConvertObject;
 import com.java.util.Util;
 
-
 @Controller
 @PropertySource("classpath:error.properties")
 @Transactional
 public class UserController {
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private Environment env;
 
@@ -42,36 +42,38 @@ public class UserController {
 		model.addAttribute("user", new User());
 		return "signup";
 	}
-	
+
 	@PostMapping(value = "/addUser")
-	private String addUser(@ModelAttribute("user") User user, ModelMap model, HttpServletRequest request) throws IOException {
-		if(!Util.validateEmail(user.getEmail())) {
+	private String addUser(@ModelAttribute("user") User user, ModelMap model, HttpServletRequest request)
+			throws IOException {
+		if (!Util.validateEmail(user.getEmail())) {
 			model.addAttribute("errorEmail", env.getProperty("error.email"));
-		}else if (!Util.validatePassword(user.getPassword())) {
+		} else if (!Util.validatePassword(user.getPassword())) {
 			model.addAttribute("errorPassword", env.getProperty("error.password"));
-		}else if (!Util.saveImage( new File(request.getServletContext().getRealPath("static\\images")), user.getImage())) {
+		} else if (!Util.saveImage(new File(request.getServletContext().getRealPath("static\\images")),
+				user.getImage())) {
 			model.addAttribute("errorImage", env.getProperty("error.image.extension"));
-		}else if(user.getImage().getSize() > 600*1024){
+		} else if (user.getImage().getSize() > 600 * 1024) {
 			model.addAttribute("errorImage", env.getProperty("error.image.size"));
-		}else if (userService.getUserByUsername(user.getUsername()) == null) {
-			model.addAttribute("success",env.getProperty("signup.success"));
+		} else if (userService.getUserByUsername(user.getUsername()) == null) {
+			model.addAttribute("success", env.getProperty("signup.success"));
 			model.addAttribute("user", new User());
 			userService.addUser(user);
-		}else {
-			model.addAttribute("error",env.getProperty("error.username"));
+		} else {
+			model.addAttribute("error", env.getProperty("error.username"));
 		}
 		return "signup";
 	}
-	
-	@GetMapping(value = {"/loginForm"})
+
+	@GetMapping(value = { "/loginForm" })
 	private String loadLoginForm(ModelMap model, HttpServletRequest request) {
-		if(request.getSession().getAttribute("session") != null) {
+		if (request.getSession().getAttribute("session") != null) {
 			return "redirect:/home";
 		}
 		model.addAttribute("user", new User());
 		return "login";
 	}
-	
+
 	@PostMapping(value = "/login")
 	private String login(@ModelAttribute("user") User user, ModelMap model, HttpServletRequest request) {
 		User user1 = userService.checkLogin(user.getUsername(), user.getPassword());
@@ -87,7 +89,6 @@ public class UserController {
 			session.setAttribute("session", user1);
 			UserRole userRole = user1.getRole().iterator().next();
 			List<MenuModel> menus = new ArrayList<MenuModel>();
-			
 			userRole.getRole().getAuth().forEach(auth ->{
 				MenuModel item = ConvertObject.convertMenu(auth.getMenu());
 				if (item.getParent_id() == 0 && auth.isPermission() && auth.isActive() && item.isActive()) {
@@ -95,18 +96,35 @@ public class UserController {
 					menus.add(item);
 				}else if (item.getParent_id() != 0 && auth.isPermission() && auth.isActive() && item.isActive()) {
 					item.setIdMenu(item.getUrl().replace("/", "")+"Id");
-					item.getChildMenu().add(item);
+					menus.forEach(i -> {
+						if (i.getId() == item.getParent_id()) {
+							i.getChildMenu().add(item);
+						}
+					});
 				}
 			});
+			session.setAttribute("menus", menus);
 			return "redirect:/home";
 		}
 	}
-	
+
 	@GetMapping(value = "/logout")
 	private String logOut(HttpServletRequest request) {
 		request.getSession().invalidate();
 		request.setAttribute("user", new User());
 		return "redirect:/loginForm";
 	}
-
+	
+	@GetMapping(value = "/user/list")
+	private String getUserList(ModelMap model) {
+		model.addAttribute("userList", userService.getUsers());
+		return "userlist";
+	}
+	
+	@GetMapping(value = "/user/delete/{id}")
+	private String deleteUser(@PathVariable("id") int id,ModelMap model) {
+		userService.deleteUser(id);
+		return "redirect:/user/list";
+	}
+	
 }
