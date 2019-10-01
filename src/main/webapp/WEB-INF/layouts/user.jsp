@@ -52,15 +52,15 @@
 				<td>
 						<c:choose>
 							<c:when test="${item.active}">
-								<a id="btn${item.id}" onclick="changeState(${item.id},0)"><i class="glyphicon glyphicon-pause" id="btn_pause"></i></a>
+								<a id="btn${item.id}" onclick="changeState(${item.id},${item.active})"><span id="span${item.id}" class="glyphicon glyphicon-pause">123</span></a>
 							</c:when>
 							<c:otherwise>
-								<a id="btn${item.id}" onclick="changeState(${item.id},1)"><span class="glyphicon glyphicon-play" ></span></a>
+								<a id="btn${item.id}" onclick="changeState(${item.id},${item.active})"><span id="span${item.id}" class="glyphicon glyphicon-play" >12</span></a>
 							</c:otherwise>
 						</c:choose>
 				</td>
 				<td>
-					<a type="button" class="btn btn-info" href="">Sửa</a>
+					<a type="button" class="btn btn-info" href="<c:url value="/user/update/${item.id}"/>">Sửa</a>
 					<a type="button" class="btn btn-danger" href="<c:url value="/user/delete/${item.id}"/>">Xóa</a>
 				</td>
 			</tr>
@@ -69,9 +69,9 @@
 </table>
 	<script src='<c:url value="/resources/bootstrap/js/jquery.min.js"/>'></script>
 <script type="text/javascript">
-	$("a").click(function(){
+/* 	$("a").click(function(){
 		alert(this.id);
-	})
+	}) */
 </script>
 
 

@@ -17,7 +17,7 @@ public class UserControllerApi {
 	private UserService userService;
 	
 	@GetMapping(value = "/user/changeState/{id}/{active}")
-	private ResponseEntity<User> changeStateAccount(@PathVariable("id") int id, @PathVariable("active") int active) {
+	private ResponseEntity<User> changeStateAccount(@PathVariable("id") int id, @PathVariable("active") boolean active) {
 		userService.changeStateAccount(id, active);
 		return new ResponseEntity<User>(HttpStatus.OK);
 	}

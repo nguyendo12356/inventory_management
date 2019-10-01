@@ -28,8 +28,9 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public void updateUser(User user) {
-		// TODO Auto-generated method stub
-		
+		UserDto userDto = ConvertObject.convertUserToUserDto(user);
+		userDto.setCreateDate(new Date());
+		userDao.update(userDto);
 	}
 
 	@Override
@@ -76,8 +77,17 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void changeStateAccount(int id, int active) {
+	public void changeStateAccount(int id, boolean active) {
 		userDao.changeStateAccount(id, active);	
+	}
+
+	@Override
+	public User findById(int id) {
+		UserDto user = userDao.findById(UserDto.class, id);
+		if (user != null) {
+			return ConvertObject.convertUserDtoToUser(user);
+		}
+		return null;
 	}
 
 }

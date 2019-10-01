@@ -45,7 +45,7 @@ public class UserDaoImpl extends BaseDaoImpl<UserDto> implements UserDao {
 
 	@Override
 	public UserDto getUserById(int id) {
-		return sessionFactory.getCurrentSession().get(UserDto.class, id);
+		return sessionFactory.openSession().get(UserDto.class, id);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -59,12 +59,12 @@ public class UserDaoImpl extends BaseDaoImpl<UserDto> implements UserDao {
 	}
 
 	@Override
-	public void changeStateAccount(int id, int active) {
+	public void changeStateAccount(int id, boolean active) {
 		UserDto user = findById(UserDto.class, id);
-		if (active == 1) {
-			user.setActive(true);
-		}else {
+		if(active){
 			user.setActive(false);
+		}else{
+			user.setActive(true);
 		}
 		update(user);
 	}

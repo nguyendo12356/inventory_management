@@ -17,6 +17,6 @@ public interface UserDao extends BaseDao<UserDto> {
 	
 	UserDto getUserByUsername(String username);
 	
-	void changeStateAccount(int id,int active);
+	void changeStateAccount(int id,boolean active);
 	
 }

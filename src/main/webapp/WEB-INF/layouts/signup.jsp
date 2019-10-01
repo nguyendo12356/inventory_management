@@ -40,24 +40,29 @@ body {
 					</div>
 				</c:if>
 				<c:remove var="success"/>
-				<c:remove var="user"/>
-				<form:form modelAttribute="user" method="post" action="addUser" enctype="multipart/form-data">
-					<h1>Create Account</h1>
-					<div>
-						<form:input path="username" id="username" class="form-control"
-							placeholder="Username" />
-						<label class="label_error" id="error_username">${error}</label>
-					</div>
+				<form:form modelAttribute="user" method="post" action="${pageContext.request.contextPath}/addUser" enctype="multipart/form-data">
+					<h1>
+						<c:choose>
+							<c:when test="${id > 0}">Cập nhật thông tin</c:when>
+							<c:otherwise>Tạo tài khoản mới</c:otherwise>
+						</c:choose>
+					</h1>
+						<div id="div_username">
+							<form:input path="username" id="username" class="form-control"
+								placeholder="Username" />
+							<label class="label_error" id="error_username">${error}</label>
+						</div>
+						<div>
+							<form:password class="form-control" id="password" path="password"
+								placeholder="Password" />
+							<div><input type="hidden" value="${user.password}" id="passwordHidden"/></div>
+							<label class="label_error" id="error_password">${errorPassword}</label>
+						</div>
+
 					<div>
 						<form:input path="email" id="email" class="form-control"
 							placeholder="Email" />
 						<label class="label_error" id="error_email">${errorEmail}</label>
-					</div>
-
-					<div>
-						<form:password class="form-control" id="password" path="password"
-							placeholder="Password" />
-						<label class="label_error" id="error_password">${errorPassword}</label>
 					</div>
 					<div>
 						<form:input path="name" id="name" class="form-control"
@@ -70,16 +75,19 @@ body {
 							<form:option value="0">Nữ</form:option>
 						</form:select>
 					</div>
-					<div style="margin: 22px 0;">
+					<div style="margin-top: 30px;margin-bottom: 10px;">
 						<form:input type="file" id="image" class="form-control"
 							path="image" />
 						<label class="label_error" id="error_image">${errorImage}</label>
 					</div>
 					<div>
-						<form:button class="btn btn-default submit"
-							onclick="return validate();">Submit</form:button>
+						<form:hidden path="id" id="idUser"/>
+						<form:hidden path="active"/>
 					</div>
-
+					<div>
+						<form:button class="btn btn-primary submit form-control"
+							onclick="return validate();">Đăng ký</form:button>
+					</div>
 					<div class="clearfix"></div>
 
 					<div class="separator">
@@ -108,13 +116,18 @@ body {
 	<script type="text/javascript">
 		
 		$('#success').fadeOut(8000);
+		if ($.trim($('#idUser').val()) > 0){
+			$('#div_username').css("display", "none");
+		}
 	
 		function validate() {
 			var username = $.trim($('#username').val());
 			var password = $.trim($('#password').val());
+			var passwordHidden = $.trim($('#passwordHidden').val());
 			var email = $.trim($('#email').val());
 			var name = $.trim($('#name').val());
 			var image = $.trim($('#image').val());
+			var idUser = $.trim($('#idUser').val());
 
 			$('#error').html('');
 			//Username
@@ -125,20 +138,27 @@ body {
 				$('#error_username').html('');
 			}
 
+			//password
+			if (passwordHidden.length > 0){
+				if (password.length > 0 && password.length < 6){
+					$('#error_password').html('Mật khẩu phải từ 6 ký tự');
+					return false;
+				}else if (password.length == 0){
+					$('#password').val(passwordHidden);
+				}
+			}else if (password.length < 6) {
+				$('#error_password').html('Mật khẩu phải từ 6 ký tự');
+				return false;
+			} else {
+				$('#error_password').html('');
+			}
+
 			//email
 			if (email.length < 1) {
 				$('#error_email').html('Email không được rỗng');
 				return false;
 			} else {
 				$('#error_email').html('');
-			}
-
-			//password
-			if (password.length < 6) {
-				$('#error_password').html('Mật khẩu phải từ 6 ký tự');
-				return false;
-			} else {
-				$('#error_password').html('');
 			}
 
 			//name

@@ -48,13 +48,17 @@ public class UserController {
 			throws IOException {
 		if (!Util.validateEmail(user.getEmail())) {
 			model.addAttribute("errorEmail", env.getProperty("error.email"));
-		} else if (!Util.validatePassword(user.getPassword())) {
+		} else if (!Util.validatePassword(user.getPassword()) &&  !(user.getId() > 0)) {
 			model.addAttribute("errorPassword", env.getProperty("error.password"));
 		} else if (!Util.saveImage(new File(request.getServletContext().getRealPath("static\\images")),
 				user.getImage())) {
 			model.addAttribute("errorImage", env.getProperty("error.image.extension"));
 		} else if (user.getImage().getSize() > 600 * 1024) {
 			model.addAttribute("errorImage", env.getProperty("error.image.size"));
+		}else if (user.getId() != 0){
+			userService.updateUser(user);
+			model.addAttribute("success", env.getProperty("update.success"));
+			request.getSession().invalidate();
 		} else if (userService.getUserByUsername(user.getUsername()) == null) {
 			model.addAttribute("success", env.getProperty("signup.success"));
 			model.addAttribute("user", new User());
@@ -125,6 +129,12 @@ public class UserController {
 	private String deleteUser(@PathVariable("id") int id,ModelMap model) {
 		userService.deleteUser(id);
 		return "redirect:/user/list";
+	}
+	
+	@GetMapping(value = "/user/update/{id}")
+	private String updateUser(@PathVariable("id") int id,ModelMap model) {
+		model.addAttribute("user", userService.getUserById(id));
+		return "signup";
 	}
 	
 }

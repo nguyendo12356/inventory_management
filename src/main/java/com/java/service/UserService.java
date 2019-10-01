@@ -20,6 +20,8 @@ public interface UserService {
 	
 	User getUserByUsername(String username);
 	
-	void changeStateAccount(int id, int active);
+	void changeStateAccount(int id, boolean active);
+	
+	User findById(int id);
 	
 }
