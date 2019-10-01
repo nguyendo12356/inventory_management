@@ -105,13 +105,13 @@
 								<ul id="menu1" class="dropdown-menu list-unstyled msg_list"
 									role="menu">
 									<li><a> <span class="image"><img
-												src="images/img.jpg" alt="Profile Image" /></span> <span> <span>John
+												src="" alt="Profile Image" /></span> <span> <span>John
 													Smith</span> <span class="time">3 mins ago</span>
 										</span> <span class="message"> Film festivals used to be
 												do-or-die moments for movie makers. They were where... </span>
 									</a></li>
 									<li><a> <span class="image"><img
-												src="images/img.jpg" alt="Profile Image" /></span> <span> <span>John
+												src="" alt="Profile Image" /></span> <span> <span>John
 													Smith</span> <span class="time">3 mins ago</span>
 										</span> <span class="message"> Film festivals used to be
 												do-or-die moments for movie makers. They were where... </span>
@@ -139,8 +139,7 @@
 
 			<!-- footer content -->
 			<footer style="margin-top: -19px;">
-				<div class="pull-right">Xã Thạnh Mỹ Tây, Huyện Châu Phú, Tỉnh
-					An Giang</div>
+				<div class="pull-right"><p>&copy; 2019 Inventory Management<p></div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->
@@ -151,9 +150,7 @@
 	<script src='<c:url value="/resources/bootstrap/js/jquery.min.js"/>'></script>
 	<!-- Bootstrap -->
 	<script src='<c:url value="/resources/common/bootstrap.min.js"/>'></script>
-	<script src="../build/js/custom.min.js"></script>
 	<script src="<c:url value='/resources/build/js/custom.min.js'/>"></script>
 	<script src="<c:url value='/resources/build/js/customjs.js'/>"></script>
-
 </body>
 </html>
