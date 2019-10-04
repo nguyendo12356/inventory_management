@@ -37,3 +37,12 @@
 	width: 120px;
 	height: 80px;
 }
+
+.custom-modal{
+	
+}
+
+.custom-modal .modal-header{
+	background-color: #1ABB9C;
+	color: white;
+}

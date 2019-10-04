@@ -52,7 +52,7 @@
 				<td><c:choose>
 						<c:when test="${item.active}">
 							<a id="btn${item.id}"
-								onclick="" style="display: block;" data-toggle="modal" ><span
+								onclick="changeState(${item.id},false)" style="display: block;" data-toggle="modal" ><span
 								id="span${item.id}" class="glyphicon glyphicon-pause" ></span></a>
 							<a id="btnhidden${item.id}"
 								onclick="changeState(${item.id},true)" style="display: none;" data-toggle="modal" ><span
@@ -68,9 +68,8 @@
 						</c:otherwise>
 					</c:choose></td>
 				<td><a type="button" class="btn btn-info"
-					href="<c:url value="/user/update/${item.id}"/>">Sửa</a> <a
-					type="button" class="btn btn-danger"
-					href="<c:url value="/user/delete/${item.id}"/>">Xóa</a></td>
+					href="<c:url value="/user/update/${item.id}"/>">Sửa</a>
+					<a type="button" class="btn btn-danger" href="<c:url value="/user/delete/${item.id}"/>" id="btnDel${item.id}">Xóa</a></td>
 			</tr>
 		</c:forEach>
 	</tbody>
@@ -81,17 +80,17 @@
   <div class="modal-dialog">
 
     <!-- Modal content-->
-    <div class="modal-content">
+    <div class="modal-content custom-modal">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Kích hoạt tài khoản</h4>
       </div>
       <div class="modal-body">
-        <p>Bạn có muốn kích hoạt tài khoản ?</p>
+        <p id="p-content">Bạn có muốn kích hoạt tài khoản ?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" id="modal_yes">Yes</button>
-        <button type="button" class="btn btn-default" id="modal_no">No</button>
+        <button type="button" class="btn btn-warning" id="modal_yes">Yes</button>
+        <button type="button" class="btn btn-primary" id="modal_no">No</button>
       </div>
     </div>
 
