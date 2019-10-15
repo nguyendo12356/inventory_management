@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.java.dao.UserRoleService;
 import com.java.entity.UserRole;
 import com.java.model.MenuModel;
 import com.java.model.User;
@@ -40,6 +41,9 @@ public class UserController {
 
 	@Autowired
 	private RoleService roleService;
+	
+	@Autowired
+	private UserRoleService userRoleService;
 	
 	@GetMapping(value = "/signupForm")
 	private String loadSignupForm(ModelMap model) {
@@ -68,6 +72,7 @@ public class UserController {
 			model.addAttribute("success", env.getProperty("signup.success"));
 			model.addAttribute("user", new User());
 			userService.addUser(user);
+			userRoleService.addUserRole(25, user.getRoleId());
 		} else {
 			model.addAttribute("error", env.getProperty("error.username"));
 		}

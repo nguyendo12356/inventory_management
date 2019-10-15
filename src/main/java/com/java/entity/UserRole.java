@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -20,6 +21,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 @Table( name = "user_role")
 public class UserRole implements Serializable {
 	
@@ -27,6 +29,13 @@ public class UserRole implements Serializable {
 
 	public UserRole(int id) {
 		this.id = id;
+	}
+	
+	public UserRole(UserDto user, Role role) {
+		this.userDto = user;
+		this.role = role;
+		this.active = true;
+		this.createDate = new Date();
 	}
 	
 	@Id

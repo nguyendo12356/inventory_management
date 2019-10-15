@@ -14,13 +14,19 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "role")
 public class Role implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	public Role(int id) {
+		this.id = id;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
