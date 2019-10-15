@@ -33,5 +33,7 @@ public class User {
 	
 	private Date createDate;
 	
+	private int roleId;
+	
 	private Set<UserRole> role = new HashSet<UserRole>();
 }

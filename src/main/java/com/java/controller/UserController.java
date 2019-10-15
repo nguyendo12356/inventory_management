@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.java.entity.UserRole;
 import com.java.model.MenuModel;
 import com.java.model.User;
+import com.java.service.RoleService;
 import com.java.service.UserService;
 import com.java.util.ConvertObject;
 import com.java.util.Util;
@@ -37,9 +38,13 @@ public class UserController {
 	@Autowired
 	private Environment env;
 
+	@Autowired
+	private RoleService roleService;
+	
 	@GetMapping(value = "/signupForm")
 	private String loadSignupForm(ModelMap model) {
 		model.addAttribute("user", new User());
+		model.addAttribute("roles",roleService.findAll());
 		return "signup";
 	}
 

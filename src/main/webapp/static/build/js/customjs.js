@@ -30,24 +30,3 @@ function changeState(id, active) {
 };
 
 
-//var modalConfirm = function(callback){
-//	
-//	$('#p-content').html("Bạn có muốn xóa tài khoản không ?");
-//	
-//	  $("#btnDel"+id).on("click", function(){
-//	    $("#popup").modal('show');
-//	  });
-//
-//	  $("#modal_yes").on("click", function(){
-//	    callback(true);
-//	    $("#popup").modal('hide');
-//	  });
-//	  
-//	  $("#modal_no").on("click", function(){
-//	    callback(false);
-//	    $("#popup").modal('hide');
-//	  });
-//	};
-//
-//	modalConfirm(function(confirm){
-//	});

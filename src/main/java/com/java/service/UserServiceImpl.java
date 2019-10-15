@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.java.dao.UserDao;
 import com.java.entity.UserDto;
+import com.java.entity.UserRole;
 import com.java.model.User;
 import com.java.util.ConvertObject;
 
@@ -20,6 +21,8 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public void addUser(User user) {
+		System.out.println(user.getRoleId());
+//		user.getRole().add(new UserRole(user.getRoleId()));
 		UserDto userDto = ConvertObject.convertUserToUserDto(user);
 		userDto.setActive(false);
 		userDto.setCreateDate(new Date());

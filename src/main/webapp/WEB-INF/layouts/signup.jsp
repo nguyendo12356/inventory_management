@@ -80,13 +80,25 @@ body {
 							path="image" />
 						<label class="label_error" id="error_image">${errorImage}</label>
 					</div>
+					<div style="margin-bottom: 30px;">
+						<form:select path="roleId" class="form-control">
+							<c:forEach items="${roles}" var="role">
+								<form:option value="${role.id}">${role.roleName}</form:option>
+							</c:forEach>
+						</form:select>
+					</div>
 					<div>
 						<form:hidden path="id" id="idUser"/>
 						<form:hidden path="active"/>
 					</div>
 					<div>
 						<form:button class="btn btn-primary submit form-control"
-							onclick="return validate();">Đăng ký</form:button>
+							onclick="return validate();" style="background-color: #64b733;">
+							<c:choose>
+								<c:when test="${id > 0}">Cập Nhật</c:when>
+								<c:otherwise>Đăng Ký</c:otherwise>
+							</c:choose>
+							</form:button>
 					</div>
 					<div class="clearfix"></div>
 
