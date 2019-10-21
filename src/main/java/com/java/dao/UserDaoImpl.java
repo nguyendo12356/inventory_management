@@ -1,16 +1,20 @@
 package com.java.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.java.common.BaseDaoImpl;
+import com.java.entity.Role;
 import com.java.entity.UserDto;
+import com.java.entity.UserRole;
 
 @Repository
 @Transactional
@@ -19,10 +23,19 @@ public class UserDaoImpl extends BaseDaoImpl<UserDto> implements UserDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	
 	@Override
 	public void addUser(UserDto user) {
-		sessionFactory.getCurrentSession().save(user);
+		Session s = sessionFactory.openSession();
+		Transaction tx = s.beginTransaction();
+		s.save(user);
+		UserRole userRole = new UserRole();
+		userRole.setActive(true);
+		userRole.setCreateDate(new Date());
+		userRole.setUserDto(user);
+		userRole.setRole(new Role(1));
+		s.save(userRole);
+		tx.commit();
+		s.close();
 	}
 
 	@SuppressWarnings("unchecked")

@@ -33,7 +33,10 @@ public class ConvertObject {
 		user.setImageName(userDto.getImage());
 		user.setActive(userDto.isActive());
 		user.setCreateDate(userDto.getCreateDate());
-		userDto.getUserRole().forEach( n ->{ user.getRole().add(n);});
+		if(!userDto.getUserRole().isEmpty()) {
+			System.out.println(user);
+			userDto.getUserRole().forEach( n ->{ user.getRole().add(n);});
+		}
 		return user;
 	}
 	

@@ -72,7 +72,7 @@ public class UserController {
 			model.addAttribute("success", env.getProperty("signup.success"));
 			model.addAttribute("user", new User());
 			userService.addUser(user);
-			userRoleService.addUserRole(25, user.getRoleId());
+			userRoleService.addUserRole(ConvertObject.convertUserToUserDto(user), user.getRoleId());
 		} else {
 			model.addAttribute("error", env.getProperty("error.username"));
 		}

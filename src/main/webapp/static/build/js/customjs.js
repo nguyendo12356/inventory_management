@@ -7,7 +7,7 @@ function changeState(id, active) {
 
 	$("#popup").modal('show');
 
-	$("#modal_yes").on("click", function() {
+	$("#modal_yes").unbind().on("click", function() {
 		$("#popup").modal('hide');
 		$.ajax({
 			type : "GET",
@@ -24,7 +24,7 @@ function changeState(id, active) {
 		});
 	});
 
-	$("#modal_no").on("click", function() {
+	$("#modal_no").unbind().on("click", function() {
 		$("#popup").modal('hide');
 	});
 };
