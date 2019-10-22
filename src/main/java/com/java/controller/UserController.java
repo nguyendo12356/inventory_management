@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.java.dao.UserRoleService;
 import com.java.entity.UserRole;
 import com.java.model.MenuModel;
 import com.java.model.User;
@@ -42,9 +42,6 @@ public class UserController {
 	@Autowired
 	private RoleService roleService;
 	
-	@Autowired
-	private UserRoleService userRoleService;
-	
 	@GetMapping(value = "/signupForm")
 	private String loadSignupForm(ModelMap model) {
 		model.addAttribute("user", new User());
@@ -53,7 +50,7 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/addUser")
-	private String addUser(@ModelAttribute("user") User user, ModelMap model, HttpServletRequest request)
+	private String addUser(@ModelAttribute("user") User user, @RequestParam("roleId") int roleId,ModelMap model, HttpServletRequest request)
 			throws IOException {
 		if (!Util.validateEmail(user.getEmail())) {
 			model.addAttribute("errorEmail", env.getProperty("error.email"));
@@ -71,8 +68,7 @@ public class UserController {
 		} else if (userService.getUserByUsername(user.getUsername()) == null) {
 			model.addAttribute("success", env.getProperty("signup.success"));
 			model.addAttribute("user", new User());
-			userService.addUser(user);
-			userRoleService.addUserRole(ConvertObject.convertUserToUserDto(user), user.getRoleId());
+			userService.addUser(user, roleId);
 		} else {
 			model.addAttribute("error", env.getProperty("error.username"));
 		}

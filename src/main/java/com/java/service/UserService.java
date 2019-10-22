@@ -6,7 +6,7 @@ import com.java.model.User;
 
 public interface UserService {
 
-	void addUser(User user);
+	void addUser(User user, int roleId);
 
 	void updateUser(User user);
 

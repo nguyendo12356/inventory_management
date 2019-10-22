@@ -29,6 +29,8 @@ public class UserRole implements Serializable {
 
 	public UserRole(int id) {
 		this.id = id;
+		this.active = true;
+		this.createDate = new Date();
 	}
 	
 	public UserRole(UserDto user, Role role) {
