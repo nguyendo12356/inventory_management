@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -11,12 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.java.dao.UserDao;
+import com.java.entity.Role;
 import com.java.entity.UserDto;
 import com.java.entity.UserRole;
 import com.java.model.User;
 import com.java.util.ConvertObject;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService{
 
 	@Autowired
@@ -27,7 +31,8 @@ public class UserServiceImpl implements UserService{
 		UserDto userDto = ConvertObject.convertUserToUserDto(user);
 		userDto.setActive(false);
 		userDto.setCreateDate(new Date());
-		UserRole userRole = new UserRole(roleId);
+		UserRole userRole = new UserRole();
+		userRole.setRole(new Role(roleId));
 		userDao.addUser(userDto, userRole);
 	}
 

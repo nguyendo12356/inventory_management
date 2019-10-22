@@ -25,10 +25,18 @@ public class UserDaoImpl extends BaseDaoImpl<UserDto> implements UserDao {
 	public void addUser(UserDto user, UserRole userRole) {
 		Session s = sessionFactory.openSession();
 		Transaction tx = s.beginTransaction();
-		s.save(user);
-		s.save(userRole);
-		tx.commit();
-		s.close();
+		try {
+			s.save(user);
+			userRole.setUserDto(user);
+			s.save(userRole);
+			tx.commit();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Add User error");
+		}finally {
+			s.close();			
+		}
 	}
 
 	@SuppressWarnings("unchecked")

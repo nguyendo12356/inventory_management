@@ -80,7 +80,8 @@ body {
 							path="image" />
 						<label class="label_error" id="error_image">${errorImage}</label>
 					</div>
-					<div style="margin-bottom: 30px;">
+					
+					<div style="margin-bottom: 30px;" id="slRole">
 						<form:select path="roleId" class="form-control">
 							<c:forEach items="${roles}" var="role">
 								<form:option value="${role.id}">${role.roleName}</form:option>
@@ -90,6 +91,7 @@ body {
 					<div>
 						<form:hidden path="id" id="idUser"/>
 						<form:hidden path="active"/>
+						<form:hidden path="imageName" id="idImage"/>
 					</div>
 					<div>
 						<form:button class="btn btn-primary submit form-control"
@@ -130,6 +132,7 @@ body {
 		$('#success').fadeOut(8000);
 		if ($.trim($('#idUser').val()) > 0){
 			$('#div_username').css("display", "none");
+			$('#slRole').css('display','none');
 		}
 	
 		function validate() {
@@ -140,6 +143,7 @@ body {
 			var name = $.trim($('#name').val());
 			var image = $.trim($('#image').val());
 			var idUser = $.trim($('#idUser').val());
+			var idImage = $('#idImage').val();
 
 			$('#error').html('');
 			//Username
@@ -167,6 +171,7 @@ body {
 
 			//email
 			if (email.length < 1) {
+				
 				$('#error_email').html('Email không được rỗng');
 				return false;
 			} else {
@@ -183,7 +188,12 @@ body {
 
 			//image
 			if (image.length < 1) {
-				$('#error_image').html('Image không được rỗng');
+				if (idImage.length < 1){
+					$('#error_image').html('Image không được rỗng');
+				}else{
+					$('#image').val(idImage);
+					alert('hello');
+				}
 				return false;
 			} else {
 				$('#error_image').html('');

@@ -26,6 +26,8 @@ public class Role implements Serializable {
 	
 	public Role(int id) {
 		this.id = id;
+		this.createDate = new Date();
+		this.active = true;
 	}
 
 	@Id
