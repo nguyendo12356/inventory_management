@@ -75,11 +75,6 @@ public class UserDaoImpl extends BaseDaoImpl<UserDto> implements UserDao {
 	@Override
 	public void changeStateAccount(int id, boolean active) {
 		UserDto user = findById(UserDto.class, id);
-//		if(active){
-//			user.setActive(false);
-//		}else{
-//			user.setActive(true);
-//		}
 		user.setActive(active);
 		update(user);
 	}

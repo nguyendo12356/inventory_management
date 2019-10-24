@@ -1,0 +1,9 @@
+.custom-fieldset{
+	border: 1px solid silver;
+    margin: 0 2px;
+    padding: .35em .625em .75em;
+}
+
+.custom-form button{
+		margin: 0;
+	}

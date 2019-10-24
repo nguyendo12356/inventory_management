@@ -90,7 +90,6 @@ public class UserController {
 			model.addAttribute("error",env.getProperty("error.login"));
 			return "login";
 		}else if (!user1.isActive()) {
-			System.out.println(user1.toString());
 			model.addAttribute("error",env.getProperty("error.active"));
 			return "login";
 		}else {
