@@ -46,3 +46,16 @@
 	background-color: #1ABB9C;
 	color: white;
 }
+
+.common-modal .modal-footer{
+	text-align: center;
+	font-weight: bold;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+.common-modal .error{
+	color: red;
+	text-align: center;
+	display: none;
+}

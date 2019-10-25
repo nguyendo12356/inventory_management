@@ -25,4 +25,7 @@
 	<definition name = "inputInventoryAdd" extends="master">
 		<put-attribute name="content" value="/WEB-INF/layouts/inventory/inputAdd.jsp"></put-attribute>
 	</definition>
+	<definition name = "categorylist" extends="master">
+		<put-attribute name="content" value="/WEB-INF/layouts/product/categorylist.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>

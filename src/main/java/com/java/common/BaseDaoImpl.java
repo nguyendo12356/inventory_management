@@ -84,5 +84,17 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 		sessionFactory.getCurrentSession().delete(findById(e, id));		
 	}
 
+	@Override
+	public int countRecord() {
+		String sql;
+		try {
+			sql = "Select count(*) from "+getClassName()+" as model where model.active = 1";
+			return ((Long)sessionFactory.getCurrentSession().createQuery(sql).uniqueResult()).intValue();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 
 }

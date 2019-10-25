@@ -16,4 +16,6 @@ public interface BaseDao<E> {
 	
 	void delete(Class<E> e,int id);
 	
+	int countRecord();
+	
 }

@@ -24,19 +24,42 @@
 	style="text-align: center;">
 	<thead>
 		<tr class="table_header" align="left">
-			<th>STT</th>
-			<th>Mã hóa đơn</th>
-			<th>Nhà cung cấp</th>
-			<th>Tổng giá trị</th>
-			<th>Ngày nhập</th>
-			<th>Action</th>
+			<th>Tên sản phẩm</th>
+			<th>Loại</th>
+			<th>Số lượng</th>
+			<th>Giá</th>
+			<th>Giảm giá</th>
+			<th>Hình ảnh</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
-			<td></td>
-		</tr>
+		<form:form>
+			<tr>
+				<td>
+					<input />
+				</td>
+				<td>
+					<select></select>
+				</td>
+				<td>
+					<input />
+				</td>
+				<td>
+					<input />
+				</td>
+				<td>
+					<input type="number"/>
+				</td>
+				<td>
+					<input type="file"/>
+				</td>
+			</tr>
+		</form:form>
 	</tbody>
 </table>
 </form>
-
+<div class="addNew">
+<button type="button" class="btn btn-default btn-sm">
+          <span class="glyphicon glyphicon-plus"></span> Plus
+</button>
+</div>
