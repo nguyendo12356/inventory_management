@@ -1,8 +1,13 @@
 package com.java.util;
 
+import java.util.Date;
+
+import com.java.entity.Category;
 import com.java.entity.Menu;
+import com.java.entity.Product;
 import com.java.entity.UserDto;
 import com.java.model.MenuModel;
+import com.java.model.ProductModel;
 import com.java.model.User;
 
 public class ConvertObject {
@@ -62,5 +67,18 @@ public class ConvertObject {
 		menu.setParent_id(menuModel.getParent_id());
 		menu.setUrl(menuModel.getUrl());
 		return menu;
+	}
+	
+	public static Product parseProduct(ProductModel productModel) {
+		Product p = new Product();
+		p.setCategory(new Category(productModel.getCategory()));
+		p.setDescription(productModel.getDescription());
+		p.setDiscount(productModel.getDiscount());
+		p.setName(productModel.getName());
+		p.setPrice(productModel.getPrice());
+		p.setQuantity(productModel.getQuantity());
+		p.setActive(true);
+		p.setCreateDate(productModel.getCreateDate() == null ? new Date() : productModel.getCreateDate());
+		return p;
 	}
 }

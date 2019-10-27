@@ -17,9 +17,11 @@ import lombok.Data;
 public class Product {
 	@Id
 	private int id;
+	
 	@ManyToOne
 	@JoinColumn(name = "cate_id")
 	private Category category;
+	
 	@Column(name = "name")
 	private String name;
 	@Column(name = "qty")
@@ -35,7 +37,7 @@ public class Product {
 	@Column(name = "description")
 	private String description;
 	@Column(name = "active_flag")
-	private boolean isActive;
+	private boolean active;
 	@Column(name = "create_date")
 	private Date createDate;
 }

@@ -48,19 +48,6 @@
 		</c:forEach>
 	</tbody>
 </table>
-<div style="text-align: center;">
-	<ul class="pagination pagination-md">
-	  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-	  <%
-	  	for(int num = num*2; num <=(int)request.getAttribute("sumCategory")/2; num+=2){
-	  %>
-	  		<li class="page-item"><a class="page-link" href="#"><%= num %></a></li>
-	  <%
-	  	}
-	  %>
-	  <li class="page-item"><a class="page-link" href="#">Next</a></li>
-	</ul>
-</div>
 <script src='<c:url value="/resources/bootstrap/js/jquery.min.js"/>'></script>
 <script src='<c:url value="/resources/js/general.js"/>'></script>
 

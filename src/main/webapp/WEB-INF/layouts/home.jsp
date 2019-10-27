@@ -131,17 +131,17 @@
 			<!-- /top navigation -->
 
 			<!-- page content -->
-			<div class="right_col" role="main">
+			<div class="right_col" role="main" style="">
 				<tiles:insertAttribute name="content" />
 
 			</div>
 			<!-- /page content -->
 
 			<!-- footer content -->
-			<footer style="margin-top: -19px;">
+<!-- 			<footer style="margin-top: -19px;">
 				<div class="pull-right"><p>&copy; 2019 Inventory Management<p></div>
 				<div class="clearfix"></div>
-			</footer>
+			</footer> -->
 			<!-- /footer content -->
 		</div>
 	</div>

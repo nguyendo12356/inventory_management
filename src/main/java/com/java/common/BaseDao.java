@@ -18,4 +18,6 @@ public interface BaseDao<E> {
 	
 	int countRecord();
 	
+	List<E> getCountRecord(int page, int num);
+	
 }

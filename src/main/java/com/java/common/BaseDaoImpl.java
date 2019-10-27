@@ -96,5 +96,20 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 		return 0;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<E> getCountRecord(int page, int num) {
+		Query<E> query = null;
+		try {
+			query = sessionFactory.getCurrentSession().createQuery("from "+getClassName()+" as modal where modal.active = 1");
+			query.setFirstResult(page);
+			query.setMaxResults(num);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return query.list();
+	}
+
 
 }

@@ -36,4 +36,8 @@ public class Category {
 		this.name = name;
 		this.description = description;
 	}
+	
+	public Category(int id) {
+		this.id = id;
+	}
 }

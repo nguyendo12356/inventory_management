@@ -28,4 +28,10 @@
 	<definition name = "categorylist" extends="master">
 		<put-attribute name="content" value="/WEB-INF/layouts/product/categorylist.jsp"></put-attribute>
 	</definition>
+	<definition name = "productlist" extends="master">
+		<put-attribute name="content" value="/WEB-INF/layouts/product/productlist.jsp"></put-attribute>
+	</definition>
+	<definition name = "addproduct" extends="master">
+		<put-attribute name="content" value="/WEB-INF/layouts/product/addproduct.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>
