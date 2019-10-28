@@ -13,6 +13,10 @@ function addNewLine(func){
 	$(id+" tbody").append(newLine);
 }
 
+function deleteLineTable(event){
+	$(event.target).parent().parent().remove();
+}
+
 function paginationEvent(isNext, contextPath){
 	let pageSplit = document.URL.split("/");
 	let pageNumber;

@@ -13,7 +13,7 @@ public class ProductModel {
 	private String name;
 	private int quantity;
 	private double price;
-	private String discount;
+	private int discount;
 	private String code;
 	private MultipartFile img_url;
 	private String description;
