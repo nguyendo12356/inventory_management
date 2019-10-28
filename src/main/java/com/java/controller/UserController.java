@@ -95,6 +95,7 @@ public class UserController {
 		}else {
 			HttpSession session = request.getSession();
 			session.setAttribute("session", user1);
+			session.setMaxInactiveInterval(60*60*24);
 			UserRole userRole = user1.getRole().iterator().next();
 			List<MenuModel> menus = new ArrayList<MenuModel>();
 			userRole.getRole().getAuth().forEach(auth ->{

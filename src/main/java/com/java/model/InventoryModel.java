@@ -11,6 +11,8 @@ public class InventoryModel {
 	private String codeBill;
 	private int type;
 	private String suplier;
+	private double totalPrice;
+	private String staffName;
 	List<ProductModel> products = new LinkedList<ProductModel>();
 
 }

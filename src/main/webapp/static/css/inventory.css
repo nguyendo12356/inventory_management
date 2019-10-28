@@ -12,3 +12,7 @@
 .addNew{
 	text-align: right;
 }
+
+.custom-button{
+	text-align: center !important;
+}

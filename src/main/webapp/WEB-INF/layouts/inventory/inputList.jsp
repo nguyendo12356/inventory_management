@@ -21,6 +21,7 @@
 			<th>Nhà cung cấp</th>
 			<th>Tổng giá trị</th>
 			<th>Ngày nhập</th>
+			<th>Người nhập</th>
 			<th>Action</th>
 		</tr>
 	</thead>
@@ -40,6 +41,7 @@
 				<td>${item.suplier}</td>
 				<td><fmt:formatNumber type="currency" value="${item.price}"  /></td>
 				<td>${item.createDate}</td>
+				<td>${item.staffName}</td>
 				<td>
 				<a type="button" class="btn btn-info"
 					href="<c:url value='/inventory/input/detail/${item.id}'/>">Chi tiết</a>

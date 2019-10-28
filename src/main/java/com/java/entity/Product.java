@@ -29,7 +29,7 @@ public class Product {
 	@Column(name = "price")
 	private double price;
 	@Column(name = "discount")
-	private String discount;
+	private int discount;
 	@Column(name = "code")
 	private String code;
 	@Column(name = "img_url")

@@ -43,13 +43,13 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 		StringBuilder queryString = new StringBuilder();
 		try {
 			queryString.append(" from ").append(getClassName()).append(" as model where model.active = 1 and model.")
-					.append(property).append("=?");
+					.append(property).append("=:property");
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Query<E> query = sessionFactory.getCurrentSession().createQuery(queryString.toString());
-		query.setParameter(0, value);
+		query.setParameter("property", value);
 		return query.getResultList();
 	}
 
@@ -109,6 +109,18 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 			e.printStackTrace();
 		}
 		return query.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public E findByName(String name) {
+		StringBuilder sb = new StringBuilder("");
+		try {
+			sb.append("from ").append(getClassName()).append(" as model where model.active = 1 and model.name=:value");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return (E)sessionFactory.getCurrentSession().createQuery(sb.toString()).uniqueResult();
 	}
 
 

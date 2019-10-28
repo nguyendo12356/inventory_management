@@ -20,4 +20,6 @@ public interface BaseDao<E> {
 	
 	List<E> getCountRecord(int page, int num);
 	
+	E findByName(String name);
+	
 }
