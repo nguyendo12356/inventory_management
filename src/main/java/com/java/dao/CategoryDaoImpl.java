@@ -23,5 +23,12 @@ public class CategoryDaoImpl extends BaseDaoImpl<Category> implements CategoryDa
 		query.setParameter("name", name);
 		return query.uniqueResult();
 	}
+	@Override
+	public Category findCategoryById(int id) {
+		@SuppressWarnings("unchecked")
+		Query<Category> query = sessionFactory.getCurrentSession().createQuery("from Category where id=:id");
+		query.setParameter("id", id);
+		return query.uniqueResult();
+	}
 
 }

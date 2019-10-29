@@ -82,4 +82,18 @@ public class ConvertObject {
 		return p;
 	}
 	
+	public static ProductModel parseProductModel(Product product) {
+		ProductModel productModel = new ProductModel();
+		productModel.setCategory(product.getCategory().getId());
+		productModel.setDescription(product.getDescription());
+		productModel.setDiscount(product.getDiscount());
+		productModel.setName(product.getName());
+		productModel.setPrice(product.getPrice());
+		productModel.setQuantity(product.getQuantity());
+		productModel.setActive(true);
+		productModel.setImageName(product.getImg_url());
+		productModel.setCreateDate(product.getCreateDate() == null ? new Date() : product.getCreateDate());
+		return productModel;
+	}
+	
 }

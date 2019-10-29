@@ -11,6 +11,7 @@ import com.java.entity.IOInventory;
 import com.java.entity.Product;
 import com.java.model.InventoryModel;
 import com.java.model.ProductModel;
+import com.java.util.ConvertObject;
 
 @Service
 @Transactional
@@ -28,8 +29,12 @@ public class InventoryService {
 				inventoryModel.getSuplier(), inventoryModel.getTotalPrice(), inventoryModel.getStaffName());
 		for( ProductModel product : inventoryModel.getProducts()) {
 			p = productDao.findById(Product.class, product.getId());
-			System.out.println(p.toString());
-			productDao.update(p);
+			if(p != null) {
+				p.setQuantity(product.getQuantity() + p.getQuantity());
+				productDao.update(p);
+			}else {
+				productDao.save(ConvertObject.parseProduct(product));
+			}
 		}
 		ioDao.save(invoice);
 	}

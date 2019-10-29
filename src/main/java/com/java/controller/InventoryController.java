@@ -15,7 +15,6 @@ import com.java.model.User;
 import com.java.service.CategoryService;
 import com.java.service.IOService;
 import com.java.service.InventoryService;
-import com.java.service.ProductService;
 
 @Controller
 @RequestMapping(value = "/inventory")
@@ -26,9 +25,6 @@ public class InventoryController {
 	
 	@Autowired
 	private CategoryService categoryService;
-	
-	@Autowired
-	private ProductService productService;
 	
 	@Autowired
 	private InventoryService inventoryService;
@@ -54,7 +50,6 @@ public class InventoryController {
 		p = new ProductModel();
 		inventoryModel.getProducts().add(p);
 		modal.addObject("model", inventoryModel);
-		modal.addObject("productlist", productService.findAll());
 		modal.addObject("category", categoryService.findAll());
 		return modal;
 	}
@@ -63,7 +58,7 @@ public class InventoryController {
 	public ModelAndView addInvoice(@ModelAttribute("model") InventoryModel model, HttpServletRequest request) {
 		ModelAndView modal = new ModelAndView("redirect:/inventory/input");
 		User u = (User)request.getSession().getAttribute("session");
-		model.setStaffName(u.getName());
+		model.setStaffName(u.getName() != null ? u.getName() : "");
 		inventoryService.addInvoice(model);
 		return modal;
 	}

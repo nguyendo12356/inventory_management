@@ -53,4 +53,9 @@ public class ProductService {
 	public void deleteProduct(int id) {
 		productDao.delete(Product.class, id);
 	}
+	
+	public ProductModel findProductById(int id) {
+		return ConvertObject.parseProductModel(productDao.findById(Product.class, id));
+	}
+	
 }

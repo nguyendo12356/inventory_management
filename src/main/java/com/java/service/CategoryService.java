@@ -33,4 +33,8 @@ public class CategoryService {
 	public int getSumRecords() {
 		return categoryDao.countRecord();
 	}
+	
+	public Category findCategoryById(int id){
+		return categoryDao.findCategoryById(id);
+	}
 }

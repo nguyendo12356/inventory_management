@@ -10,6 +10,5 @@ import com.java.entity.Product;
 @Repository
 @Transactional
 public class ProductDaoImpl extends BaseDaoImpl<Product> implements ProductDao{
-
 	
 }

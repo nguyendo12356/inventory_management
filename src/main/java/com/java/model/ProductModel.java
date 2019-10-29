@@ -17,6 +17,7 @@ public class ProductModel {
 	private String code;
 	private MultipartFile img_url;
 	private String description;
+	private String imageName;
 	private boolean active;
 	private Date createDate;
 }

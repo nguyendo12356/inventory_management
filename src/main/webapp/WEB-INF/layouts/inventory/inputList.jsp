@@ -39,8 +39,8 @@
 				</td>
 				<td>${item.codeBill}</td>
 				<td>${item.suplier}</td>
-				<td><fmt:formatNumber type="currency" value="${item.price}"  /></td>
-				<td>${item.createDate}</td>
+				<td><fmt:formatNumber type="Number" value="${item.price}" /> đ</td>
+				<td><fmt:formatDate value="${item.createDate}"/></td>
 				<td>${item.staffName}</td>
 				<td>
 				<a type="button" class="btn btn-info"
