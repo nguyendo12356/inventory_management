@@ -88,8 +88,6 @@
 	text-align: right;
 }
 
-.addNew
-
 .button-addnew{
 	cursor: pointer;
 	float: left;
@@ -164,4 +162,9 @@
 .m-width-120{
 	min-width: 100px;
 	max-width: 120px;
+}
+
+.m-width-180{
+	min-width: 180px;
+	max-width: 200px;
 }

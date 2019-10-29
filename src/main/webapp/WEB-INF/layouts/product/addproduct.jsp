@@ -15,6 +15,9 @@
 	</div>
 	<form:form modelAttribute="product" method="post" action="${contextPath}/product/add"  enctype="multipart/form-data" >
 		<div class="form-group">
+			<label>Mã sản phẩm:</label> <form:input path="code" class="form-control" />
+		</div>
+		<div class="form-group">
 			<label>Tên sản phẩm:</label> <form:input path="name" class="form-control" />
 		</div>
 		<div class="form-group">

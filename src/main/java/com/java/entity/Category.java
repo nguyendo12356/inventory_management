@@ -1,19 +1,12 @@
 package com.java.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -44,9 +37,9 @@ public class Category implements Serializable{
 	@Column(name = "create_date")
 	private Date createDate;
 	
-	@JsonIgnore
-	@OneToMany( mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Product> products = new ArrayList<Product>(); 
+//	@JsonIgnore
+//	@OneToMany( mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	private List<Product> products = new ArrayList<Product>(); 
 	
 	public Category(String name, String description) {
 		this.active = true;

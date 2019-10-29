@@ -25,6 +25,7 @@
 	<thead>
 		<tr class="table_header" align="left">
 			<th>STT</th>
+			<th>Mã sản phẩm</th>
 			<th>Tên sản phẩm</th>
 			<th class="w-12">Loại sản phẩm</th>
 			<th>Hình ảnh</th>
@@ -41,6 +42,7 @@
 				<td>
 					${loop.index + pageSize*(pageNumber - 1) + 1}
 				</td>
+				<td class="w-10">${item.code}</td>
 				<td>${item.name}</td>
 				<td>${item.category.name}</td>
 				<td>

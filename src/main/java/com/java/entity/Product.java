@@ -1,20 +1,13 @@
 package com.java.entity;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -48,8 +41,8 @@ public class Product {
 	@Column(name = "create_date")
 	private Date createDate;
 	
-	@JsonIgnore
-	@OneToMany( mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<InvoiceProduct> invoiceProduct = new ArrayList<InvoiceProduct>(); 
+//	@JsonIgnore
+//	@OneToMany( mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//	private List<InvoiceProduct> invoiceProduct = new ArrayList<InvoiceProduct>(); 
 	
 }

@@ -1,5 +1,6 @@
 package com.java.api;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -52,7 +53,7 @@ public class GeneralApiController {
 	@GetMapping(value = "/categoryType")
 	@ResponseBody
 	public ResponseEntity<List<Product>> findByProductByCategory(@RequestParam("cateId") int cateId){
-		return new ResponseEntity<List<Product>>(categorySer.findCategoryById(cateId).getProducts(),HttpStatus.OK);
+		return new ResponseEntity<List<Product>>(new LinkedList<Product>(),HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/invoice/product")

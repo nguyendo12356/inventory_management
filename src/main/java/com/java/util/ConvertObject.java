@@ -71,6 +71,7 @@ public class ConvertObject {
 	
 	public static Product parseProduct(ProductModel productModel) {
 		Product p = new Product();
+		p.setCode(productModel.getCode());
 		p.setCategory(new Category(productModel.getCategory()));
 		p.setDescription(productModel.getDescription());
 		p.setDiscount(productModel.getDiscount());

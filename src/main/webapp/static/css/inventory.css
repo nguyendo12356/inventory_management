@@ -16,3 +16,74 @@
 .custom-button{
 	text-align: center !important;
 }
+
+.w-6{
+	width: 6%;
+}
+
+
+//popup
+
+* {
+  box-sizing: border-box;
+}
+
+/* Create a column layout with Flexbox */
+.row {
+  display: flex;
+}
+
+/* Left column (menu) */
+.left {
+  flex: 35%;
+  position: relative;
+}
+
+.left h2 {
+  padding-left: 8px;
+}
+
+/* Right column (page content) */
+.right {
+  flex: 65%;
+  padding: 15px;
+}
+
+/* Style the search box */
+#mySearch {
+  width: 100%;
+  font-size: 18px;
+  padding: 11px;
+  border: 1px solid #ddd;
+}
+
+/* Style the navigation menu inside the left column */
+#myMenu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: none;
+  position: absolute;
+  text-align: left;
+  background: aqua;
+  width: 100%;
+  z-index: 1;
+}
+
+#myMenu li a {
+  padding: 12px;
+  text-decoration: none;
+  color: black;
+  display: block;
+}
+
+#myMenu li{
+	border-bottom: 1px solid white;
+	
+}
+
+#myMenu li a:hover {
+  background-color: lightgray;
+  cursor: pointer;
+  z-index: 2;
+}
