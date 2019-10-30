@@ -80,6 +80,9 @@ public class ConvertObject {
 			p.setPrice(productModel.getPrice());
 			p.setQuantity(productModel.getQuantity());
 			p.setActive(true);
+			if(productModel.getCate() != null) {
+				p.setCategory(productModel.getCate());
+			}
 			p.setCreateDate(productModel.getCreateDate() == null ? new Date() : productModel.getCreateDate());
 		}
 		return p;
@@ -88,6 +91,7 @@ public class ConvertObject {
 	public static ProductModel parseProductModel(Product product) {
 		ProductModel productModel = new ProductModel();
 		if (product != null) {
+			productModel.setCode(product.getCode());
 			productModel.setCategory(product.getCategory().getId());
 			productModel.setDescription(product.getDescription());
 			productModel.setDiscount(product.getDiscount());
@@ -95,6 +99,9 @@ public class ConvertObject {
 			productModel.setPrice(product.getPrice());
 			productModel.setQuantity(product.getQuantity());
 			productModel.setActive(true);
+			if(product.getCategory() != null) {
+				productModel.setCate(product.getCategory());
+			}
 			productModel.setImageName(product.getImg_url());
 			productModel.setCreateDate(product.getCreateDate() == null ? new Date() : product.getCreateDate());
 		}

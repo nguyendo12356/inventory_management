@@ -4,12 +4,15 @@ import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.java.entity.Category;
+
 import lombok.Data;
 
 @Data
 public class ProductModel {
 	private int id;
 	private int category;
+	private Category cate;
 	private String name;
 	private int quantity;
 	private double price;

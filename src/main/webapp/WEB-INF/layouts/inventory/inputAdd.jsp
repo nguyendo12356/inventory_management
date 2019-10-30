@@ -50,16 +50,13 @@
 				<tr>
 					<td class="m-width-180">
 						<div class="left" style="background-color: #bbb;">
-							<form:input
-							cssClass="form-control w-100" path="products[${loop.index}].code"
-							onkeyup="showHideChangePopUp(event)"/>
+							<form:input cssClass="form-control w-100"
+								path="products[${loop.index}].code"
+								onkeyup="showHideChangePopUp(event)" />
 							<ul id="myMenu" class="hiddenPopup">
-								<li value="5"><a onclick="test('')">HTML</a></li>
-								<li><a>CSS</a></li>
-								<li><a>JavaScript</a></li>
-
 							</ul>
-						</div></td>
+						</div>
+					</td>
 					<td class="m-width-sl"><form:input cssClass="form-control"
 							path="products[${loop.index}].name" /></td>
 					<td><form:select class="form-control w-100" id="slProduct"
@@ -130,17 +127,25 @@
 		$(id + " tbody").append(newLine);
 	}
 
-	function fillProduct(product, productForm) {
-		$(productForm[3]).children().val(product.price);
-		$(productForm[4]).children().val(product.discount);
-		$($(productForm[5]).children()[0]).attr('src',
-				'${contextPath}/resources/images/' + product.imageName);
-		$($(productForm[5]).children()[0]).css('display', 'initial');
-		$($(productForm[5]).children()[1]).css('display', 'none');
+	function fillProduct(data, row) {
+		$(row[0]).find('input').val(data.code);
+		$(row[1]).find('input').val(data.name);
+		$(row[2]).find('select').append(
+				'<option selected value='+data.cate.id+'>' + data.cate.name
+						+ '</option>');
+		$(row[2]).find('select').attr('disabled','disabled');
+		$(row[4]).find('input').val(data.price);
+		$(row[5]).find('input').val(data.discount);
+		$($(row[6]).children()[0]).attr('src',
+				'${contextPath}/resources/images/' + data.imageName);
+		$($(row[6]).children()[1]).css('display', 'none');
+		$($(row[6]).children()[0]).css('display', 'initial');
+
 	}
 
-	function findProductByCode(event,code) {
-		console.log($(event.target).parent().parent().parent().parent());
+	function findProductByCode(event, code) {
+		let row = $(event.target).parent().parent().parent().parent().parent()
+				.find('td');
 		$.ajax({
 			url : '${contextPath}/api/productbycode',
 			type : 'get',
@@ -148,17 +153,14 @@
 				"code" : code
 			},
 			success : function(data) {
-				console.log(event);
-				//fillProduct(data, rowTarget);
+				fillProduct(data, row);
 			}
 		})
 	}
-	
 
-	function showHideChangePopUp(event){
+	function showHideChangePopUp(event) {
 		let ul = $(event.target);
-		//ul.next().focus();
-		ul.next().css('display','block');
+		ul.next().css('display', 'block');
 		ul.next().empty();
 		$.ajax({
 			url : '${contextPath}/api/productbyletter',
@@ -167,45 +169,45 @@
 				"code" : $(event.target).val()
 			},
 			success : function(data) {
-				if (data.length !== 0){
-					for(let i = 0; i < data.length; i++){
-						let value = '\''+data[i]+'\'';
-						ul.next().append('<li><a onclick="findProductByCode(event,'+value+')">'+data[i]+'</a></li>');
+				console.log(ul.next().find('option').length == 0);
+				if (ul.next().find('option').length == 0) {
+					if (data.length !== 0) {
+						for (let i = 0; i < data.length; i++) {
+							let value = '\'' + data[i] + '\'';
+							ul.next().append(
+									'<li><a onclick="findProductByCode(event,'
+											+ value + ')">' + data[i]
+											+ '</a></li>');
+						}
+
 					}
-					
 				}
 			}
 		})
 	}
-	
 
-	
 	function findProductByCategoryId(event) {
 		let slCategory = $(event.target);
 		let slProduct = $(slCategory.parent().parent().find('td')[1])
 				.children()[1];
-		$
-				.ajax({
-					url : '${contextPath}/api/categoryType',
-					type : 'get',
-					data : {
-						"cateId" : slCategory.val()
-					},
-					success : function(data) {
-						console.log($(slProduct).find('option').length);
-						for (let j = 0; j < $(slProduct).find('option').length; j++) {
-							console.log(j + " - "
-									+ $(slProduct).find('option').length);
-							if (j > 1) {
-								$(slProduct).find('option')[j].remove();
-								//console.log(j+" - "+$(slProduct).find('option')[j]);
-							}
-						}
-						for (let i = 0; i < data.length; i++) {
-							slProduct.append(new Option(data[i].name,
-									data[i].id));
-						}
+		$.ajax({
+			url : '${contextPath}/api/categoryType',
+			type : 'get',
+			data : {
+				"cateId" : slCategory.val()
+			},
+			success : function(data) {
+				console.log($(slProduct).find('option').length);
+				for (let j = 0; j < $(slProduct).find('option').length; j++) {
+					if (j > 1) {
+						$(slProduct).find('option')[j].remove();
+						//console.log(j+" - "+$(slProduct).find('option')[j]);
 					}
-				})
+				}
+				for (let i = 0; i < data.length; i++) {
+					slProduct.append(new Option(data[i].name, data[i].id));
+				}
+			}
+		})
 	}
 </script>

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.java.dao.InvoiceProductDao;
-import com.java.entity.Category;
 import com.java.entity.InvoiceProduct;
 import com.java.entity.Product;
 import com.java.model.ProductModel;
