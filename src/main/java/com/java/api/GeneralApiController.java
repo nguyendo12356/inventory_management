@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.java.dao.InvoiceProductDao;
 import com.java.entity.InvoiceProduct;
 import com.java.entity.Product;
+import com.java.model.InventoryModel;
 import com.java.model.ProductModel;
 import com.java.service.CategoryService;
 import com.java.service.ProductService;
@@ -76,6 +78,13 @@ public class GeneralApiController {
 	public ResponseEntity<List<String>> getCodeByLetter(@RequestParam("code") String code){
 		List<String> codes = productService.showCodeByLetter(code);
 		return new ResponseEntity<List<String>>(codes, HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/test")
+	@ResponseBody
+	public ResponseEntity<InventoryModel> test(@RequestBody InventoryModel model){
+		System.out.println(model);
+		return new ResponseEntity<InventoryModel>(model, HttpStatus.OK);
 	}
 	
 }

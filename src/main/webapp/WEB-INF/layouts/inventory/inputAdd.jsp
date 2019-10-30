@@ -19,7 +19,7 @@
 		<legend>Thông tin hóa đơn</legend>
 		<div class="form-group">
 			<label for="pwd">Mã hóa đơn:</label>
-			<form:input class="form-control" path="codeBill" />
+			<form:input class="form-control" path="codeBill" id="codeBill"/>
 		</div>
 		<div class="form-group">
 			<label for="suplier">Nhà cung cấp:</label>
@@ -93,12 +93,12 @@
 			<span class="glyphicon glyphicon-plus"></span> Thêm
 		</button>
 		<div class="custom-button">
-			<form:button class="btn btn-primary">Thêm hóa đơn</form:button>
+			<form:button class="btn btn-primary" onclick="saveInputInvoice()">Thêm hóa đơn</form:button>
 		</div>
 	</div>
 
 </form:form>
-
+<button class="btn btn-primary" onclick="saveInputInvoice()">Test</button>
 <!-- popup below input -->
 
 <!-- popup below input -->
@@ -208,6 +208,20 @@
 				for (let i = 0; i < data.length; i++) {
 					slProduct.append(new Option(data[i].name, data[i].id));
 				}
+			}
+		})
+	}
+		
+	function saveInputInvoice(){
+		let product = {"codeBill": $('#codeBill').val(),"type":1 ,"products":[],"staffName":"","suplier": $('#suplier').val(), "totalPrice": $('#totalPrice').val()};
+		$.ajax({
+			url : '${contextPath}/api/test',
+			type : 'post',
+			data : {
+				"model" : product
+			},
+			success : function(data) {
+				console.log(data);
 			}
 		})
 	}
