@@ -66,4 +66,17 @@ public class GeneralApiController {
 	public ResponseEntity<ProductModel> getProductById(@RequestParam("id") int id){
 		return new ResponseEntity<ProductModel>(productService.findProductById(id), HttpStatus.OK);
 	}
+	
+	@GetMapping(value = "/productbycode")
+	public ResponseEntity<ProductModel> getProductByName(@RequestParam("code") String code){
+		ProductModel p = productService.findProductByCode(code);
+		return new ResponseEntity<ProductModel>(p != null ? p : new ProductModel(), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/productbyletter")
+	public ResponseEntity<List<String>> getCodeByLetter(@RequestParam("code") String code){
+		List<String> codes = productService.showCodeByLetter(code);
+		return new ResponseEntity<List<String>>(codes, HttpStatus.OK);
+	}
+	
 }

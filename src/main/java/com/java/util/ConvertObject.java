@@ -71,29 +71,33 @@ public class ConvertObject {
 	
 	public static Product parseProduct(ProductModel productModel) {
 		Product p = new Product();
-		p.setCode(productModel.getCode());
-		p.setCategory(new Category(productModel.getCategory()));
-		p.setDescription(productModel.getDescription());
-		p.setDiscount(productModel.getDiscount());
-		p.setName(productModel.getName());
-		p.setPrice(productModel.getPrice());
-		p.setQuantity(productModel.getQuantity());
-		p.setActive(true);
-		p.setCreateDate(productModel.getCreateDate() == null ? new Date() : productModel.getCreateDate());
+		if(productModel != null) {
+			p.setCode(productModel.getCode());
+			p.setCategory(new Category(productModel.getCategory()));
+			p.setDescription(productModel.getDescription());
+			p.setDiscount(productModel.getDiscount());
+			p.setName(productModel.getName());
+			p.setPrice(productModel.getPrice());
+			p.setQuantity(productModel.getQuantity());
+			p.setActive(true);
+			p.setCreateDate(productModel.getCreateDate() == null ? new Date() : productModel.getCreateDate());
+		}
 		return p;
 	}
 	
 	public static ProductModel parseProductModel(Product product) {
 		ProductModel productModel = new ProductModel();
-		productModel.setCategory(product.getCategory().getId());
-		productModel.setDescription(product.getDescription());
-		productModel.setDiscount(product.getDiscount());
-		productModel.setName(product.getName());
-		productModel.setPrice(product.getPrice());
-		productModel.setQuantity(product.getQuantity());
-		productModel.setActive(true);
-		productModel.setImageName(product.getImg_url());
-		productModel.setCreateDate(product.getCreateDate() == null ? new Date() : product.getCreateDate());
+		if (product != null) {
+			productModel.setCategory(product.getCategory().getId());
+			productModel.setDescription(product.getDescription());
+			productModel.setDiscount(product.getDiscount());
+			productModel.setName(product.getName());
+			productModel.setPrice(product.getPrice());
+			productModel.setQuantity(product.getQuantity());
+			productModel.setActive(true);
+			productModel.setImageName(product.getImg_url());
+			productModel.setCreateDate(product.getCreateDate() == null ? new Date() : product.getCreateDate());
+		}
 		return productModel;
 	}
 	

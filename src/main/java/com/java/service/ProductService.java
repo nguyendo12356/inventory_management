@@ -2,6 +2,7 @@ package com.java.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,15 @@ public class ProductService {
 	
 	public ProductModel findProductById(int id) {
 		return ConvertObject.parseProductModel(productDao.findById(Product.class, id));
+	}
+	
+	public ProductModel findProductByCode(String code) {
+		return ConvertObject.parseProductModel(productDao.findProductByCode(code));
+	}
+	
+	public List<String> showCodeByLetter(String code) {
+		List<String> codes = productDao.showCodeByLetter(code); 
+		return codes;
 	}
 	
 }

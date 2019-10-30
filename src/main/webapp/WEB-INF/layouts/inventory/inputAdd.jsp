@@ -52,9 +52,9 @@
 						<div class="left" style="background-color: #bbb;">
 							<form:input
 							cssClass="form-control w-100" path="products[${loop.index}].code"
-							onkeypress="showHideChangePopUp(event)" onfocusout="hideChangePopUp(event)"/>
+							onkeyup="showHideChangePopUp(event)"/>
 							<ul id="myMenu" class="hiddenPopup">
-								<li onclick="alert('hello')"><a>HTML</a></li>
+								<li value="5"><a onclick="test('')">HTML</a></li>
 								<li><a>CSS</a></li>
 								<li><a>JavaScript</a></li>
 
@@ -139,20 +139,47 @@
 		$($(productForm[5]).children()[1]).css('display', 'none');
 	}
 
-	function findProductById(event) {
-		let rowTarget = $(event.target).parent().parent().find('td');
+	function findProductByCode(event,code) {
+		console.log($(event.target).parent().parent().parent().parent());
 		$.ajax({
-			url : '${contextPath}/api/product',
+			url : '${contextPath}/api/productbycode',
 			type : 'get',
 			data : {
-				"id" : $(event.target).val()
+				"code" : code
 			},
 			success : function(data) {
-				fillProduct(data, rowTarget);
+				console.log(event);
+				//fillProduct(data, rowTarget);
 			}
 		})
 	}
+	
 
+	function showHideChangePopUp(event){
+		let ul = $(event.target);
+		//ul.next().focus();
+		ul.next().css('display','block');
+		ul.next().empty();
+		$.ajax({
+			url : '${contextPath}/api/productbyletter',
+			type : 'get',
+			data : {
+				"code" : $(event.target).val()
+			},
+			success : function(data) {
+				if (data.length !== 0){
+					for(let i = 0; i < data.length; i++){
+						let value = '\''+data[i]+'\'';
+						ul.next().append('<li><a onclick="findProductByCode(event,'+value+')">'+data[i]+'</a></li>');
+					}
+					
+				}
+			}
+		})
+	}
+	
+
+	
 	function findProductByCategoryId(event) {
 		let slCategory = $(event.target);
 		let slProduct = $(slCategory.parent().parent().find('td')[1])

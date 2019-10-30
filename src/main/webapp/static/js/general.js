@@ -44,15 +44,12 @@ function disabledNextAndPreviousButton(num){
 	$('#page-'+pageSplit[6]).parent().addClass("active");
 }
 
-function showHideChangePopUp(event){
-	let ul = $(event.target).next();
-	ul.focus();
-	ul.css('display','block');
-}
 
 $(document).on("click", function (event) {
 	$('.hiddenPopup').css('display','none');
 });
+
+
 
 
 
