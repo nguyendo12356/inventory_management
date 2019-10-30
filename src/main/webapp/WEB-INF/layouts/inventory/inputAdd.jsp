@@ -48,7 +48,7 @@
 			<c:forEach begin="0" end="${fn:length(model.products) - 1}"
 				varStatus="loop">
 				<tr>
-					<td class="m-width-180">
+					<td class="m-width-120">
 						<div class="left" style="background-color: #bbb;">
 							<form:input cssClass="form-control w-100"
 								path="products[${loop.index}].code"
@@ -59,8 +59,7 @@
 					</td>
 					<td class="m-width-sl"><form:input cssClass="form-control"
 							path="products[${loop.index}].name" /></td>
-					<td><form:select class="form-control w-100" id="slProduct"
-							path="products[${loop.index}].category"
+					<td><form:select class="form-control w-100" path="products[${loop.index}].category"
 							onchange="findProductByCategoryId(event)">
 							<option>Chọn loại sản phẩm</option>
 							<c:forEach var="categoryItem" items="${category}">
@@ -130,10 +129,12 @@
 	function fillProduct(data, row) {
 		$(row[0]).find('input').val(data.code);
 		$(row[1]).find('input').val(data.name);
-		$(row[2]).find('select').append(
-				'<option selected value='+data.cate.id+'>' + data.cate.name
-						+ '</option>');
-		$(row[2]).find('select').attr('disabled','disabled');
+		let slCategory = $(row[2]).find('select').find('option');
+		for(let j = 0; j < slCategory.length; j++){
+			if(slCategory[j].value == data.cate.id){
+				$(slCategory[j]).attr('selected','selected');
+			}
+		}
 		$(row[4]).find('input').val(data.price);
 		$(row[5]).find('input').val(data.discount);
 		$($(row[6]).children()[0]).attr('src',

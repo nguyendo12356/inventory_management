@@ -28,12 +28,13 @@ public class InventoryService {
 		IOInventory invoice = new IOInventory(inventoryModel.getCodeBill(), 1,
 				inventoryModel.getSuplier(), inventoryModel.getTotalPrice(), inventoryModel.getStaffName());
 		for( ProductModel product : inventoryModel.getProducts()) {
-			p = productDao.findById(Product.class, product.getId());
+			p = productDao.findProductByCode(product.getCode());
+			System.out.println(p);
 			if(p != null) {
 				p.setQuantity(product.getQuantity() + p.getQuantity());
 				productDao.update(p);
 			}else {
-				productDao.save(ConvertObject.parseProduct(product));
+				//productDao.save(ConvertObject.parseProduct(product));
 			}
 		}
 		ioDao.save(invoice);

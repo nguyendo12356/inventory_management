@@ -58,7 +58,7 @@ public class InventoryController {
 	public ModelAndView addInvoice(@ModelAttribute("model") InventoryModel model, HttpServletRequest request) {
 		ModelAndView modal = new ModelAndView("redirect:/inventory/input");
 		User u = (User)request.getSession().getAttribute("session");
-		model.setStaffName(u.getName() != null ? u.getName() : "");
+		model.setStaffName(u != null ? u.getName() : "");
 		inventoryService.addInvoice(model);
 		return modal;
 	}
