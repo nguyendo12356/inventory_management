@@ -19,7 +19,7 @@
 		<legend>Thông tin hóa đơn</legend>
 		<div class="form-group">
 			<label for="pwd">Mã hóa đơn:</label>
-			<form:input class="form-control" path="codeBill" id="codeBill"/>
+			<form:input class="form-control" path="codeBill" id="codeBill" />
 		</div>
 		<div class="form-group">
 			<label for="suplier">Nhà cung cấp:</label>
@@ -59,7 +59,8 @@
 					</td>
 					<td class="m-width-sl"><form:input cssClass="form-control"
 							path="products[${loop.index}].name" /></td>
-					<td><form:select class="form-control w-100" path="products[${loop.index}].category"
+					<td><form:select class="form-control w-100"
+							path="products[${loop.index}].category"
 							onchange="findProductByCategoryId(event)">
 							<option>Chọn loại sản phẩm</option>
 							<c:forEach var="categoryItem" items="${category}">
@@ -130,9 +131,9 @@
 		$(row[0]).find('input').val(data.code);
 		$(row[1]).find('input').val(data.name);
 		let slCategory = $(row[2]).find('select').find('option');
-		for(let j = 0; j < slCategory.length; j++){
-			if(slCategory[j].value == data.cate.id){
-				$(slCategory[j]).attr('selected','selected');
+		for (let j = 0; j < slCategory.length; j++) {
+			if (slCategory[j].value == data.cate.id) {
+				$(slCategory[j]).attr('selected', 'selected');
 			}
 		}
 		$(row[4]).find('input').val(data.price);
@@ -161,6 +162,7 @@
 
 	function showHideChangePopUp(event) {
 		let ul = $(event.target);
+		ul.unbind('keyup');
 		ul.next().css('display', 'block');
 		ul.next().empty();
 		$.ajax({
@@ -170,18 +172,16 @@
 				"code" : $(event.target).val()
 			},
 			success : function(data) {
-				console.log(ul.next().find('option').length == 0);
 				if (ul.next().find('option').length == 0) {
-					if (data.length !== 0) {
-						for (let i = 0; i < data.length; i++) {
-							let value = '\'' + data[i] + '\'';
-							ul.next().append(
-									'<li><a onclick="findProductByCode(event,'
-											+ value + ')">' + data[i]
-											+ '</a></li>');
-						}
-
+					for (let i = 0; i < data.length; i++) {
+						let value = '\'' + data[i] + '\'';
+						ul.next()
+								.append(
+										'<li><a onclick="findProductByCode(event,'
+												+ value + ')">' + data[i]
+												+ '</a></li>');
 					}
+
 				}
 			}
 		})
@@ -211,17 +211,28 @@
 			}
 		})
 	}
-		
-	function saveInputInvoice(){
-		let product = {"codeBill": $('#codeBill').val(),"type":1 ,"products":[],"staffName":"","suplier": $('#suplier').val(), "totalPrice": $('#totalPrice').val()};
+
+	function saveInputInvoice() {
+		let product = {
+			"codeBill" : "AAAA",
+			"type" : 1,
+			"staffName" : "THanh Do",
+			"suplier" : "AAAAA",
+			"totalPrice" : 10
+		};
+		console.log(product);
 		$.ajax({
 			url : '${contextPath}/api/test',
 			type : 'post',
 			data : {
-				"model" : product
+				"codeBill" : "AAAA",
+				"type" : 1,
+				"staffName" : "THanh Do",
+				"suplier" : "AAAAA",
+				"totalPrice" : 10
 			},
 			success : function(data) {
-				console.log(data);
+				//console.log(data);
 			}
 		})
 	}
