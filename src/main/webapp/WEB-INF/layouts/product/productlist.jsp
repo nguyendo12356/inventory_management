@@ -67,7 +67,7 @@
 		<ul class="pagination pagination-md">
 			<li class="page-item"><a class="page-link" onclick="paginationEvent(false, '${contextPath}')" id="previousButton">Previous</a></li>
 			<c:choose>
-				<c:when test="${totalProduct/pageSize == 0}">
+				<c:when test="${totalProduct%pageSize == 0}">
 					<c:set var="num" value="${totalProduct/pageSize}" />
 				</c:when>
 				<c:otherwise>

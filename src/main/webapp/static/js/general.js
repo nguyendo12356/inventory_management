@@ -14,7 +14,7 @@ function addNewLine(func){
 }
 
 function deleteLineTable(event){
-	$(event.target).parent().parent().remove();
+	$(event.target).parents("tr").remove();
 }
 
 function paginationEvent(isNext, contextPath){

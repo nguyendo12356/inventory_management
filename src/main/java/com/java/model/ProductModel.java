@@ -1,5 +1,6 @@
 package com.java.model;
 
+import java.io.File;
 import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +20,7 @@ public class ProductModel {
 	private int discount;
 	private String code;
 	private MultipartFile img_url;
+	private File fileTemp;
 	private String description;
 	private String imageName;
 	private boolean active;
