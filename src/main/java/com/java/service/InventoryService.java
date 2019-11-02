@@ -27,16 +27,19 @@ public class InventoryService {
 		Product p;
 		IOInventory invoice = new IOInventory(inventoryModel.getCodeBill(), 1,
 				inventoryModel.getSuplier(), inventoryModel.getTotalPrice(), inventoryModel.getStaffName());
+		ioDao.save(invoice);
 		for( ProductModel product : inventoryModel.getProducts()) {
 			p = productDao.findProductByCode(product.getCode());
-			System.out.println(p);
 			if(p != null) {
 				p.setQuantity(product.getQuantity() + p.getQuantity());
+				p.setPrice(product.getPrice());
+				p.setDiscount(product.getDiscount());
 				productDao.update(p);
 			}else {
-				//productDao.save(ConvertObject.parseProduct(product));
+				p = ConvertObject.parseProduct(product);
+				p.setImg_url("noimage.png");
+				productDao.save(p);
 			}
 		}
-		ioDao.save(invoice);
 	}
 }

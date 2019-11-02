@@ -3,6 +3,7 @@ package com.java.api;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.java.dao.InvoiceProductDao;
+import com.java.entity.IOInventory;
 import com.java.entity.InvoiceProduct;
 import com.java.entity.Product;
 import com.java.model.InventoryModel;
 import com.java.model.ProductModel;
+import com.java.model.User;
 import com.java.service.CategoryService;
+import com.java.service.InventoryService;
 import com.java.service.ProductService;
 
 @RestController
@@ -34,6 +38,9 @@ public class GeneralApiController {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private InventoryService inventoryService;
 	
 	@Autowired
 	private InvoiceProductDao ipDao;
@@ -80,11 +87,27 @@ public class GeneralApiController {
 		return new ResponseEntity<List<String>>(codes, HttpStatus.OK);
 	}
 	
-	@PostMapping(value = "/test")
+	@PostMapping(value = "/addInvoice")
 	@ResponseBody
-	public ResponseEntity<InventoryModel> test(@RequestBody InventoryModel model){
-		System.out.println(model);
+	public ResponseEntity<InventoryModel> addInvoice(@RequestBody InventoryModel model, HttpServletRequest request){
+		User u = (User)request.getSession().getAttribute("session");
+		model.setStaffName(u != null ? u.getName() : "");
+		System.out.println(u.getName());
+		inventoryService.addInvoice(model);
 		return new ResponseEntity<InventoryModel>(model, HttpStatus.OK);
+	}
+	
+	@PostMapping("/test")
+	public ResponseEntity<String> test(){
+		InvoiceProduct model = new InvoiceProduct();
+		IOInventory io = new IOInventory();
+		io.setId(17);
+		model.setIoInventory(io);
+		Product p = new Product();
+		p.setId(7);
+		model.setProduct(p);
+		ipDao.save(model);
+		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
 	
 }

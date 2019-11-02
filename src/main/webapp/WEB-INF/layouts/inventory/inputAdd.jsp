@@ -10,25 +10,10 @@
 <%@ page buffer="8192kb"%>
 <c:set var="contextPath"
 	value="${pageContext.servletContext.contextPath}"></c:set>
-
-<form class="form-inline custom-form" enctype="multipart/form-data">
-	<%-- <fieldset class="custom-fieldset">
-		<legend>Thông tin hóa đơn</legend>
-		<div class="form-group">
-			<label for="pwd">Mã hóa đơn:</label>
-			<form:input class="form-control" path="codeBill" id="codeBill" />
-		</div>
-		<div class="form-group">
-			<label for="suplier">Nhà cung cấp:</label>
-			<form:input class="form-control" id="suplier" path="suplier" />
-		</div>
-		<div class="form-group">
-			<label for="suplier">Tổng giá trị:</label>
-			<form:input class="form-control" id="totalPrice" path="totalPrice" />
-		</div>
-	</fieldset> --%>
+<div class="form-inline">
 	<fieldset class="custom-fieldset">
 		<legend>Thông tin hóa đơn</legend>
+		<div class="div-error" id="error-invoice"><span class="label_error" id="error-invoice-text">Vui lòng nhập đầy đủ thông tin</span></div>
 		<div class="form-group">
 			<label for="pwd">Mã hóa đơn:</label> <input class="form-control"
 				id="codeBill" />
@@ -39,9 +24,14 @@
 		</div>
 		<div class="form-group">
 			<label for="suplier">Tổng giá trị:</label> <input
-				class="form-control" id="totalPrice" />
+				class="form-control" id="totalPrice" type="number"/>
 		</div>
 	</fieldset>
+</div>
+ <div class="alert alert-danger alert-dismissible" id="alert-error" style="display: none">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Error!</strong>&ensp;<span id="tbl-error">Vui lòng nhập đầy đủ thông tin</span>
+  </div>
 	<table class="table table-bordered table_custom"
 		style="text-align: center;" id="tbl-input">
 		<thead>
@@ -57,54 +47,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			<%-- <c:forEach begin="0" end="${fn:length(model.products) - 1}"
-				varStatus="loop">
-				<tr>
-					<td class="m-width-120">
-						<div class="left" style="background-color: #bbb;">
-							<form:input cssClass="form-control w-100"
-								path="products[${loop.index}].code"
-								onkeyup="showHideChangePopUp(event)" />
-							<ul id="myMenu" class="hiddenPopup">
-							</ul>
-						</div>
-					</td>
-					<td class="m-width-sl"><form:input cssClass="form-control"
-							path="products[${loop.index}].name" /></td>
-					<td><form:select class="form-control w-100"
-							path="products[${loop.index}].category"
-							onchange="findProductByCategoryId(event)">
-							<option>Chọn loại sản phẩm</option>
-							<c:forEach var="categoryItem" items="${category}">
-								<option value="${categoryItem.id}">${categoryItem.name}</option>
-							</c:forEach>
-						</form:select></td>
-					<td class="m-width"><form:input
-							path="products[${loop.index}].quantity"
-							cssClass="form-control w-100" /></td>
-					<td class="m-width"><form:input
-							path="products[${loop.index}].price"
-							cssClass="form-control w-100" /></td>
-					<td class="m-width"><form:input
-							path="products[${loop.index}].discount"
-							cssClass="form-control w-100" /></td>
-					<td class="m-width-120"><img alt="No image" src=""
-						class="common-img-50" style="display: none;" /> <form:input
-							type="file" path="products[${loop.index}].img_url"
-							cssClass="form-control w-100" /></td>
-
-					<td><a type="button" class="btn btn-danger"
-						href="<c:url value="/inventory/input/delete/${item.id}"/>"
-						id="btnDel${item.id}">Xóa</a></td>
-				</tr>
-			</c:forEach> --%>
 			<c:forEach begin="0" end="2"
 				varStatus="loop">
 				<tr>
 					<td class="m-width-120">
 						<div class="left" style="background-color: #bbb;">
 							<input class="form-control w-100"
-								onkeyup="showHideChangePopUp(event)" />
+								onkeyup="showHideChangePopUp(event)" onchange="findProductByCode(event,this.value)"/>
 							<ul id="myMenu" class="hiddenPopup">
 							</ul>
 						</div>
@@ -139,9 +88,6 @@
 				Lưu hóa đơn</button>
 		</div>
 	</div>
-
-</form>
-<button class="btn btn-primary" onclick="saveInputInvoice()">Test</button>
 <!-- popup below input -->
 
 <!-- popup below input -->
@@ -157,8 +103,9 @@
 	})
 
 	function addNewLineTable() {
-		var code = '<input class="form-control w-100" onkeyup="showHideChangePopUp(event)" />'
-				+ '<ul id="myMenu" class="hiddenPopup"></ul>';
+		var code = '<div class="left" style="background-color: #bbb;">'+
+			'<input class="form-control w-100" onkeyup="showHideChangePopUp(event)" onchange="findProductByCode(event,this.value)"/>'+
+			'<ul id="myMenu" class="hiddenPopup"></ul></div>';
 		var action = '<a type="button" class="btn btn-danger  glyphicon glyphicon-remove" onclick="deleteLineTable(event)" ></a>';
 		var name = '<input class="form-control" />';
 		var category = '<select class="form-control w-100" onchange="findProductByCategoryId(event)">'
@@ -201,8 +148,7 @@
 	}
 
 	function findProductByCode(event, code) {
-		let row = $(event.target).parent().parent().parent().parent().parent()
-				.find('td');
+		let row = $(event.target).closest('tr').find('td');
 		$.ajax({
 			url : '${contextPath}/api/productbycode',
 			type : 'get',
@@ -210,14 +156,15 @@
 				"code" : code
 			},
 			success : function(data) {
-				fillProduct(data, row);
+				if (data.category != 0)
+					fillProduct(data, row);
 			}
 		})
 	}
 
 	function showHideChangePopUp(event) {
 		let ul = $(event.target);
-		ul.unbind('keyup');
+		ul.unbind();
 		ul.next().css('display', 'block');
 		ul.next().empty();
 		$.ajax({
@@ -233,15 +180,15 @@
 						ul.next()
 								.append(
 										'<li><a onclick="findProductByCode(event,'
-												+ value + ')">' + data[i]
-												+ '</a></li>');
+										+ value + ')">' + data[i]
+										+ '</a></li>');
 					}
 
 				}
 			}
 		})
 	}
-
+	
 	function findProductByCategoryId(event) {
 		let slCategory = $(event.target);
 		let slProduct = $(slCategory.parent().parent().find('td')[1])
@@ -266,46 +213,131 @@
 		})
 	}
 
-	function saveInputInvoice() {
-		let product = {
-				"codeBill" : "AAAA",
-				"type" : 1,
-				"staffName" : "THanh Do",
-				"suplier" : "AAAAA",
-				"totalPrice" : 10,
-				"products":[]
-			};
-		$('#tbl-input tr:not(".table_header")').each(function(){
-			let row = $(this).find('td');
-			product.products.push(getTableValue(row));
-		})
-		$.ajax({
-			url : '${contextPath}/api/test',
-			type : 'post',
-			headers : {
-				'Accept' : 'application/json',
-				'Content-Type' : 'application/json'
-			},
-			data : JSON.stringify(product),
-			success : function(data) {
-				console.log(data);
-			}
-		})
+	function validate(codeBill, suplier, totalPrice){
+		$('#error-invoice').css('display','none');
+		if(codeBill.val().length == 0){
+			$('#error-invoice').css('display','block');
+			codeBill.css('borderColor','red');
+			$('#error-invoice-text').html('Vui lòng nhập mã hóa đơn');
+			return false;
+		}else if(suplier.val().length == 0){
+			$('#error-invoice').css('display','block');
+			suplier.css('borderColor','red');
+			$('#error-invoice-text').html('Vui lòng nhập nhà cung cấp');
+			return false;
+		}else if(totalPrice.val().length == 0){
+			$('#error-invoice').css('display','block');
+			totalPrice.css('borderColor','red');
+			$('#error-invoice-text').html('Vui lòng nhập tổng giá trị');
+			return false;
+		}
+		return true;
+	}
+	
+	function validateTable(data){
+		$('#alert-error').css('display','none');
+		let code = $(data[0]).find('input');
+		let name = $(data[1]).find('input');
+		let quantity = $(data[3]).find('input');
+		let price = $(data[4]).find('input');
+		let discount = $(data[5]).find('input');
+		if (code.val().length == 0){
+			code.css('borderColor','red');
+			$('#alert-error').css('display','block');
+			$('#tbl-error').html('Vui lòng nhập đầy đủ thông tin');
+			return false;
+		}else if (name.val().length == 0){
+			name.css('borderColor','red');
+			$('#alert-error').css('display','block');
+			$('#tbl-error').html('Vui lòng nhập đầy đủ thông tin');
+			return false;
+		}
+		else if (quantity.val().length == 0){
+			quantity.css('borderColor','red');
+			$('#alert-error').css('display','block');
+			$('#tbl-error').html('Vui lòng nhập đầy đủ thông tin');
+			return false;
+		}
+		else if (price.val().length == 0){
+			price.css('borderColor','red');
+			$('#alert-error').css('display','block');
+			$('#tbl-error').html('Vui lòng nhập đầy đủ thông tin');
+			return false;
+		}
+		else if (discount.val().length == 0){
+			discount.css('borderColor','red');
+			$('#alert-error').css('display','block');
+			$('#tbl-error').html('Vui lòng nhập đầy đủ thông tin');
+			return false;
+		}
+		return true;
 	}
 	
 	
+	$('body').find('input').on("change", function(){
+		$(this).css('borderColor', '#ccc');
+	})
+	
+	function checkString(content){
+		let regex = /^[0-9a-zA-Z-_]+$/;
+		return regex.test(content);
+	}
+	
+	function saveInputInvoice() {
+		let codeBill =  $('#codeBill');
+		let suplier = $('#suplier');
+		let totalPrice = $('#totalPrice');
+		let invoice = {
+				"codeBill" : codeBill.val(),
+				"type" : 1,
+				"suplier" : suplier.val(),
+				"totalPrice" : totalPrice.val(),
+				"products":[]
+			};
+		let isErrorTable = false;
+		if(validate(codeBill, suplier,totalPrice)){
+			let rows = $('#tbl-input tr:not(".table_header")');
+			for (let m = 0; m < rows.length; m++){
+				let row = $(rows[m]).find('td');
+				if(validateTable(row)){
+					invoice.products.push(getTableValue(row));
+					isErrorTable = false;
+				}else{
+					isErrorTable = true;
+					break;
+				}
+			};
+			if(!isErrorTable){
+				$.ajax({
+					url : '${contextPath}/api/addInvoice',
+					type : 'post',
+					headers : {
+						'Accept' : 'application/json',
+						'Content-Type' : 'application/json'
+					},
+					data : JSON.stringify(invoice),
+					success : function(data) {
+						window.location.replace("${contextPath}/inventory/input");
+					}
+				})
+			}
+		}
+	}
+		
 	function getTableValue(data){
-		$(data[0]).find('input').val('7');
-		$(data[1]).find('input').val('8');
-		$(data[3]).find('input').val('3');
-		$(data[4]).find('input').val('4');
-		$(data[5]).find('input').val('5');
-		$(data[6]).find('input').val();
-		let imageName = ($(data[6]).find('input')[0]).files[0];
+		let code = $(data[0]).find('input').val();
+		let name = $(data[1]).find('input').val();
+		let category = $(data[2]).find('select').val();
+		let quantity = $(data[3]).find('input').val();
+		let price = $(data[4]).find('input').val();
+		let discount = $(data[5]).find('input').val();
 		let product = {
-				"name": "thanh do",
-				"code": "sp15",
-				"img_url.originalFilename": imageName.name
+				"name": name,
+				"code": code,
+				"quantity": quantity,
+				"price": price,
+				"category": category,
+				"discount": discount
 		}; 
 		return product;
 	}

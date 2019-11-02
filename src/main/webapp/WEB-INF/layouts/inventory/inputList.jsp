@@ -47,7 +47,6 @@
 					href="<c:url value='/inventory/input/detail/${item.id}'/>">Chi tiết</a>
 				<a type="button" class="btn btn-primary"
 					href="<c:url value='/inventory/input/update/${item.id}'/>">Sửa</a>
-					<a type="button" class="btn btn-danger" href="<c:url value="/inventory/input/delete/${item.id}"/>" id="btnDel${item.id}">Xóa</a></td>
 			</tr>
 		</c:forEach>
 	</tbody>

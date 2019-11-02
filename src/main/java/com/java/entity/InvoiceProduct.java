@@ -15,9 +15,8 @@ import lombok.Data;
 @Data
 @Entity
 @Table( name = "ioinvoice_product")
-public class InvoiceProduct implements Serializable {/**
-	 * 
-	 */
+public class InvoiceProduct implements Serializable {
+	
 	private static final long serialVersionUID = -2186499300593797337L;
 	
 	@Id

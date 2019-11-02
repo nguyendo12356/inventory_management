@@ -17,5 +17,9 @@ public class IOService {
 	public List<IOInventory> getAll(){
 		return ioDao.getAll();
 	}
+	
+	public void deleteInvoice() {
+		
+	}
 
 }

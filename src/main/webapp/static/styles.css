@@ -3,6 +3,11 @@
 	margin-bottom: 10px;
 }
 
+.div-error{
+	margin-bottom: 1em;
+	display: none;
+}
+
 .page-link{
 	cursor: pointer;
 }
