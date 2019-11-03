@@ -1,17 +1,27 @@
 package com.java.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-@Data
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 @Entity
 @NoArgsConstructor
 @Table( name = "ioinvoice")
@@ -40,6 +50,10 @@ public class IOInventory implements Serializable {
 	@Column(name = "staff")
 	private String staffName;
 	
+	@OneToMany(mappedBy = "ioInventory", cascade=CascadeType.ALL)
+	@JsonManagedReference
+	private List<InvoiceProduct> ips = new ArrayList<InvoiceProduct>();
+	
 	public IOInventory(String codeBill, int type, String suplier, double price, String staffName) {
 		this.codeBill = codeBill;
 		this.type = type;
@@ -47,6 +61,10 @@ public class IOInventory implements Serializable {
 		this.price = price;
 		this.staffName = staffName;
 		this.createDate = new Date();
+	}
+	
+	public IOInventory(int id) {
+		this.id = id;
 	}
 
 }

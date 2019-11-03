@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import org.apache.axis.encoding.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +26,11 @@ import com.java.model.InventoryModel;
 import com.java.model.ProductModel;
 import com.java.model.User;
 import com.java.service.CategoryService;
+import com.java.service.IOService;
 import com.java.service.InventoryService;
 import com.java.service.ProductService;
+import com.java.service.UserService;
+import com.java.util.Util;
 
 @RestController
 @RequestMapping("/api")
@@ -44,6 +48,12 @@ public class GeneralApiController {
 	
 	@Autowired
 	private InvoiceProductDao ipDao;
+	
+	@Autowired
+	private IOService ioService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@PostMapping(value = "/category")
 	public ResponseEntity<String> addNewCategory(
@@ -92,22 +102,24 @@ public class GeneralApiController {
 	public ResponseEntity<InventoryModel> addInvoice(@RequestBody InventoryModel model, HttpServletRequest request){
 		User u = (User)request.getSession().getAttribute("session");
 		model.setStaffName(u != null ? u.getName() : "");
-		System.out.println(u.getName());
 		inventoryService.addInvoice(model);
 		return new ResponseEntity<InventoryModel>(model, HttpStatus.OK);
 	}
 	
-	@PostMapping("/test")
-	public ResponseEntity<String> test(){
-		InvoiceProduct model = new InvoiceProduct();
-		IOInventory io = new IOInventory();
-		io.setId(17);
-		model.setIoInventory(io);
-		Product p = new Product();
-		p.setId(7);
-		model.setProduct(p);
-		ipDao.save(model);
-		return new ResponseEntity<String>("success", HttpStatus.OK);
+	@GetMapping("/test")
+	public ResponseEntity<IOInventory> test(int id){
+		return new ResponseEntity<IOInventory>(ioService.findIOInventoryById(id),HttpStatus.OK);
+	}
+	
+	@GetMapping("/sendEmail")
+	public ResponseEntity<String> sendEmail(@RequestParam("username") String username){
+		User user = userService.getUserByUsername(username);
+		if(user == null) {
+			return new ResponseEntity<String>("user_not_exits",HttpStatus.OK);
+		}else {
+			String encodeUsername = Base64.encode(user.getUsername().getBytes());
+			return new ResponseEntity<String>(Util.sendEmail(user.getEmail(),encodeUsername),HttpStatus.OK);
+		}
 	}
 	
 }

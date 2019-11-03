@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
+import org.apache.axis.encoding.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.java.entity.UserRole;
 import com.java.model.MenuModel;
@@ -66,12 +68,15 @@ public class UserController {
 			request.getSession().invalidate();
 		} else if (userService.getUserByUsername(user.getUsername()) == null) {
 			model.addAttribute("success", env.getProperty("signup.success"));
-			model.addAttribute("user", new User());
+			User userLogin = new User();
+			userLogin.setUsername(user.getUsername());
+			model.addAttribute("user", userLogin);
 			userService.addUser(user, user.getRoleId());
+			return "login";
 		} else {
 			model.addAttribute("error", env.getProperty("error.username"));
 		}
-		return "signup";
+		return loadSignupForm(model);
 	}
 
 	@GetMapping(value = { "/loginForm" })
@@ -141,6 +146,18 @@ public class UserController {
 		model.addAttribute("user", userService.getUserById(id));
 		model.addAttribute("roles",roleService.findAll());
 		return "signup";
+	}
+	
+	@GetMapping(value = "/changePassword/{usernameEncode}")
+	private String changePassword(@PathVariable("usernameEncode") String usernameEncode, ModelMap model) {
+		model.addAttribute("username", new String(Base64.decode(usernameEncode)));
+		return "changePassword";
+	}
+	
+	@PostMapping(value = "/updatePassword")
+	private String updatePassword(@RequestParam("username") String username,@RequestParam("password") String password) {
+		userService.updatePassword(username, password);
+		return "redirect:/loginForm";
 	}
 	
 }

@@ -2,6 +2,7 @@ package com.java.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,9 +11,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@ToString
 @Entity
 @Table( name = "ioinvoice_product")
 public class InvoiceProduct implements Serializable {
@@ -24,11 +29,14 @@ public class InvoiceProduct implements Serializable {
 	private int id;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_product", nullable = false)
+	@JoinColumn(name = "id_product")
 	private Product product;
 	
 	@ManyToOne
-	@JoinColumn( name = "id_invoice", nullable = false)
+	@JoinColumn( name = "id_invoice")
 	private IOInventory ioInventory;
+	
+	@Column(name = "quantity")
+	private int quantity;
 
 }

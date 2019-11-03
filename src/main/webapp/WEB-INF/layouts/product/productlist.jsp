@@ -120,7 +120,7 @@
 	
 	$('#slPageSize').on("change",function(){
 		let pageSplit = document.URL.split("/");
-		let url = '${contextPath}'+"/"+pageSplit[4]+"/"+pageSplit[5]+"/"+pageSplit[6]+"/"+$(this).val();
+		let url = '${contextPath}'+"/"+pageSplit[4]+"/"+pageSplit[5]+"/1/"+$(this).val();
 		window.location.href = url;
 	})
 	

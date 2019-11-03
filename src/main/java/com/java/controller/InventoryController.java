@@ -5,10 +5,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.java.entity.IOInventory;
 import com.java.model.InventoryModel;
 import com.java.service.CategoryService;
 import com.java.service.IOService;
@@ -46,5 +48,13 @@ public class InventoryController {
 		ModelAndView modal = new ModelAndView("redirect:/inventory/input");
 		inventoryService.addInvoice(model);
 		return modal;
+	}
+	
+	@RequestMapping(value = {"/input/details/{id}"}, method = RequestMethod.GET)
+	public ModelAndView addInvoice(@PathVariable("id") int id) {
+		ModelAndView model = new ModelAndView("invoice-details");
+		IOInventory ioInventory = ioService.findIOInventoryById(id);
+		model.addObject("invoiceDetail", ioInventory);
+		return model;
 	}
 }

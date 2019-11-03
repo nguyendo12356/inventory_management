@@ -8,4 +8,6 @@ import com.java.entity.InvoiceProduct;
 public interface InvoiceProductDao extends BaseDao<InvoiceProduct> {
 
 	public List<InvoiceProduct> getAll();
+	
+	public void saveInvoicePoduct(InvoiceProduct ip);
 }

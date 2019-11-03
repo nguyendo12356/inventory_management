@@ -44,7 +44,7 @@
 				<td>${item.staffName}</td>
 				<td>
 				<a type="button" class="btn btn-info"
-					href="<c:url value='/inventory/input/detail/${item.id}'/>">Chi tiết</a>
+					href="<c:url value='/inventory/input/details/${item.id}'/>">Chi tiết</a>
 				<a type="button" class="btn btn-primary"
 					href="<c:url value='/inventory/input/update/${item.id}'/>">Sửa</a>
 			</tr>

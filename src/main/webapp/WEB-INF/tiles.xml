@@ -34,4 +34,7 @@
 	<definition name = "addproduct" extends="master">
 		<put-attribute name="content" value="/WEB-INF/layouts/product/addproduct.jsp"></put-attribute>
 	</definition>
+	<definition name = "invoice-details" extends="master">
+		<put-attribute name="content" value="/WEB-INF/layouts/inventory/invoice-details.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>

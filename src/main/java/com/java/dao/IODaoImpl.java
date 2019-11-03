@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import com.java.common.BaseDaoImpl;
 import com.java.entity.IOInventory;
-import com.java.model.InventoryModel;
 
 @Repository
 @Transactional
@@ -20,26 +18,12 @@ public class IODaoImpl extends BaseDaoImpl<IOInventory> implements IODao {
 
 	@Autowired
 	SessionFactory sessionFactory;
-	
+
 	@Override
 	public List<IOInventory> getAll() {
 		@SuppressWarnings("unchecked")
 		Query<IOInventory> query = sessionFactory.getCurrentSession().createQuery("from IOInventory where type = 1");
 		return query.list();
-	}
-
-	@Override
-	public void saveInvoice(InventoryModel model) {
-		Session s = sessionFactory.openSession();
-		try {
-			s.save(model);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Add User error");
-		}finally {
-			s.close();			
-		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -56,5 +40,13 @@ public class IODaoImpl extends BaseDaoImpl<IOInventory> implements IODao {
 		}
 		return query.uniqueResult();
 	}
-	
+
+	@Override
+	public IOInventory findIOInventoryById(int id) {
+		@SuppressWarnings("unchecked")
+		Query<IOInventory> query = sessionFactory.openSession().createQuery("from IOInventory where type = 1 and id=:id");
+		query.setParameter("id", id);
+		return query.uniqueResult();
+	}
+
 }

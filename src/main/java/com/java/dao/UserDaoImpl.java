@@ -79,4 +79,9 @@ public class UserDaoImpl extends BaseDaoImpl<UserDto> implements UserDao {
 		update(user);
 	}
 
+	@Override
+	public void updatePassword(String username, String password) {
+		
+	}
+
 }

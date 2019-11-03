@@ -3,6 +3,7 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +45,7 @@
               </div>
               <div>
                 <form:button class="btn btn-default submit" onclick="return validate()">Log in</form:button>
-                <a class="reset_pass" href="#">Lost your password?</a>
+                <a class="reset_pass" data-target="#myModal" data-toggle="modal">Quên mật khẩu?</a>
               </div>
 
               <div class="clearfix"></div>
@@ -67,6 +68,28 @@
         </div>
       </div>
     </div>
+    
+    
+    <div class="modal" id="myModal">
+	<div class="modal-dialog common-modal">
+		<div class="modal-content">
+			<!-- Modal body -->
+			<div class="modal-body">
+					<div class="div-error" id="error-invoice"><span class="label_error" id="error-invoice-text">Tài khoản không tồn tài</span></div>
+				<div class="form-group">
+					<label for="usr">Tên tài khoản:</label> <input type="text"
+						class="form-control" id="txtEmail">
+				</div>
+			</div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<a id="addCategory" onclick="sendEmail()">Xác nhận</a>
+			</div>
+
+		</div>
+	</div>
+</div>
     <script src='<c:url value="/resources/bootstrap/js/jquery.min.js"/>'></script>
 	<!-- Bootstrap -->
 	<script src='<c:url value="/resources/common/bootstrap.min.js"/>'></script>
@@ -88,6 +111,23 @@
 	    	}else{
 	    		$('#error_password').html('');
 	    	}
+    	}
+    </script>
+    <script type="text/javascript">
+    	function sendEmail(){
+    		$.ajax({
+    			url : '${contextPath}/api/sendEmail',
+    			data:{
+    				username : $('#txtEmail').val()
+    			},success: function(data){
+    				if(data == "success"){
+    					$("#myModal").modal('hide');
+    					alert('Truy cập email để tiền hành thay đổi mật khẩu');
+    				}else if(data == "user_not_exits"){
+    					$('#error-invoice').css('display','block');
+    				}
+    			}
+    		})
     	}
     </script>
   </body>

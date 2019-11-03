@@ -6,9 +6,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -100,23 +97,10 @@ public class UserServiceImpl implements UserService{
 		return null;
 	}
 
-	@Autowired
-	private SessionFactory sessionFactory;
-	
-	public void test() {
-		Session s = sessionFactory.openSession();
-		Transaction tx = s.beginTransaction();
-			UserDto u = new UserDto();
-			u.setActive(true);
-			u.setCreateDate(new Date());
-			u.setEmail("Thanhdo@gmail.com");
-			u.setGender(false);
-			u.setImage("image.png");
-			u.setName("Thanh Do");
-			u.setPassword("123456");
-			u.setUsername("thanhdo");
-			s.save(u);
-		tx.commit();
-		s.close();
+	@Override
+	public void updatePassword(String username, String password) {
+		UserDto user = userDao.getUserByUsername(username);
+		user.setPassword(password);
+		userDao.update(user);
 	}
 }

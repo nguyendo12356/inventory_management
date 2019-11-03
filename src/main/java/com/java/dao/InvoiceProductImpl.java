@@ -2,6 +2,7 @@ package com.java.dao;
 
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,14 @@ public class InvoiceProductImpl extends BaseDaoImpl<InvoiceProduct> implements I
 	public List<InvoiceProduct> getAll() {
 		Query<InvoiceProduct> query = sessionFactory.getCurrentSession().createQuery("from InvoiceProduct");
 		return query.list();
+	}
+	
+	@Override
+	public void saveInvoicePoduct(InvoiceProduct ip) {
+		Session s = sessionFactory.openSession();
+		s.save(ip);
+		s.flush();
+		s.close();
 	}
 
 }

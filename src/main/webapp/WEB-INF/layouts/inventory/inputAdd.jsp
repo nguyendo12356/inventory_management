@@ -47,7 +47,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach begin="0" end="2"
+			<c:forEach begin="0" end="1"
 				varStatus="loop">
 				<tr>
 					<td class="m-width-120">

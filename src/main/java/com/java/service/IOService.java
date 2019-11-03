@@ -18,8 +18,8 @@ public class IOService {
 		return ioDao.getAll();
 	}
 	
-	public void deleteInvoice() {
-		
+	public IOInventory findIOInventoryById(int id) {
+		return ioDao.findIOInventoryById(id);
 	}
 
 }

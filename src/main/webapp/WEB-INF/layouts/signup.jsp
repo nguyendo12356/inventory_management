@@ -107,7 +107,7 @@ body {
 					<div class="separator">
 						<p class="change_link">
 							Already a member ? <a href="<c:url value='/loginForm'/>"
-								class="to_register"> Log in </a>
+								class="to_register"> Đăng nhập </a>
 						</p>
 						<div class="clearfix"></div>
 						<br />

@@ -24,4 +24,6 @@ public interface UserService {
 	
 	User findById(int id);
 	
+	void updatePassword(String username, String password);
+	
 }

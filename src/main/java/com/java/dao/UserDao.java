@@ -20,4 +20,5 @@ public interface UserDao extends BaseDao<UserDto> {
 	
 	void changeStateAccount(int id,boolean active);
 	
+	void updatePassword(String username, String password);
 }
