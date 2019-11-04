@@ -34,6 +34,11 @@
 			</tr>
 		</tbody>
 	</table> --%>
+	<form method="get" action="${contextPath}/export">
+		<%-- <input type="hidden" value="${invoiceDetail}" name="invoice"/> --%>
+		<button>Xuất File PDF</button>
+		<%-- <a class="btn btn-primary float-right" href="${contextPath}/export" target="_blank">Export PDF</a> --%>
+	</form>
 </div>
 
 <table class="table table-bordered table_custom"

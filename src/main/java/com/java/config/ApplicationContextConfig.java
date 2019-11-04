@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.ResourceBundleViewResolver;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
@@ -36,10 +37,18 @@ public class ApplicationContextConfig {
 	@Bean
 	public InternalResourceViewResolver getInternalViewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-		viewResolver.setOrder(1);
+		viewResolver.setOrder(2);
 		viewResolver.setSuffix(".jsp");
 		viewResolver.setPrefix("/WEB-INF/layouts/");
 		return viewResolver;
+	}
+	
+	@Bean
+	public ResourceBundleViewResolver getResourceBundleViewResolver() {
+		ResourceBundleViewResolver r = new ResourceBundleViewResolver();
+		r.setOrder(1);
+		r.setBasename("views");
+		return r;
 	}
 	
 	@Bean(name = "viewResolver")
@@ -95,5 +104,5 @@ public class ApplicationContextConfig {
 		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
 		return resolver;
 	}
-	
+
 }

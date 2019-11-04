@@ -12,6 +12,10 @@
 	cursor: pointer;
 }
 
+.float-right{
+	float: right;
+}
+
 .margin_img{
 	margin-top: 6px !important;
 }
