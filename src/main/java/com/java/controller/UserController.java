@@ -88,7 +88,7 @@ public class UserController {
 		return "login";
 	}
 
-	@PostMapping(value = "/login")
+	@PostMapping(value = "/loginUser")
 	private String login(@ModelAttribute("user") User user, ModelMap model, HttpServletRequest request) {
 		User user1 = userService.checkLogin(user.getUsername(), user.getPassword());
 		if (user1 == null) {
@@ -119,6 +119,7 @@ public class UserController {
 			});
 			session.setAttribute("menus", menus);
 			return "redirect:/home";
+			//return "/home";
 		}
 	}
 

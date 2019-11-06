@@ -67,4 +67,8 @@ public class ProductService {
 		return codes;
 	}
 	
+	public List<Object[]> getQuantityByCategory(){
+		return productDao.getQuantityByCategory();
+	}
+	
 }

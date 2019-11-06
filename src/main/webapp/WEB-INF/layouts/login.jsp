@@ -10,7 +10,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
 <title>T2D Shop</title>
 <!-- Bootstrap -->
 <link rel="stylesheet" type="text/css"
@@ -32,7 +32,7 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form:form modelAttribute="user" action="login" method="POST">
+            <form:form modelAttribute="user" action="loginUser" method="post">
               <h1>Login Form</h1>
               <form:label path=""  id="error" cssClass="label_error">${error}</form:label>
               <div>

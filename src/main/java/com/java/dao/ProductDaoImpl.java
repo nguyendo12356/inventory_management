@@ -41,5 +41,12 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements ProductDao{
 			return null;
 		}
 	}
+
+	@SuppressWarnings({ "unchecked"})
+	@Override
+	public List<Object[]> getQuantityByCategory() {
+		String sql = "select category.name as name, sum(quantity) from Product group by (category.id)";
+		return sessionFactory.getCurrentSession().createQuery(sql).list();
+	}
 	
 }

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.java.dao.InvoiceProductDao;
-import com.java.entity.IOInventory;
 import com.java.entity.InvoiceProduct;
 import com.java.entity.Product;
 import com.java.model.InventoryModel;
@@ -106,9 +105,11 @@ public class GeneralApiController {
 		return new ResponseEntity<InventoryModel>(model, HttpStatus.OK);
 	}
 	
-	@GetMapping("/test")
-	public ResponseEntity<IOInventory> test(int id){
-		return new ResponseEntity<IOInventory>(ioService.findIOInventoryById(id),HttpStatus.OK);
+	@GetMapping("/category/quantity")
+	@ResponseBody
+	public ResponseEntity<List<Object[]>> test(){
+		List<Object[]> list = productService.getQuantityByCategory();
+		return new ResponseEntity<List<Object[]>>(list,HttpStatus.OK);
 	}
 	
 	@GetMapping("/sendEmail")
@@ -121,5 +122,6 @@ public class GeneralApiController {
 			return new ResponseEntity<String>(Util.sendEmail(user.getEmail(),encodeUsername),HttpStatus.OK);
 		}
 	}
+	
 	
 }
