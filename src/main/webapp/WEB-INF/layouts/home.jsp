@@ -131,7 +131,7 @@
 			<!-- /top navigation -->
 
 			<!-- page content -->
-			<div class="right_col" role="main" style="min-height: 660px !important;">
+			<div class="right_col" role="main" style="min-height: 800px !important;">
 				<tiles:insertAttribute name="content" />
 
 			</div>
