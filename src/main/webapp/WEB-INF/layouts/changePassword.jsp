@@ -36,7 +36,7 @@
 	display: table;
 	padding: 0 20px;
 	border-radius: 20px;
-	box-shadow: 1px 1px 10px #6A7;
+	box-shadow: 1px 1px 10px;
 	color: white;
 }
 
@@ -68,7 +68,7 @@ body{
 					class="form-control" id="pwd">
 			</div>
 			<input type="hidden" name="username" value="${username}"/>
-			<button type="submit" class="btn btn-success">Đổi mật khẩu</button>
+			<button type="submit" class="btn btn-danger">Đổi mật khẩu</button>
 		</form>
 	</div>
 </body>

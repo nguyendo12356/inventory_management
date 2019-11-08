@@ -26,12 +26,13 @@ public class HomeController {
 			request.setAttribute("user", new User());
 			return "login";
 		}
+		//ioService.getRevenue().forEach(System.out::println);
 		return "home";
 	}
 	
 	@RequestMapping(value = {"/export"}, method = RequestMethod.GET)
 	public ModelAndView exportPdf( ModelMap model, @RequestParam("invoice") int invoiceId ) {
-		IOInventory ioInventory = ioService.findIOInventoryById(invoiceId);
+		IOInventory ioInventory = ioService.findIOInventoryById(invoiceId , 1);
 		ModelAndView modelAndView = new ModelAndView("pdfView","model", ioInventory);
 		return modelAndView;
 	}

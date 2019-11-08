@@ -187,3 +187,8 @@
 .back a{
 	color: #337ab7 !important;	
 }
+
+.status-image-inventory{
+	width: 60px;
+	height: 60px;
+}

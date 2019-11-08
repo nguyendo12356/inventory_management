@@ -9,47 +9,32 @@
 	src="https://www.gstatic.com/charts/loader.js"></script>
 <script src='<c:url value="/resources/bootstrap/js/jquery.min.js"/>'></script>
 <script type="text/javascript">
-	$.ajax({
-		url : '${contextPath}/api/category/quantity',
-		type : 'get',
-		success : function(data) {
-			getDataPieChart(data);
-		}
-	});
-
-	var dataPieChart = [];
-	
-	function getDataPieChart(data) {
-		dataPieChart.push([ 'Task', 'Hours per Day' ]);
-		for (let i = 0; i < 5; i++) {
-			let a = [];
-			a.push("t" + i);
-			a.push(i + 1);
-			test.push(a);
-		}
+	var pieChart = [];
+	function getData() {
+		$.ajax({
+			url : '${contextPath}/api/category/quantity',
+			async : false,
+			type : 'get',
+			success : function(data) {
+				pieChart.push([ 'Task', 'Hours per Day' ]);
+				for (let i = 0; i < data.length; i++) {
+					pieChart.push(data[i]);
+				}
+			}
+		});
 	}
-
-
+	getData();
 	google.charts.load('current', {
 		'packages' : [ 'corechart' ]
 	});
 	google.charts.setOnLoadCallback(drawChart);
-	google.charts.setOnLoadCallback(drawChart1);
 
 	function drawChart() {
 
-		/* var data = google.visualization.arrayToDataTable([
-		    ['Task', 'Hours per Day'],
-		    ['Work',     11],
-		    ['Eat',      2],
-		    ['Commute',  2],
-		    ['Watch TV', 2],
-		    ['Sleep',    7]
-		  ]) */
+		var data = google.visualization.arrayToDataTable(pieChart)
 
-		var data = google.visualization.arrayToDataTable(test);
 		var options = {
-			title : 'My Daily Activities',
+			title : 'Sản phẩm theo loại',
 			backgroundColor : 'transparent',
 			is3D : true
 		};
@@ -60,11 +45,14 @@
 		chart.draw(data, options);
 	}
 
+	google.charts.setOnLoadCallback(drawChart1);
+
 	function drawChart1() {
 		var data1 = google.visualization.arrayToDataTable([
-				[ 'Year', 'Sales', 'Expenses' ], [ '2004', 1000, 400 ],
-				[ '2005', 1170, 460 ], [ '2006', 660, 1120 ],
-				[ '2007', 1030, 540 ] ]);
+				[ 'Số lượng', 'Sản phẩm đã bán' ], [ '2004', 1000 ],
+				[ '2005', 1170 ], [ '2006', 660 ], [ '2007', 1030 ] ]);
+
+		data1.addRows([ [ '2008', 900 ], [ '2009', 950 ] ]);
 
 		var options1 = {
 			title : 'Company Performance',
@@ -84,17 +72,34 @@
 
 </head>
 <body>
+
 	<table>
 		<tr>
-			<td>
-				<div id="curve_chart" style="width: 900px; height: 500px"></div>
+			<td width="75%">
+				<div id="curve_chart" style="width: 100%; height: 500px"></div>
 			</td>
 			<td>
-				<div id="piechart" style="width: 600px; height: 300px"></div>
+				<div id="piechart" style="width: 100%; height: 300px"></div>
 			</td>
 		</tr>
 	</table>
 
-
+	<table class="table table-bordered table_custom"
+		style="text-align: center;">
+		<thead>
+			<tr class="table_header" align="left">
+				<th>Doanh thu trong tháng</th>
+				<th>Doanh Thu trung bình</th>
+				<th>Doanh Thu trong năm</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>2</td>
+				<td>3</td>
+			</tr>
+		</tbody>
+	</table>
 </body>
 </html>

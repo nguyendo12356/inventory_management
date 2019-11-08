@@ -25,4 +25,6 @@ public class ProductModel {
 	private String imageName;
 	private boolean active;
 	private Date createDate;
+	private int lowestQuantity;
+	private int target;
 }

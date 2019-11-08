@@ -1,9 +1,11 @@
 package com.java.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,10 @@ public class IODaoImpl extends BaseDaoImpl<IOInventory> implements IODao {
 	SessionFactory sessionFactory;
 
 	@Override
-	public List<IOInventory> getAll() {
+	public List<IOInventory> getAll(int type) {
 		@SuppressWarnings("unchecked")
-		Query<IOInventory> query = sessionFactory.getCurrentSession().createQuery("from IOInventory where type = 1");
+		Query<IOInventory> query = sessionFactory.getCurrentSession().createQuery("from IOInventory where type =: type ");
+		query.setParameter("type", type);
 		return query.list();
 	}
 
@@ -42,11 +45,23 @@ public class IODaoImpl extends BaseDaoImpl<IOInventory> implements IODao {
 	}
 
 	@Override
-	public IOInventory findIOInventoryById(int id) {
+	public IOInventory findIOInventoryById(int id, int type) {
 		@SuppressWarnings("unchecked")
-		Query<IOInventory> query = sessionFactory.openSession().createQuery("from IOInventory where type = 1 and id=:id");
+		Query<IOInventory> query = sessionFactory.openSession().createQuery("from IOInventory where type =: type and id=:id");
 		query.setParameter("id", id);
+		query.setParameter("type", type);
 		return query.uniqueResult();
 	}
 
+	@Override
+	public List<IOInventory> getRevenue() {
+		StringBuilder sb = new StringBuilder();
+		Date date = DateUtils.addDays(new Date(), -12);
+		sb.append("from IOInventory where createDate between :sDate and :eDate");
+		Query<IOInventory> query = sessionFactory.getCurrentSession().createQuery(sb.toString());
+		query.setParameter("sDate", date);
+		query.setParameter("eDate", new Date());
+		return query.list();
+	}
+	
 }

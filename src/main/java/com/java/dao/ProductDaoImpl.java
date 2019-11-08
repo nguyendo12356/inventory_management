@@ -48,5 +48,13 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements ProductDao{
 		String sql = "select category.name as name, sum(quantity) from Product group by (category.id)";
 		return sessionFactory.getCurrentSession().createQuery(sql).list();
 	}
+
+	@Override
+	public List<Product> getProductByCategory(int id) {
+		String sql = "from Product where category.id =: id";
+		Query<Product> query = sessionFactory.getCurrentSession().createQuery(sql);
+		query.setParameter("id", id);
+		return query.list();
+	}
 	
 }

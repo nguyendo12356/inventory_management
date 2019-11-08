@@ -12,4 +12,6 @@ public interface ProductDao extends BaseDao<Product> {
 	List<String> showCodeByLetter(String code);
 
 	List<Object[]> getQuantityByCategory();
+	
+	List<Product> getProductByCategory(int id);
 }

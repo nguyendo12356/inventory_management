@@ -131,7 +131,7 @@
 			<!-- /top navigation -->
 
 			<!-- page content -->
-			<div class="right_col" role="main" style="min-height: 800px !important;">
+			<div class="right_col" role="main">
 				<tiles:insertAttribute name="content" />
 
 			</div>
@@ -152,5 +152,8 @@
 	<script src='<c:url value="/resources/common/bootstrap.min.js"/>'></script>
 	<script src="<c:url value='/resources/build/js/custom.min.js'/>"></script>
 	<script src="<c:url value='/resources/build/js/customjs.js'/>"></script>
+	<script type="text/javascript">
+		$('.right_col').css('min-height', '800px !important');
+	</script>
 </body>
 </html>

@@ -77,6 +77,8 @@ public class ConvertObject {
 			p.setDescription(productModel.getDescription());
 			p.setDiscount(productModel.getDiscount());
 			p.setName(productModel.getName());
+			p.setLowestQuantity(productModel.getLowestQuantity());
+			p.setTarget(productModel.getTarget());
 			p.setPrice(productModel.getPrice());
 			p.setQuantity(productModel.getQuantity());
 			p.setActive(true);
@@ -99,6 +101,8 @@ public class ConvertObject {
 			productModel.setPrice(product.getPrice());
 			productModel.setQuantity(product.getQuantity());
 			productModel.setActive(true);
+			productModel.setLowestQuantity(product.getLowestQuantity());
+			productModel.setTarget(product.getTarget());
 			if(product.getCategory() != null) {
 				productModel.setCate(product.getCategory());
 			}

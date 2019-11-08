@@ -37,4 +37,16 @@
 	<definition name = "invoice-details" extends="master">
 		<put-attribute name="content" value="/WEB-INF/layouts/inventory/invoice-details.jsp"></put-attribute>
 	</definition>
+	<definition name = "outputInventoryList" extends="master">
+		<put-attribute name="content" value="/WEB-INF/layouts/inventory/outputList.jsp"></put-attribute>
+	</definition>
+	<definition name = "outputInventoryAdd" extends="master">
+		<put-attribute name="content" value="/WEB-INF/layouts/inventory/outputAdd.jsp"></put-attribute>
+	</definition>
+	<definition name = "output-invoice" extends="master">
+		<put-attribute name="content" value="/WEB-INF/layouts/inventory/output-invoice.jsp"></put-attribute>
+	</definition>
+	<definition name = "inventoryList" extends="master">
+		<put-attribute name="content" value="/WEB-INF/layouts/inventory/inventory-list.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>

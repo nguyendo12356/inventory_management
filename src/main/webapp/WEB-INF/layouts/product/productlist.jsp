@@ -32,7 +32,9 @@
 			<th class="w-6">Giá (VNĐ)</th>
 			<th class="w-6">Số lượng</th>
 			<th class="w-10">Giảm giá (%)</th>
-			<th>Mô tả</th>
+			<th class="w-6">Ngưỡng</th>
+			<th class="w-6">Chỉ tiêu</th>
+			<!-- <th>Mô tả</th> -->
 			<th>Action</th>
 		</tr>
 	</thead>
@@ -51,7 +53,9 @@
 				<td><fmt:formatNumber value="${item.price}" /> đ</td>
 				<td>${item.quantity}</td>
 				<td>${item.discount}</td>
-				<td>${item.description}</td>
+				<td>${item.lowestQuantity}</td>
+				<td>${item.target}</td>
+				<%-- <td>${item.description}</td> --%>
 				<td><a type="button" class="btn btn-primary"
 					href="<c:url value='/product/update/${item.id}'/>">Sửa</a>
 					<a type="button" class="btn btn-danger"

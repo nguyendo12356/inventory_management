@@ -37,13 +37,17 @@
 			<form:input path="price" type="number" id="price"
 				class="form-control" />
 		</div>
-<%-- 		<div class="form-group">
-			<label>Số lượng:</label>
-			<form:input path="quantity" type="number" id="quantity" class="form-control" />
-		</div> --%>
 		<div class="form-group">
 			<label>Discount(%):</label>
 			<form:input path="discount" type="number" id="discount" class="form-control" />
+		</div>
+ 		<div class="form-group">
+			<label>Ngưỡng sản phẩm:</label>
+			<form:input path="lowestQuantity" type="number" id="lowestQuantity" class="form-control" />
+		</div>
+		<div class="form-group">
+			<label>Chỉ tiêu sản phẩm:</label>
+			<form:input path="target" type="number" id="target" class="form-control" />
 		</div>
 		<div class="form-group">
 			<label>Hình ảnh:</label>

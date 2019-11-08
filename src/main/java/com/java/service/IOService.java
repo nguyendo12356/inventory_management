@@ -14,12 +14,16 @@ public class IOService {
 	@Autowired
 	private IODao ioDao;
 	
-	public List<IOInventory> getAll(){
-		return ioDao.getAll();
+	public List<IOInventory> getAll(int type){
+		return ioDao.getAll(type);
 	}
 	
-	public IOInventory findIOInventoryById(int id) {
-		return ioDao.findIOInventoryById(id);
+	public IOInventory findIOInventoryById(int id, int type) {
+		return ioDao.findIOInventoryById(id,type);
+	}
+	
+	public List<IOInventory> getRevenue(){
+		return ioDao.getRevenue();
 	}
 
 }

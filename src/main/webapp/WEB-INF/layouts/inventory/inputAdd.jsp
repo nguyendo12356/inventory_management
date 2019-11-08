@@ -22,10 +22,6 @@
 			<label for="suplier">Nhà cung cấp:</label> <input
 				class="form-control" id="suplier" />
 		</div>
-		<div class="form-group">
-			<label for="suplier">Tổng giá trị:</label> <input
-				class="form-control" id="totalPrice" type="number"/>
-		</div>
 	</fieldset>
 </div>
  <div class="alert alert-danger alert-dismissible" id="alert-error" style="display: none">
@@ -166,7 +162,6 @@
 		let ul = $(event.target);
 		ul.unbind();
 		ul.next().css('display', 'block');
-		ul.next().empty();
 		$.ajax({
 			url : '${contextPath}/api/productbyletter',
 			type : 'get',
@@ -174,6 +169,7 @@
 				"code" : $(event.target).val()
 			},
 			success : function(data) {
+				ul.next().empty();
 				if (ul.next().find('option').length == 0) {
 					for (let i = 0; i < data.length; i++) {
 						let value = '\'' + data[i] + '\'';
@@ -213,7 +209,7 @@
 		})
 	}
 
-	function validate(codeBill, suplier, totalPrice){
+	function validate(codeBill, suplier){
 		$('#error-invoice').css('display','none');
 		if(codeBill.val().length == 0){
 			$('#error-invoice').css('display','block');
@@ -224,11 +220,6 @@
 			$('#error-invoice').css('display','block');
 			suplier.css('borderColor','red');
 			$('#error-invoice-text').html('Vui lòng nhập nhà cung cấp');
-			return false;
-		}else if(totalPrice.val().length == 0){
-			$('#error-invoice').css('display','block');
-			totalPrice.css('borderColor','red');
-			$('#error-invoice-text').html('Vui lòng nhập tổng giá trị');
 			return false;
 		}
 		return true;
@@ -284,18 +275,17 @@
 	}
 	
 	function saveInputInvoice() {
+		totalPriceNumber = 0;
 		let codeBill =  $('#codeBill');
 		let suplier = $('#suplier');
-		let totalPrice = $('#totalPrice');
 		let invoice = {
 				"codeBill" : codeBill.val(),
 				"type" : 1,
 				"suplier" : suplier.val(),
-				"totalPrice" : totalPrice.val(),
 				"products":[]
 			};
 		let isErrorTable = false;
-		if(validate(codeBill, suplier,totalPrice)){
+		if(validate(codeBill, suplier)){
 			let rows = $('#tbl-input tr:not(".table_header")');
 			for (let m = 0; m < rows.length; m++){
 				let row = $(rows[m]).find('td');
@@ -307,6 +297,7 @@
 					break;
 				}
 			};
+			invoice["totalPrice"] = totalPriceNumber;
 			if(!isErrorTable){
 				$.ajax({
 					url : '${contextPath}/api/addInvoice',
@@ -324,6 +315,8 @@
 		}
 	}
 		
+	var totalPriceNumber = 0;
+	
 	function getTableValue(data){
 		let code = $(data[0]).find('input').val();
 		let name = $(data[1]).find('input').val();
@@ -331,6 +324,7 @@
 		let quantity = $(data[3]).find('input').val();
 		let price = $(data[4]).find('input').val();
 		let discount = $(data[5]).find('input').val();
+		totalPriceNumber = totalPriceNumber + quantity*price;
 		let product = {
 				"name": name,
 				"code": code,

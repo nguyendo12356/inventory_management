@@ -9,6 +9,11 @@
 		margin: 0;
 }
 
+.status-image-inventory{
+	width: 60px;
+	height: 60px;
+}
+
 .addNew{
 	text-align: right;
 	line-height: 2.5em;

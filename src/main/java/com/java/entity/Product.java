@@ -40,7 +40,10 @@ public class Product {
 	private boolean active;
 	@Column(name = "create_date")
 	private Date createDate;
-	
+	@Column(name = "lowestQuantity")
+	private int lowestQuantity;
+	@Column(name = "target")
+	private int target;
 //	@JsonIgnore
 //	@OneToMany( mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //	private List<InvoiceProduct> invoiceProduct = new ArrayList<InvoiceProduct>(); 
