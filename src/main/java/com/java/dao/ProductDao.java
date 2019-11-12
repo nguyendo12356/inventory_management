@@ -14,4 +14,8 @@ public interface ProductDao extends BaseDao<Product> {
 	List<Object[]> getQuantityByCategory();
 	
 	List<Product> getProductByCategory(int id);
+	
+	List<Product> getProductByStatus(String status);
+	
+	List<Product> getProductByIdAndByStatus(int id,String status);
 }

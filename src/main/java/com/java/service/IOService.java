@@ -25,5 +25,9 @@ public class IOService {
 	public List<IOInventory> getRevenue(){
 		return ioDao.getRevenue();
 	}
+	
+	public double getTotalRevenue() {
+		return ioDao.getTotalRevenue();
+	}
 
 }

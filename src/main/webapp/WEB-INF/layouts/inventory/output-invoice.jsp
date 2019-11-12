@@ -7,12 +7,14 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="contextPath"
 	value="${pageContext.servletContext.contextPath}"></c:set>
-<div>
-<a class="btn btn-primary float-right"
-		href="${contextPath}/export?invoice=${invoiceDetail.id}"
-		target="_blank">In báo cáo</a>
+	
+	<div>
+	<span>Mã hóa đơn: ${invoiceDetail.codeBill }</span><br /><span>Ngày nhập: <fmt:formatDate
+			value="${invoiceDetail.createDate}" pattern="dd-MM-yyyy" />
+	</span><br /> <span>Tổng giá trị: <fmt:formatNumber type="Number"
+			value="${invoiceDetail.price}" /> đ
+	</span>
 </div>
-
 <table class="table table-bordered table_custom"
 	style="text-align: center;" id="tbl-input">
 	<thead>
@@ -53,7 +55,7 @@
 </table>
 <div class="back">
 	<i class="glyphicon glyphicon-chevron-left"></i>&ensp;<a
-		href="${contextPath}/inventory/input"> Danh sách hóa đơn</a>
+		href="${contextPath}/inventory/output"> Danh sách hóa đơn</a>
 </div>
 <script src='<c:url value="/resources/bootstrap/js/jquery.min.js"/>'></script>
 

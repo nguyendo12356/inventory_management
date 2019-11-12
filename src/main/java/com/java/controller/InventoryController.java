@@ -52,14 +52,10 @@ public class InventoryController {
 	}
 	
 	@RequestMapping(value = {"/ajax/list"}, method = RequestMethod.GET)
-	public ModelAndView inventoryDataList(@RequestParam("id") int id) {
+	public ModelAndView inventoryDataList(@RequestParam("id") int id, @RequestParam("status") String status) {
 		ModelAndView modal = new ModelAndView("inventory/table-product");
 		List<Product> list;
-		if(id == -1) {
-			list = productService.findAll(); 
-		}else {
-			list =  productService.getProductByCategory(id);
-		}
+		list = productService.getProductByCategory(id, status);
 		modal.addObject("productList", list);
 		return modal;
 	}
@@ -80,7 +76,7 @@ public class InventoryController {
 	
 	@RequestMapping(value = {"/output/add"}, method = RequestMethod.GET)
 	public ModelAndView outputAdd() {
-		ModelAndView modal = new ModelAndView("inputInventoryAdd");
+		ModelAndView modal = new ModelAndView("outputInventoryAdd");
 		modal.addObject("category", categoryService.findAll());
 		return modal;
 	}
@@ -102,9 +98,10 @@ public class InventoryController {
 	
 	@RequestMapping(value = {"/output/details/{id}"}, method = RequestMethod.GET)
 	public ModelAndView outputDetail(@PathVariable("id") int id) {
-		ModelAndView model = new ModelAndView("invoice-details");
-		IOInventory ioInventory = ioService.findIOInventoryById(id, 1);
+		ModelAndView model = new ModelAndView("output-invoice-detail");
+		IOInventory ioInventory = ioService.findIOInventoryById(id, 2);
 		model.addObject("invoiceDetail", ioInventory);
 		return model;
 	}
+
 }

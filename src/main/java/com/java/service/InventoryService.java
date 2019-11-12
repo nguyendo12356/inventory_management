@@ -55,4 +55,26 @@ public class InventoryService {
 			ipDao.save(ip);
 		}
 	}
+	
+	
+	public void addInvoiceOutput(InventoryModel inventoryModel) {
+		Product p;
+		IOInventory invoice = new IOInventory(inventoryModel.getCodeBill(), 2,
+				inventoryModel.getSuplier(), inventoryModel.getTotalPrice(), inventoryModel.getStaffName());
+		ioDao.save(invoice);
+		InvoiceProduct ip ;
+		IOInventory ioInventory = ioDao.findByCodeBill(invoice.getCodeBill());
+		for( ProductModel product : inventoryModel.getProducts()) {
+			ip = new InvoiceProduct();
+			ip.setIoInventory(new IOInventory(ioInventory.getId()));
+			p = productDao.findProductByCode(product.getCode());
+			if(p != null) {
+				p.setQuantity(p.getQuantity() - product.getQuantity());
+				productDao.update(p);
+			}
+			ip.setProduct(p);
+			ip.setQuantity(product.getQuantity());	
+			ipDao.save(ip);
+		}
+	}
 }

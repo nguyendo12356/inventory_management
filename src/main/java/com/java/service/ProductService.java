@@ -75,4 +75,19 @@ public class ProductService {
 		return productDao.getProductByCategory(id);
 	}
 	
+	public List<Product> getProductByCategory(int id, String status){
+		List<Product> list;
+		if(id != -1 && status.contentEquals("ALL")){
+			list =  productDao.getProductByCategory(id);
+		}else if(id == -1 && !status.contentEquals("ALL")) {
+			list = productDao.getProductByStatus(status);
+		}else if(id != -1 && !status.contentEquals("ALL")){
+			System.out.println("Hello");
+			list = productDao.getProductByIdAndByStatus(id, status);
+		}else {
+			list = productDao.findAll();
+		}
+		return list;
+	}
+	
 }

@@ -2,6 +2,7 @@ package com.java.controller;
 
 import java.awt.Color;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 
@@ -103,14 +104,15 @@ public class PDFView extends AbstractPdfView{
 		table.setWidthPercentage(10);
         table.setSpacingBefore(20);
         
-        tablePrice.setHorizontalAlignment(Element.ALIGN_RIGHT);;
-        System.out.println(totalPrice*10/100);
+        tablePrice.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        double vat = (totalPrice*10)/100;
+        double totalPriceAfterVat = totalPrice - vat;
         tablePrice.addCell(new PdfPCell(new Phrase("Tổng tiền hàng",new Font(fonts,12))));
         tablePrice.addCell(new PdfPCell(new Phrase(totalPrice+"",new Font(fonts,12))));
         tablePrice.addCell(new PdfPCell(new Phrase("Thuế GTGT: ",new Font(fonts,12))));
-        tablePrice.addCell(new PdfPCell(new Phrase((totalPrice*10)/100+"",new Font(fonts,12))));
+        tablePrice.addCell(new PdfPCell(new Phrase(new DecimalFormat("#").format(vat),new Font(fonts,12))));
         tablePrice.addCell(new PdfPCell(new Phrase("Tổng tiền: ",new Font(fonts,12))));
-        tablePrice.addCell(new PdfPCell(new Phrase((totalPrice*90)/100+"",new Font(fonts,12))));
+        tablePrice.addCell(new PdfPCell(new Phrase(new DecimalFormat("#").format(totalPriceAfterVat),new Font(fonts,12))));
         document.add(tablePrice);
         
         document.add( Chunk.NEWLINE ); 

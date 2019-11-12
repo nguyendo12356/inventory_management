@@ -2,6 +2,7 @@ package com.java.api;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
@@ -102,6 +103,23 @@ public class GeneralApiController {
 		inventoryService.addInvoice(model);
 		return new ResponseEntity<InventoryModel>(model, HttpStatus.OK);
 	}
+	
+	@PostMapping(value = "/addInvoiceOutput")
+	@ResponseBody
+	public ResponseEntity<InventoryModel> addInvoiceOutput(@RequestBody InventoryModel model) {
+		String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvxyz";
+		StringBuilder sb = new StringBuilder("");
+		for(int i = 0; i < 5; i++) {
+			sb.append(AlphaNumericString.charAt(new Random().nextInt(AlphaNumericString.length())));
+		}
+		model.setCodeBill(sb.toString());
+		model.setStaffName("");
+		model.setSuplier("");
+		inventoryService.addInvoiceOutput(model);
+		return new ResponseEntity<InventoryModel>(model, HttpStatus.OK);
+	}
 
 	@GetMapping("/category/quantity")
 	@ResponseBody
@@ -125,6 +143,12 @@ public class GeneralApiController {
 	public ResponseEntity<List<Product>> getProductByCategory(@RequestParam("id") int id) {
 		List<Product> list = productService.getProductByCategory(id);
 		return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
+	}
+	
+	@GetMapping("/revenue")
+	public double getTotalRevenue() {
+		System.out.println(Double.valueOf(ioService.getTotalRevenue()));
+		return ioService.getTotalRevenue();
 	}
 
 }

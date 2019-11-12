@@ -49,4 +49,7 @@
 	<definition name = "inventoryList" extends="master">
 		<put-attribute name="content" value="/WEB-INF/layouts/inventory/inventory-list.jsp"></put-attribute>
 	</definition>
+	<definition name = "output-invoice-detail" extends="master">
+		<put-attribute name="content" value="/WEB-INF/layouts/inventory/output-invoice.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>

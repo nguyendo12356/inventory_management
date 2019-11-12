@@ -14,4 +14,6 @@ public interface IODao extends BaseDao<IOInventory> {
 	IOInventory findIOInventoryById(int id, int type);
 	
 	List<IOInventory> getRevenue();
+
+	double getTotalRevenue();
 }

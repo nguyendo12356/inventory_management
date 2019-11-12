@@ -56,5 +56,28 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements ProductDao{
 		query.setParameter("id", id);
 		return query.list();
 	}
+
+	@Override
+	public List<Product> getProductByStatus(String status) {
+		String sql = "";
+		if (status.contentEquals("low")) {
+			sql = "from Product where quantity <= lowestQuantity";			
+		}
+		Query<Product> query = sessionFactory.getCurrentSession().createQuery(sql);
+		return query.list();
+	}
+
+	@Override
+	public List<Product> getProductByIdAndByStatus(int id, String status) {
+		String sql = "";
+		if (status.contentEquals("low")) {
+			sql = "from Product where category.id =: id and quantity <= lowestQuantity";			
+		}
+		Query<Product> query = sessionFactory.getCurrentSession().createQuery(sql);
+		query.setParameter("id", id);
+		return query.list();
+	}
+	
+	
 	
 }

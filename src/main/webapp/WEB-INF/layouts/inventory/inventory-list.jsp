@@ -19,31 +19,35 @@
 	</div>
 	<div class="col-sm-3">
 		<select class="form-control" id="slStatus">
-			<option value="ALl">Tất cả trạng thái</option>
+			<option value="ALL">Tất cả trạng thái</option>
 			<option value="low">Sắp hết hàng</option>
 			<option value="high">Tồn kho quá lâu</option>
 		</select>
 	</div>
 	<div class="col-sm-1">
-		<button class="form-control btn btn-danger">&gt;&gt;</button>
+		<button class="form-control btn btn-danger" id="btnSearch">&gt;&gt;</button>
 	</div>
 </div>
 
 <div id="show-products"></div>
 <script src='<c:url value="/resources/bootstrap/js/jquery.min.js"/>'></script>
 <script>
-	$('#slCategory').on("change", function() {
-		getTableProduct($('#slCategory option:selected').val());
+	
+	$('#btnSearch').on("click",function(){
+		var id = $('#slCategory option:selected').val();
+		var status = $('#slStatus option:selected').val();
+		getTableProduct(id,status);
 	})
 
-	getTableProduct(-1);
+	getTableProduct(-1, "ALL");
 
-	function getTableProduct(id) {
+	function getTableProduct(id, status) {
 		$.ajax({
 			type : 'get',
 			url : '${contextPath}/inventory/ajax/list',
 			data : {
-				'id' : id
+				'id' : id,
+				'status': status
 			},
 			success : function(data) {
 				$('#show-products').html(data);

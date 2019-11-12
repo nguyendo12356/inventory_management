@@ -60,7 +60,7 @@
 						<div class="menu_section">
 							<h3>General</h3>
 							<!-- Menu -->
-							<tiles:insertAttribute name="menu"/>
+							<tiles:insertAttribute name="menu" />
 
 						</div>
 					</div>
@@ -93,7 +93,8 @@
 											class="badge bg-red pull-right">50%</span> <span>Settings</span>
 									</a></li>
 									<li><a href="javascript:;">Help</a></li>
-									<li><a href="${pageContext.servletContext.contextPath}/logout"><i
+									<li><a
+										href="${pageContext.servletContext.contextPath}/logout"><i
 											class="fa fa-sign-out pull-right"></i> Đăng Xuất</a></li>
 								</ul></li>
 
@@ -104,18 +105,15 @@
 							</a>
 								<ul id="menu1" class="dropdown-menu list-unstyled msg_list"
 									role="menu">
-									<li><a> <span class="image"><img
-												src="" alt="Profile Image" /></span> <span> <span>John
+									<li><a> <span class="image"><img src=""
+												alt="Profile Image" /></span> <span> <span>John
 													Smith</span> <span class="time">3 mins ago</span>
 										</span> <span class="message"> Film festivals used to be
 												do-or-die moments for movie makers. They were where... </span>
 									</a></li>
-									<li><a> <span class="image"><img
-												src="" alt="Profile Image" /></span> <span> <span>John
-													Smith</span> <span class="time">3 mins ago</span>
-										</span> <span class="message"> Film festivals used to be
-												do-or-die moments for movie makers. They were where... </span>
-									</a></li>
+									<li>
+										<span class="message">Sản phẩm SP1 sắp hết hàng</span>
+									</li>
 									<li>
 										<div class="text-center">
 											<a> <strong>See All Alerts</strong> <i
@@ -138,7 +136,7 @@
 			<!-- /page content -->
 
 			<!-- footer content -->
-<!-- 			<footer style="margin-top: -19px;">
+			<!-- 			<footer style="margin-top: -19px;">
 				<div class="pull-right"><p>&copy; 2019 Inventory Management<p></div>
 				<div class="clearfix"></div>
 			</footer> -->

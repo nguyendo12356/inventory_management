@@ -63,5 +63,16 @@ public class IODaoImpl extends BaseDaoImpl<IOInventory> implements IODao {
 		query.setParameter("eDate", new Date());
 		return query.list();
 	}
+
+	@Override
+	public double getTotalRevenue() {
+		StringBuilder sb = new StringBuilder();
+		Date date = DateUtils.addDays(new Date(), -12);
+		sb.append("select sum(price) from IOInventory where type = 2 and createDate between :sDate and :eDate");
+		Query<Double> query = sessionFactory.getCurrentSession().createQuery(sb.toString());
+		query.setParameter("sDate", date);
+		query.setParameter("eDate", new Date());
+		return (double)query.uniqueResult();
+	}
 	
 }
