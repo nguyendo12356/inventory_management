@@ -3,6 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <!DOCTYPE html>
+<c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
 <html lang="en">
 
 <head>
@@ -100,27 +101,25 @@
 
 							<li role="presentation" class="dropdown"><a
 								href="javascript:;" class="dropdown-toggle info-number"
-								data-toggle="dropdown" aria-expanded="false"> <i
-									class="fa fa-envelope-o"></i> <span class="badge bg-green">6</span>
+								data-toggle="dropdown" aria-expanded="false" id="btnMessage"> <i
+									class="fa fa-envelope-o"></i> <span class="badge bg-green" id="message"></span>
 							</a>
 								<ul id="menu1" class="dropdown-menu list-unstyled msg_list"
 									role="menu">
-									<li><a> <span class="image"><img src=""
-												alt="Profile Image" /></span> <span> <span>John
-													Smith</span> <span class="time">3 mins ago</span>
-										</span> <span class="message"> Film festivals used to be
-												do-or-die moments for movie makers. They were where... </span>
-									</a></li>
-									<li>
+<!-- 									<li>
+										<a>
+										 	<span class="image">Cảnh báo</span>
+										 	<span class="time">2019-12-03</span>
 										<span class="message">Sản phẩm SP1 sắp hết hàng</span>
-									</li>
-									<li>
+										</a>
+									</li> -->
+									<!-- <li>
 										<div class="text-center">
 											<a> <strong>See All Alerts</strong> <i
 												class="fa fa-angle-right"></i>
 											</a>
 										</div>
-									</li>
+									</li> -->
 								</ul></li>
 						</ul>
 					</nav>
@@ -152,6 +151,41 @@
 	<script src="<c:url value='/resources/build/js/customjs.js'/>"></script>
 	<script type="text/javascript">
 		$('.right_col').css('min-height', '800px !important');
+		
+		
+		$.ajax({
+			url: '${contextPath}/api/notificationUnread',
+			async: false,
+			success: function(data){
+				$('#message').html(data);
+			}
+		})
+		
+		$('#btnMessage').on("click",function(){
+			$.ajax({
+				url: '${contextPath}/api/notification',
+				type: 'get',
+				success : function(data){
+					$('#menu1').empty()
+					$.each(data, function(){
+						var mDate = new Date(this.createDate);
+						var day = mDate.getDate();
+						var month = mDate.getMonth() + 1;
+						var year = mDate.getFullYear();
+						var date = day+"/"+month+"/"+year;
+						var id = this.id;
+						var newLi = '<li id = '+id+'><a><span class="image">'+this.title+'</span>'+
+						'<span class="time">'+date+'</span>'+
+						'<span class="message">'+this.message+'</span></a></li>';
+						$('#menu1').append(newLi);
+						if(this.status == 0){
+							$('#'+id).css('background-color', 'lightgray');
+						}
+					})
+					//$('#message').html(numberMessage);
+				}
+			})
+		})
 	</script>
 </body>
 </html>

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.java.dao.InvoiceProductDao;
 import com.java.entity.InvoiceProduct;
+import com.java.entity.Notification;
 import com.java.entity.Product;
 import com.java.model.InventoryModel;
 import com.java.model.ProductModel;
@@ -28,6 +29,7 @@ import com.java.model.User;
 import com.java.service.CategoryService;
 import com.java.service.IOService;
 import com.java.service.InventoryService;
+import com.java.service.NotificationService;
 import com.java.service.ProductService;
 import com.java.service.UserService;
 import com.java.util.Util;
@@ -54,6 +56,9 @@ public class GeneralApiController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private NotificationService notificationService;
 
 	@PostMapping(value = "/category")
 	public ResponseEntity<String> addNewCategory(@RequestParam("categoryName") String name,
@@ -149,6 +154,18 @@ public class GeneralApiController {
 	public double getTotalRevenue() {
 		System.out.println(Double.valueOf(ioService.getTotalRevenue()));
 		return ioService.getTotalRevenue();
+	}
+	
+	@GetMapping("/notification")
+	public ResponseEntity<List<Notification>> findAllNotification() {
+		List<Notification> list = notificationService.findAllNotification();
+		return new ResponseEntity<List<Notification>>(list, HttpStatus.OK);
+	}
+	
+	@GetMapping("/notificationUnread")
+	public ResponseEntity<Integer> countNotification() {
+		int number = notificationService.countNotification();
+		return new ResponseEntity<Integer>(number, HttpStatus.OK);
 	}
 
 }

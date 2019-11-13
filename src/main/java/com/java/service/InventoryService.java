@@ -1,5 +1,7 @@
 package com.java.service;
 
+import java.util.Date;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.java.dao.IODao;
 import com.java.dao.InvoiceProductDao;
+import com.java.dao.NotificationDao;
 import com.java.dao.ProductDao;
 import com.java.entity.IOInventory;
 import com.java.entity.InvoiceProduct;
+import com.java.entity.Notification;
 import com.java.entity.Product;
 import com.java.model.InventoryModel;
 import com.java.model.ProductModel;
@@ -27,6 +31,9 @@ public class InventoryService {
 	
 	@Autowired
 	private InvoiceProductDao ipDao;
+	
+	@Autowired
+	private NotificationDao notificationDao;
 
 	public void addInvoice(InventoryModel inventoryModel) {
 		Product p;
@@ -71,6 +78,14 @@ public class InventoryService {
 			if(p != null) {
 				p.setQuantity(p.getQuantity() - product.getQuantity());
 				productDao.update(p);
+			}
+			if(p.getQuantity() - product.getQuantity() < p.getLowestQuantity()) {
+				Notification notification = new Notification();
+				notification.setCreateDate(new Date());
+				notification.setStatus(0);
+				notification.setTitle("Cảnh báo");
+				notification.setMessage("Sản phẩm "+ p.getCode() + " sắp hết hàng");
+				notificationDao.save(notification);
 			}
 			ip.setProduct(p);
 			ip.setQuantity(product.getQuantity());	

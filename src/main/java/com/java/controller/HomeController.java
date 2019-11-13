@@ -13,12 +13,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.java.entity.IOInventory;
 import com.java.model.User;
 import com.java.service.IOService;
+import com.java.service.NotificationService;
 
 @Controller
 public class HomeController {
 
 	@Autowired
 	private IOService ioService;
+	
+	@Autowired
+	private NotificationService notificationService;
 	
 	@RequestMapping(value = {"/home","/"}, method = RequestMethod.GET)
 	public String home(HttpServletRequest request) {
@@ -36,4 +40,5 @@ public class HomeController {
 		ModelAndView modelAndView = new ModelAndView("pdfView","model", ioInventory);
 		return modelAndView;
 	}
+	
 }
