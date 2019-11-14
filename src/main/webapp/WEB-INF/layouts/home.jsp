@@ -4,6 +4,7 @@
 <%@taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <!DOCTYPE html>
 <c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
+<c:set var="numMessage" value="${numMessage}"/>
 <html lang="en">
 
 <head>
@@ -102,7 +103,7 @@
 							<li role="presentation" class="dropdown"><a
 								href="javascript:;" class="dropdown-toggle info-number"
 								data-toggle="dropdown" aria-expanded="false" id="btnMessage"> <i
-									class="fa fa-envelope-o"></i> <span class="badge bg-green" id="message"></span>
+									class="fa fa-envelope-o"></i> <span class="badge bg-green" id="message1">${numMessage}</span>
 							</a>
 								<ul id="menu1" class="dropdown-menu list-unstyled msg_list"
 									role="menu">
@@ -151,7 +152,12 @@
 	<script src="<c:url value='/resources/build/js/customjs.js'/>"></script>
 	<script type="text/javascript">
 		$('.right_col').css('min-height', '800px !important');
-		
+
+		if(${numMessage} != 0){
+			$('#message1').html(${numMessage});
+		}else{
+			$('#message1').html('');
+		}
 		
 		$.ajax({
 			url: '${contextPath}/api/notificationUnread',
@@ -174,7 +180,7 @@
 						var year = mDate.getFullYear();
 						var date = day+"/"+month+"/"+year;
 						var id = this.id;
-						var newLi = '<li id = '+id+'><a><span class="image">'+this.title+'</span>'+
+						var newLi = '<li id = '+id+'><a href="${contextPath}/inventory/'+this.code+'"><span class="image">'+this.title+'</span>'+
 						'<span class="time">'+date+'</span>'+
 						'<span class="message">'+this.message+'</span></a></li>';
 						$('#menu1').append(newLi);
@@ -182,7 +188,7 @@
 							$('#'+id).css('background-color', 'lightgray');
 						}
 					})
-					//$('#message').html(numberMessage);
+					$('#message1').html('');
 				}
 			})
 		})

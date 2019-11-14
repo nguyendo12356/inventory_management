@@ -3,6 +3,7 @@ package com.java.dao;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +19,7 @@ public class NotificationDaoImpl extends BaseDaoImpl<Notification> implements No
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Notification> getNotification() {
-		String sql = "from Notification order by createDate desc";
+		String sql = "from Notification order by id desc";
 		return sessionFactory.getCurrentSession().createQuery(sql).list();
 	}
 
@@ -28,4 +29,11 @@ public class NotificationDaoImpl extends BaseDaoImpl<Notification> implements No
 		return (long)sessionFactory.getCurrentSession().createQuery(sql).uniqueResult();
 	}
 
+	@Override
+	public void updateStatus() {
+		String sql = "update Notification set status = 1";
+		Query query = sessionFactory.getCurrentSession().createQuery(sql);
+		query.executeUpdate();
+	}
+	
 }

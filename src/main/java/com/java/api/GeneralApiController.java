@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.apache.axis.encoding.Base64;
@@ -111,7 +112,7 @@ public class GeneralApiController {
 	
 	@PostMapping(value = "/addInvoiceOutput")
 	@ResponseBody
-	public ResponseEntity<InventoryModel> addInvoiceOutput(@RequestBody InventoryModel model) {
+	public ResponseEntity<InventoryModel> addInvoiceOutput(@RequestBody InventoryModel model, HttpServletRequest request) {
 		String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 + "0123456789"
                 + "abcdefghijklmnopqrstuvxyz";
@@ -122,7 +123,7 @@ public class GeneralApiController {
 		model.setCodeBill(sb.toString());
 		model.setStaffName("");
 		model.setSuplier("");
-		inventoryService.addInvoiceOutput(model);
+		inventoryService.addInvoiceOutput(model, request);
 		return new ResponseEntity<InventoryModel>(model, HttpStatus.OK);
 	}
 
@@ -157,7 +158,9 @@ public class GeneralApiController {
 	}
 	
 	@GetMapping("/notification")
-	public ResponseEntity<List<Notification>> findAllNotification() {
+	public ResponseEntity<List<Notification>> findAllNotification(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.setAttribute("numMessage", 0);
 		List<Notification> list = notificationService.findAllNotification();
 		return new ResponseEntity<List<Notification>>(list, HttpStatus.OK);
 	}
@@ -167,5 +170,5 @@ public class GeneralApiController {
 		int number = notificationService.countNotification();
 		return new ResponseEntity<Integer>(number, HttpStatus.OK);
 	}
-
+	
 }

@@ -23,6 +23,9 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserDao userDao;
 	
+	@Autowired
+	private NotificationService notificationService;
+	
 	@Override
 	public void addUser(User user, int roleId) {
 		UserDto userDto = ConvertObject.convertUserToUserDto(user);
@@ -102,5 +105,10 @@ public class UserServiceImpl implements UserService{
 		UserDto user = userDao.getUserByUsername(username);
 		user.setPassword(password);
 		userDao.update(user);
+	}
+
+	@Override
+	public int countNotification() {
+		return  notificationService.countNotification();
 	}
 }

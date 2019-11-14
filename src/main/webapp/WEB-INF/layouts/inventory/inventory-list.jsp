@@ -21,7 +21,7 @@
 		<select class="form-control" id="slStatus">
 			<option value="ALL">Tất cả trạng thái</option>
 			<option value="low">Sắp hết hàng</option>
-			<option value="high">Tồn kho quá lâu</option>
+			<!-- <option value="high">Tồn kho quá lâu</option> -->
 		</select>
 	</div>
 	<div class="col-sm-1">
@@ -29,7 +29,34 @@
 	</div>
 </div>
 
-<div id="show-products"></div>
+<div id="show-products">
+	<c:if test="${not empty product}">
+		<table class="table table-bordered table_custom"
+	style="text-align: center;">
+	<thead>
+		<tr class="table_header" align="left">
+			<th>STT</th>
+			<th>Mã sản phẩm</th>
+			<th>Tên sản phẩm</th>
+			<th>Loại sản phẩm</th>
+			<th>Số lượng</th>
+			<th>Tình trạng</th>
+		</tr>
+	</thead>
+	<tbody>
+			<tr>
+				<td>1</td>
+				<td>${product.code}</td>
+				<td>${product.name}</td>
+				<td>${product.category.name}</td>
+				<td>${product.quantity}</td>
+				<td><img class="status-image-inventory" alt="No image" src="${contextPath}/resources/images/lowstock.png"/>
+				</td>
+			</tr>
+	</tbody>
+</table>
+	</c:if>
+</div>
 <script src='<c:url value="/resources/bootstrap/js/jquery.min.js"/>'></script>
 <script>
 	
@@ -38,8 +65,10 @@
 		var status = $('#slStatus option:selected').val();
 		getTableProduct(id,status);
 	})
-
-	getTableProduct(-1, "ALL");
+	console.log($('#show-products').html().length);
+	if($('#show-products').html().length == 0){
+		getTableProduct(-1, "ALL");
+	}
 
 	function getTableProduct(id, status) {
 		$.ajax({

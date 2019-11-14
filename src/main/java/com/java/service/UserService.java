@@ -26,4 +26,6 @@ public interface UserService {
 	
 	void updatePassword(String username, String password);
 	
+	int countNotification();
+	
 }

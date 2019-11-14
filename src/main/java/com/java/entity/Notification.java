@@ -24,4 +24,5 @@ public class Notification {
 	private int status;
 	@Column(name = "create_date")
 	private Date createDate;
+	private String code;
 }

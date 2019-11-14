@@ -15,7 +15,9 @@ public class NotificationService {
 	private NotificationDao notificationDao;
 	
 	public List<Notification> findAllNotification() {
-		return notificationDao.getNotification();
+		List<Notification> list = notificationDao.getNotification();
+		notificationDao.updateStatus();
+		return list;
 	}
 	
 	public int countNotification() {

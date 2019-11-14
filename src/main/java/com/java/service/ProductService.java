@@ -62,6 +62,10 @@ public class ProductService {
 		return ConvertObject.parseProductModel(productDao.findProductByCode(code));
 	}
 	
+	public Product getProductByCode(String code) {
+		return productDao.findProductByCode(code);
+	}
+	
 	public List<String> showCodeByLetter(String code) {
 		List<String> codes = productDao.showCodeByLetter(code); 
 		return codes;

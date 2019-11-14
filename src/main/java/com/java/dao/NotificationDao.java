@@ -10,4 +10,6 @@ public interface NotificationDao extends BaseDao<Notification>{
 	List<Notification> getNotification();
 	
 	long countNotification();
+	
+	void updateStatus();
 }

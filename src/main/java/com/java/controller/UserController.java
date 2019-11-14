@@ -43,6 +43,7 @@ public class UserController {
 	@Autowired
 	private RoleService roleService;
 	
+	
 	@GetMapping(value = "/signupForm")
 	private String loadSignupForm(ModelMap model) {
 		model.addAttribute("user", new User());
@@ -100,6 +101,7 @@ public class UserController {
 		}else {
 			HttpSession session = request.getSession();
 			session.setAttribute("session", user1);
+			session.setAttribute("numMessage", userService.countNotification());
 			session.setMaxInactiveInterval(60*60*24);
 			UserRole userRole = user1.getRole().iterator().next();
 			List<MenuModel> menus = new ArrayList<MenuModel>();
@@ -118,6 +120,7 @@ public class UserController {
 				}
 			});
 			session.setAttribute("menus", menus);
+			
 			return "redirect:/home";
 			//return "/home";
 		}

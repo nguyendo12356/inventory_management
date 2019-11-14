@@ -51,6 +51,14 @@ public class InventoryController {
 		return modal;
 	}
 	
+	@RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
+	public ModelAndView inventoryList1(@PathVariable("id") String code) {
+		ModelAndView modal = new ModelAndView("inventoryList");
+		modal.addObject("categorys", categoryService.findAll());
+		modal.addObject("product", productService.getProductByCode(code));
+		return modal;
+	}
+	
 	@RequestMapping(value = {"/ajax/list"}, method = RequestMethod.GET)
 	public ModelAndView inventoryDataList(@RequestParam("id") int id, @RequestParam("status") String status) {
 		ModelAndView modal = new ModelAndView("inventory/table-product");

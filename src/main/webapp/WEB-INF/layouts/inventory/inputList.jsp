@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/styles.css'/>" />
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<<c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
 <h2>Danh sách nhập kho</h2>
 <p>
 	<a style="cursor: pointer; text-align: right; margin-bottom: 10px;"
@@ -52,4 +53,5 @@
 	</tbody>
 </table>
 <script src='<c:url value="/resources/bootstrap/js/jquery.min.js"/>'></script>
+
 

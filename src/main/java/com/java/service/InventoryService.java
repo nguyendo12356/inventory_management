@@ -2,6 +2,8 @@ package com.java.service;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +66,7 @@ public class InventoryService {
 	}
 	
 	
-	public void addInvoiceOutput(InventoryModel inventoryModel) {
+	public void addInvoiceOutput(InventoryModel inventoryModel, HttpServletRequest request) {
 		Product p;
 		IOInventory invoice = new IOInventory(inventoryModel.getCodeBill(), 2,
 				inventoryModel.getSuplier(), inventoryModel.getTotalPrice(), inventoryModel.getStaffName());
@@ -85,7 +87,11 @@ public class InventoryService {
 				notification.setStatus(0);
 				notification.setTitle("Cảnh báo");
 				notification.setMessage("Sản phẩm "+ p.getCode() + " sắp hết hàng");
+				notification.setCode(p.getCode());
 				notificationDao.save(notification);
+				HttpSession session = request.getSession();
+				int num = (int)session.getAttribute("numMessage");
+				session.setAttribute("numMessage", num + 1);
 			}
 			ip.setProduct(p);
 			ip.setQuantity(product.getQuantity());	
