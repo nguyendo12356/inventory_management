@@ -57,10 +57,11 @@ public class IODaoImpl extends BaseDaoImpl<IOInventory> implements IODao {
 	public List<IOInventory> getRevenue() {
 		StringBuilder sb = new StringBuilder();
 		Date date = DateUtils.addDays(new Date(), -12);
-		sb.append("from IOInventory where createDate between :sDate and :eDate");
+		sb.append("from IOInventory where type = 2 and createDate between :sDate and :eDate order by id asc");
 		Query<IOInventory> query = sessionFactory.getCurrentSession().createQuery(sb.toString());
 		query.setParameter("sDate", date);
 		query.setParameter("eDate", new Date());
+		query.setMaxResults(12);
 		return query.list();
 	}
 

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.java.dao.InvoiceProductDao;
+import com.java.entity.IOInventory;
 import com.java.entity.InvoiceProduct;
 import com.java.entity.Notification;
 import com.java.entity.Product;
@@ -152,9 +153,8 @@ public class GeneralApiController {
 	}
 	
 	@GetMapping("/revenue")
-	public double getTotalRevenue() {
-		System.out.println(Double.valueOf(ioService.getTotalRevenue()));
-		return ioService.getTotalRevenue();
+	public List<IOInventory> getTotalRevenue() {
+		return ioService.getRevenue();
 	}
 	
 	@GetMapping("/notification")

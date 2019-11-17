@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -51,7 +51,8 @@ public class IOInventory implements Serializable {
 	private String staffName;
 	
 	@OneToMany(mappedBy = "ioInventory", cascade=CascadeType.ALL)
-	@JsonManagedReference
+	//@JsonManagedReference
+	@JsonIgnore
 	private List<InvoiceProduct> ips = new ArrayList<InvoiceProduct>();
 	
 	public IOInventory(String codeBill, int type, String suplier, double price, String staffName) {

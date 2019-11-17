@@ -3,8 +3,9 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <!DOCTYPE html>
-<c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
-<c:set var="numMessage" value="${numMessage}"/>
+<c:set var="contextPath"
+	value="${pageContext.servletContext.contextPath}" />
+<c:set var="numMessage" value="${numMessage}" />
 <html lang="en">
 
 <head>
@@ -102,12 +103,13 @@
 
 							<li role="presentation" class="dropdown"><a
 								href="javascript:;" class="dropdown-toggle info-number"
-								data-toggle="dropdown" aria-expanded="false" id="btnMessage"> <i
-									class="fa fa-envelope-o"></i> <span class="badge bg-green" id="message1">${numMessage}</span>
+								data-toggle="dropdown" aria-expanded="false" id="btnMessage">
+									<i class="fa fa-envelope-o"></i> <span class="badge bg-green"
+									id="message1">${numMessage}</span>
 							</a>
-								<ul id="menu1" class="dropdown-menu list-unstyled msg_list"
-									role="menu">
-<!-- 									<li>
+								<ul id="menu1" style="height: 400px; overflow-y: scroll;"
+									class="dropdown-menu list-unstyled msg_list" role="menu">
+									<!-- 									<li>
 										<a>
 										 	<span class="image">Cảnh báo</span>
 										 	<span class="time">2019-12-03</span>
@@ -152,7 +154,6 @@
 	<script src="<c:url value='/resources/build/js/customjs.js'/>"></script>
 	<script type="text/javascript">
 		$('.right_col').css('min-height', '800px !important');
-
 		if(${numMessage} != 0){
 			$('#message1').html(${numMessage});
 		}else{

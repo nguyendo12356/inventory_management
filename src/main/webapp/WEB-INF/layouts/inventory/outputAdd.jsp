@@ -48,7 +48,9 @@
 								<option value="${categoryItem.id}">${categoryItem.name}</option>
 							</c:forEach>
 					</select></td>
-					<td class="m-width"><input class="form-control w-100" /></td>
+					<td class="m-width"><input class="form-control w-100" />
+						<input class="form-control w-100" type="hidden"/>
+					</td>
 					<td class="m-width"><input class="form-control w-100" /></td>
 					<td class="m-width"><input class="form-control w-100" /></td>
 					<td class="m-width-120"><img alt="No image" src=""
@@ -120,6 +122,7 @@
 				$(slCategory[j]).attr('selected', 'selected');
 			}
 		}
+		$(row[3]).find('input')[1].value = data.quantity;
 		$(row[4]).find('input').val(data.price);
 		$(row[5]).find('input').val(data.discount);
 		$($(row[6]).children()[0]).attr('src',
@@ -216,6 +219,7 @@
 		let code = $(data[0]).find('input');
 		let name = $(data[1]).find('input');
 		let quantity = $(data[3]).find('input');
+		let currentQuantity = $(data[3]).find('input')[1].value;
 		let price = $(data[4]).find('input');
 		let discount = $(data[5]).find('input');
 		if (code.val().length == 0){
@@ -233,6 +237,11 @@
 			quantity.css('borderColor','red');
 			$('#alert-error').css('display','block');
 			$('#tbl-error').html('Vui lòng nhập đầy đủ thông tin');
+			return false;
+		}else if(currentQuantity - quantity.val()< 0){
+			quantity.css('borderColor','red');
+			$('#alert-error').css('display','block');
+			$('#tbl-error').html('Xin lỗi. Số lượng sản phẩm '+name.val()+' chỉ còn '+ currentQuantity);
 			return false;
 		}
 		else if (price.val().length == 0){
